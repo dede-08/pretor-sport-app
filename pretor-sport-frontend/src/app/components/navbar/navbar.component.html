@@ -1,0 +1,26 @@
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=search" />
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/">PretorSport</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary btn-sm mr10" [routerLink]="'/login'">Login</button>
+        </li>
+        <li class="nav-item">
+          <button type="button" class="btn btn-primary btn-sm mr10" [routerLink]="'/signup'">Register</button>
+        </li>
+      </ul>
+      <div class="search-container">
+        <form class="d-flex mr20" role="search">
+          <input class="form-control me-2 search-text" type="search" placeholder="buscar" aria-label="Search" />
+          <button class="btn btn-outline btn-secondary icon-color button-search" type="submit"><span class="material-symbols-outlined button-icon">
+              search
+            </span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>

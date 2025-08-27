@@ -1,0 +1,31 @@
+
+.mr10{
+    margin-right: 10px;
+}
+
+.icon-color{
+    color: aliceblue;
+}
+
+.search-text{
+    margin-top: 5px;
+    display: flexbox;
+    justify-content: center;
+    align-content: center;
+    max-height: 30px;
+    margin-bottom: 5px;
+}
+
+.button-search{
+    margin-top: 5px; 
+    display: flexbox;
+    justify-content: center;
+    align-content: center;
+    max-width: 30px;
+    max-height: 30px;
+}
+
+span{
+    display: flex;
+    justify-content: center;
+}
