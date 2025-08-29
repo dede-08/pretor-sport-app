@@ -30,9 +30,7 @@ export class ProductoService {
 
   constructor(private http: HttpClient) {}
 
-  /**
-   * Obtener todos los productos con filtros y paginación
-   */
+  //obtener todos los productos con filtros y paginacion
   getProductos(filtros?: ProductoFilter): Observable<ApiResponse<Producto>> {
     let params = new HttpParams();
 
@@ -59,16 +57,12 @@ export class ProductoService {
       );
   }
 
-  /**
-   * Obtener un producto por ID
-   */
+  //obtener un producto por ID
   getProductoPorId(id: number): Observable<Producto> {
     return this.http.get<Producto>(`${this.baseUrl}/${id}`);
   }
 
-  /**
-   * Crear un nuevo producto
-   */
+  //crear un nuevo producto
   crearProducto(producto: ProductoRequest): Observable<Producto> {
     return this.http.post<Producto>(this.baseUrl, producto)
       .pipe(
@@ -79,9 +73,7 @@ export class ProductoService {
       );
   }
 
-  /**
-   * Actualizar un producto existente
-   */
+  //actualizar un producto existente
   actualizarProducto(id: number, producto: ProductoRequest): Observable<Producto> {
     return this.http.put<Producto>(`${this.baseUrl}/${id}`, producto)
       .pipe(
@@ -91,9 +83,7 @@ export class ProductoService {
       );
   }
 
-  /**
-   * Eliminar un producto
-   */
+  //eliminar un producto
   eliminarProducto(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`)
       .pipe(
@@ -103,9 +93,7 @@ export class ProductoService {
       );
   }
 
-  /**
-   * Buscar productos por término
-   */
+  //buscar productos por termino
   buscarProductos(termino: string, filtros?: Partial<ProductoFilter>): Observable<ApiResponse<Producto>> {
     const filtrosBusqueda: ProductoFilter = {
       busqueda: termino,
@@ -114,9 +102,7 @@ export class ProductoService {
     return this.getProductos(filtrosBusqueda);
   }
 
-  /**
-   * Obtener productos por categoría
-   */
+  //obtener productos por categoria
   getProductosPorCategoria(categoriaId: number, filtros?: Partial<ProductoFilter>): Observable<ApiResponse<Producto>> {
     const filtrosCategoria: ProductoFilter = {
       categoriaIds: [categoriaId],
@@ -125,9 +111,8 @@ export class ProductoService {
     return this.getProductos(filtrosCategoria);
   }
 
-  /**
-   * Obtener productos populares
-   */
+
+  //obtener productos populares
   getProductosPopulares(limite: number = 12): Observable<Producto[]> {
     const filtros: ProductoFilter = {
       ordenarPor: 'popularidad',
@@ -141,9 +126,7 @@ export class ProductoService {
     );
   }
 
-  /**
-   * Obtener productos en oferta
-   */
+  //obtener productos en oferta
   getProductosEnOferta(limite: number = 12): Observable<Producto[]> {
     const filtros: ProductoFilter = {
       ordenarPor: 'descuento',
@@ -157,9 +140,7 @@ export class ProductoService {
     );
   }
 
-  /**
-   * Actualizar stock de un producto
-   */
+  //actualizar stock de un producto
   actualizarStock(id: number, nuevoStock: number): Observable<Producto> {
     return this.http.patch<Producto>(`${this.baseUrl}/${id}/stock`, { stock: nuevoStock })
       .pipe(
@@ -169,9 +150,7 @@ export class ProductoService {
       );
   }
 
-  /**
-   * Activar/Desactivar producto
-   */
+  //activar/desactivar producto
   toggleActivoProducto(id: number): Observable<Producto> {
     return this.http.patch<Producto>(`${this.baseUrl}/${id}/toggle-activo`, {})
       .pipe(
@@ -181,23 +160,17 @@ export class ProductoService {
       );
   }
 
-  /**
-   * Obtener estadísticas de productos
-   */
+  //obtener estadisticas de productos
   getEstadisticasProductos(): Observable<any> {
     return this.http.get(`${this.baseUrl}/estadisticas`);
   }
 
-  /**
-   * Refrescar la lista de productos
-   */
+  //refrescar la lista de productos
   private refrescarProductos(): void {
     this.getProductos().subscribe();
   }
 
-  /**
-   * Limpiar caché de productos
-   */
+  //limpiar caché de productos
   limpiarCache(): void {
     this.productosSubject.next([]);
   }

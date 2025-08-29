@@ -1,92 +1,82 @@
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { HttpInterceptorFn, HttpRequest, HttpEvent, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { catchError, switchMap } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
-@Injectable()
-export class AuthInterceptorFn implements HttpInterceptor {
+let isRefreshing = false;
 
-  private isRefreshing = false;
+export const AuthInterceptor: HttpInterceptorFn = (
+  req: HttpRequest<any>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<any>> => {
+  const authService = inject(AuthService);
 
-  constructor(private authService: AuthService) {}
+  const skipUrls = [
+    '/api/auth/login',
+    '/api/auth/register',
+    '/api/auth/refresh',
+    '/api/auth/verify-email',
+    '/api/auth/health',
+    '/api/auth/roles',
+    '/api/public/'
+  ];
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // URLs que no necesitan token
-    const skipUrls = [
-      '/api/auth/login',
-      '/api/auth/register',
-      '/api/auth/refresh',
-      '/api/auth/verify-email',
-      '/api/auth/health',
-      '/api/auth/roles',
-      '/api/public/'
-    ];
+  const shouldSkip = skipUrls.some(url => req.url.includes(url));
+  if (shouldSkip) return next(req);
 
-    const shouldSkip = skipUrls.some(url => req.url.includes(url));
-    
-    if (shouldSkip) {
-      return next.handle(req);
-    }
+  const token = authService.getAccessToken();
+  let authReq = req;
 
-    // Agregar token de autorización
-    const token = this.authService.getAccessToken();
-    let authReq = req;
-
-    if (token) {
-      authReq = this.addTokenToRequest(req, token);
-    }
-
-    return next.handle(authReq).pipe(
-      catchError((error: HttpErrorResponse) => {
-        // Si el token ha expirado (401), intentar renovarlo
-        if (error.status === 401 && token && !this.isRefreshing) {
-          return this.handleTokenExpired(authReq, next);
-        }
-        
-        // Si es un error 403, el usuario no tiene permisos
-        if (error.status === 403) {
-          console.error('Acceso denegado: permisos insuficientes');
-        }
-
-        return throwError(() => error);
-      })
-    );
+  if (token) {
+    authReq = addTokenToRequest(req, token);
   }
 
-  private addTokenToRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
-    return request.clone({
-      setHeaders: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+  return next(authReq).pipe(
+    catchError((error) => {
+      if (error.status === 401 && token && !isRefreshing) {
+        return handleTokenExpired(authReq, next, authService);
       }
-    });
-  }
+      if (error.status === 403) {
+        console.error('Acceso denegado: permisos insuficientes');
+      }
+      return throwError(() => error as HttpErrorResponse);
+    })
+  );
+};
 
-  private handleTokenExpired(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.isRefreshing = true;
+const addTokenToRequest = (request: HttpRequest<any>, token: string): HttpRequest<any> => {
+  return request.clone({
+    setHeaders: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }
+  });
+};
 
-    return this.authService.refreshToken().pipe(
-      switchMap(() => {
-        this.isRefreshing = false;
-        const newToken = this.authService.getAccessToken();
-        
-        if (newToken) {
-          const newRequest = this.addTokenToRequest(request, newToken);
-          return next.handle(newRequest);
-        }
-        
-        return throwError(() => 'No se pudo renovar el token');
-      }),
-      catchError((error) => {
-        this.isRefreshing = false;
-        
-        // Si falla la renovación del token, cerrar sesión
-        console.error('Error al renovar token, cerrando sesión');
-        this.authService.logout();
-        
-        return throwError(() => error);
-      })
-    );
-  }
-}
+const handleTokenExpired = (
+  request: HttpRequest<any>,
+  next: HttpHandlerFn,
+  authService: AuthService
+): Observable<HttpEvent<any>> => {
+  isRefreshing = true;
+
+  return authService.refreshToken().pipe(
+    switchMap(() => {
+      isRefreshing = false;
+      const newToken = authService.getAccessToken();
+
+      if (newToken) {
+        const newRequest = addTokenToRequest(request, newToken);
+        return next(newRequest);
+      }
+      return throwError(() => new HttpErrorResponse({ error: 'No se pudo renovar el token', status: 401 }));
+    }),
+    catchError((error) => {
+      isRefreshing = false;
+      console.error('Error al renovar token, cerrando sesión');
+      authService.logout();
+      return throwError(() => error as HttpErrorResponse);
+    })
+  );
+};

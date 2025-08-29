@@ -6,11 +6,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
-
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, 
+  imports: [CommonModule,
     RouterOutlet,
     NavbarComponent,
     HomeComponent,
@@ -19,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
   title = 'pretor-sport-frontend';
 }
