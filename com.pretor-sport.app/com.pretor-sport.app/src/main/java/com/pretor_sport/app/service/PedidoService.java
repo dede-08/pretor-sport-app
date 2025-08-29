@@ -21,6 +21,8 @@ public class PedidoService {
     /**
      * Obtiene el carrito de compras activo de un cliente. Si no existe, crea uno nuevo.
      */
+
+    //obtiene el carrito de compras activo de un cliente. si no existe
     @Transactional
     public Pedido getCarritoActivo(Cliente cliente) {
         return pedidoRepository.findByClienteAndEstado(cliente, "CARRITO")
@@ -32,10 +34,7 @@ public class PedidoService {
                 });
     }
 
-    /**
-     * Agrega un producto al carrito de un cliente.
-     * Si el producto ya está en el carrito, actualiza la cantidad.
-     */
+    //agrega un producto al carrito del cliente, si el producto ya esta en el carrito se actualiza la cantidad
     @Transactional
     public Pedido agregarProductoAlCarrito(Cliente cliente, Long productoId, int cantidad) {
         Pedido carrito = getCarritoActivo(cliente);

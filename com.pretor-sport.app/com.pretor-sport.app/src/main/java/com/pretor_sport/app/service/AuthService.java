@@ -36,9 +36,7 @@ public class AuthService {
     @Value("${app.jwt.expiration:86400}")
     private Long jwtExpiration;
 
-    /**
-     * Autenticar usuario y generar tokens JWT
-     */
+    //autenticar usuario y generar tokens JWT
     @Transactional
     public AuthResponseDTO login(LoginRequestDTO loginRequest) {
         try {
@@ -94,9 +92,7 @@ public class AuthService {
         }
     }
 
-    /**
-     * Registrar nuevo cliente
-     */
+    //registrar nuevo cliente
     @Transactional
     public AuthResponseDTO register(ClienteRequestDTO registroRequest) {
         // Verificar si el email ya existe
@@ -150,9 +146,7 @@ public class AuthService {
         );
     }
 
-    /**
-     * Renovar access token usando refresh token
-     */
+    //renovar el access token usando refresh token
     public AuthResponseDTO refreshToken(String refreshToken) {
         try {
             if (!jwtUtil.isRefreshToken(refreshToken) || !jwtUtil.validateTokenStructure(refreshToken)) {
@@ -192,9 +186,7 @@ public class AuthService {
         }
     }
 
-    /**
-     * Verificar email con token
-     */
+    //verificar email con token
     @Transactional
     public boolean verificarEmail(String token) {
         int updated = clienteRepository.verificarEmail(token);
@@ -206,17 +198,13 @@ public class AuthService {
         return false;
     }
 
-    /**
-     * Obtener información del usuario autenticado actual
-     */
+    //obtener la informacion del usuario actual autenticado
     public Cliente getCurrentUser(String email) {
         return clienteRepository.findByEmailAndActivo(email, true)
             .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
     }
 
-    /**
-     * Logout (invalidar tokens - en una implementación completa se mantendría una blacklist)
-     */
+    //logout(invalidad tokens)(mas adelante se implementará una blacklist)
     public void logout(String accessToken) {
         // En una implementación completa, agregarías el token a una blacklist
         // Por ahora solo logueamos la acción

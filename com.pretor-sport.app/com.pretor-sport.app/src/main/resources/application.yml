@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   servlet:
     context-path: /api
     encoding:
@@ -8,12 +8,12 @@ server:
 
 spring:
   application:
-    name: pretor-sport-backend
+    name: ${APP_NAME:pretor-sport-backend}
     
   datasource:
-    url: jdbc:postgresql://localhost:5432/pretor_sport_db
-    username: ${DB_USERNAME:pretor_user}
-    password: ${DB_PASSWORD:pretor123}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: org.postgresql.Driver
     
   jpa:
@@ -44,18 +44,18 @@ spring:
       
   security:
     user:
-      name: admin
-      password: admin123
+      name: ${SPRING_SECURITY_USER_NAME:admin}
+      password: ${SPRING_SECURITY_USER_PASSWORD:admin123}
       roles: ADMIN
 
 # Configuración específica de la aplicación
 app:
   frontend:
-    url: http://localhost:4200
+    url: ${FRONTEND_URL:http://localhost:4200}
   jwt:
-    secret: pretorSportSecretKeyForJWTTokenGenerationThatShouldBeLongEnoughForHS512Algorithm
-    expiration: 86400 # 24 horas en segundos
-    refresh-expiration: 604800 # 7 días en segundos
+    secret: ${JWT_SECRET:pretorSportSecretKeyForJWTTokenGenerationThatShouldBeLongEnoughForHS512Algorithm}
+    expiration: ${JWT_EXPIRATION:86400} # 24 horas en segundos
+    refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800} # 7 días en segundos
   ecommerce:
     currency: MXN
     tax-rate: 0.16

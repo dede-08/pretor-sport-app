@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/com.pretor-sport.app.iml" filepath="$PROJECT_DIR$/.idea/com.pretor-sport.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.pretor-sport.app/com.pretor-sport.app.iml" filepath="$PROJECT_DIR$/com.pretor-sport.app/com.pretor-sport.app.iml" />
     </modules>
   </component>
 </project>

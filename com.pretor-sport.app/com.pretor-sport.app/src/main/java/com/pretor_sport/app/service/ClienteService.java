@@ -18,10 +18,7 @@ public class ClienteService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    /**
-     * Registra un nuevo cliente en el sistema.
-     * Verifica que el email no esté ya en uso y cifra la contraseña.
-     */
+    //registra un nuevo cliente en el sistema, verifica que el email no esté en uso y cifra la contraseña
     public Cliente registrarCliente(Cliente cliente) {
         if (clienteRepository.findByEmail(cliente.getEmail()).isPresent()) {
             throw new IllegalStateException("El email ya está registrado.");
@@ -29,7 +26,7 @@ public class ClienteService {
         // Ciframos la contraseña antes de guardarla
         cliente.setPassword(passwordEncoder.encode(cliente.getPassword()));
         // Asignamos el rol por defecto
-        cliente.setRol("ROLE_CLIENTE");
+        cliente.setRol(Cliente.Rol.ROLE_CLIENTE);
         return clienteRepository.save(cliente);
     }
 

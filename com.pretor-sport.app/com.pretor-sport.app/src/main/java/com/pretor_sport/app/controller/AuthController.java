@@ -136,20 +136,20 @@ public class AuthController {
             Cliente cliente = authService.getCurrentUser(email);
             
             // Crear respuesta sin información sensible
-            Map<String, Object> userInfo = Map.of(
-                "id", cliente.getId(),
-                "nombre", cliente.getNombre(),
-                "apellidos", cliente.getApellidos(),
-                "email", cliente.getEmail(),
-                "direccion", cliente.getDireccion() != null ? cliente.getDireccion() : "",
-                "telefono", cliente.getTelefono() != null ? cliente.getTelefono() : "",
-                "rol", cliente.getRol().name(),
-                "nombreCompleto", cliente.getNombreCompleto(),
-                "iniciales", cliente.getIniciales(),
-                "emailVerificado", cliente.getEmailVerificado(),
-                "fechaRegistro", cliente.getFechaRegistro(),
-                "ultimoAcceso", cliente.getUltimoAcceso()
-            );
+            Map<String, Object> userInfo = new java.util.HashMap<>();
+            userInfo.put("id", cliente.getId());
+            userInfo.put("nombre", cliente.getNombre());
+            userInfo.put("apellidos", cliente.getApellidos());
+            userInfo.put("email", cliente.getEmail());
+            userInfo.put("direccion", cliente.getDireccion() != null ? cliente.getDireccion() : "");
+            userInfo.put("telefono", cliente.getTelefono() != null ? cliente.getTelefono() : "");
+            userInfo.put("rol", cliente.getRol().name());
+            userInfo.put("nombreCompleto", cliente.getNombreCompleto());
+            userInfo.put("iniciales", cliente.getIniciales());
+            userInfo.put("emailVerificado", cliente.getEmailVerificado());
+            userInfo.put("activo", cliente.getActivo());
+            userInfo.put("fechaRegistro", cliente.getFechaRegistro());
+            userInfo.put("ultimoAcceso", cliente.getUltimoAcceso());
             
             return ResponseEntity.ok(userInfo);
         } catch (Exception e) {
