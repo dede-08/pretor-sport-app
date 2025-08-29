@@ -3,24 +3,91 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="/">PretorSport</a>
-    <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto">
+    <!-- Logo/Brand -->
+    <a class="navbar-brand" routerLink="/">PretorSport</a>
+
+    <!-- Toggle button for mobile -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar content -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Navigation links -->
+      <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <button type="button" class="btn btn-primary btn-sm mr10" [routerLink]="'/login'">Login</button>
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
         </li>
         <li class="nav-item">
-          <button type="button" class="btn btn-primary btn-sm mr10" [routerLink]="'/signup'">Register</button>
+          <a class="nav-link" href="#productos">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#categorias">Categorías</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contacto">Contacto</a>
         </li>
       </ul>
-      <div class="search-container">
-        <form class="d-flex mr20" role="search">
-          <input class="form-control me-2 search-text" type="search" placeholder="buscar" aria-label="Search" />
-          <button class="btn btn-outline btn-secondary icon-color button-search" type="submit"><span class="material-symbols-outlined button-icon">
-              search
-            </span></button>
-        </form>
-      </div>
+
+      <!-- Search form -->
+      <form class="d-flex me-3" role="search" (submit)="onSearch($event)">
+        <input class="form-control me-2 search-text" type="search" placeholder="Buscar productos..." aria-label="Search" />
+        <button class="btn btn-outline-secondary icon-color button-search" type="submit">
+          <span class="material-symbols-outlined button-icon">search</span>
+        </button>
+      </form>
+
+      <!-- Authentication buttons -->
+      <ul class="navbar-nav">
+        <!-- Show when NOT authenticated -->
+        <ng-container *ngIf="(isAuthenticated$ | async) === false">
+          <li class="nav-item me-2">
+            <button type="button" class="btn btn-outline-primary btn-sm" routerLink="/login">
+              <i class="fas fa-sign-in-alt me-1"></i> Iniciar Sesión
+            </button>
+          </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-primary btn-sm" routerLink="/signup">
+              <i class="fas fa-user-plus me-1"></i> Registrarse
+            </button>
+          </li>
+        </ng-container>
+
+        <!-- Show when authenticated -->
+        <ng-container *ngIf="(isAuthenticated$ | async) === true">
+          <!-- User dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
+               data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-user-circle me-1"></i>
+              <span *ngIf="currentUser$ | async as user">{{ user.iniciales || user.nombre }}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li>
+                <h6 class="dropdown-header" *ngIf="currentUser$ | async as user">
+                  {{ user.nombreCompleto || user.nombre + ' ' + user.apellidos }}
+                </h6>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Mi Perfil</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag me-2"></i>Mis Pedidos</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i>Favoritos</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <!-- Show admin options for admin users -->
+              <ng-container *ngIf="(currentUser$ | async)?.rol === 'ROLE_ADMIN'">
+                <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Administración</a></li>
+                <li><hr class="dropdown-divider"></li>
+              </ng-container>
+              <li>
+                <button class="dropdown-item text-danger" (click)="onLogout()">
+                  <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
     </div>
   </div>
 </nav>

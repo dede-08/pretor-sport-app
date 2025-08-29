@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @Component({
@@ -11,7 +13,8 @@ import { HomeComponent } from './pages/home/home.component';
   imports: [CommonModule, 
     RouterOutlet,
     NavbarComponent,
-    HomeComponent
+    HomeComponent,
+    HttpClientModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

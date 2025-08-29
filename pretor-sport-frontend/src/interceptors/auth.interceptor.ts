@@ -5,7 +5,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor {
+export class AuthInterceptorFn implements HttpInterceptor {
 
   private isRefreshing = false;
 

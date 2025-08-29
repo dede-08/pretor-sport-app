@@ -1,31 +1,139 @@
-
-.mr10{
-    margin-right: 10px;
+/* Espaciado y márgenes */
+.me-2 {
+  margin-right: 0.5rem !important;
 }
 
-.icon-color{
-    color: aliceblue;
+.mr10 {
+  margin-right: 10px;
 }
 
-.search-text{
-    margin-top: 5px;
-    display: flexbox;
-    justify-content: center;
-    align-content: center;
-    max-height: 30px;
-    margin-bottom: 5px;
+/* Colores y iconos */
+.icon-color {
+  color: #f8f9fa;
 }
 
-.button-search{
-    margin-top: 5px; 
-    display: flexbox;
-    justify-content: center;
-    align-content: center;
-    max-width: 30px;
-    max-height: 30px;
+/* Formulario de búsqueda */
+.search-text {
+  min-width: 200px;
+  height: 38px;
+  border: 1px solid #495057;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
-span{
-    display: flex;
-    justify-content: center;
+.search-text::placeholder {
+  color: #adb5bd;
+}
+
+.search-text:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: #0d6efd;
+  color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.button-search {
+  height: 38px;
+  width: 38px;
+  border: 1px solid #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.button-search:hover {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.button-icon {
+  font-size: 18px;
+}
+
+/* Botones de autenticación */
+.btn-sm {
+  font-size: 0.875rem;
+  padding: 0.375rem 0.75rem;
+}
+
+/* Dropdown de usuario */
+.dropdown-menu {
+  min-width: 200px;
+  border: 1px solid #dee2e6;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-header {
+  font-weight: 600;
+  color: #495057;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #f8d7da;
+  color: #721c24 !important;
+}
+
+/* Navegación principal */
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #fff !important;
+}
+
+.navbar-brand:hover {
+  color: #0d6efd !important;
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.15s ease-in-out;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important;
+}
+
+.nav-link.active {
+  color: #0d6efd !important;
+  font-weight: 600;
+}
+
+/* Responsividad */
+@media (max-width: 991.98px) {
+  .search-text {
+    min-width: 150px;
+  }
+  
+  .me-3 {
+    margin-bottom: 1rem;
+  }
+  
+  .navbar-nav .nav-item {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .search-text {
+    min-width: 120px;
+  }
+  
+  .btn-sm {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.5rem;
+  }
 }

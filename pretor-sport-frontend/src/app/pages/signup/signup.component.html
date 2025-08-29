@@ -1,41 +1,149 @@
-<!DOCTYPE html>
-<html lang="es">
-    <div class="container" style="max-width: 700px; margin-top: 5rem; margin-bottom: 5rem;">
-        <div class="card shadow-lg animate__animated animate__fadeIn">
-            <div class="card-body p-5">
-                <h2 class="card-title text-center mb-4">Crear una Cuenta</h2>
-                <form method="post">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="nombre" class="form-label">Nombres</label>
-                            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="apellidos" class="form-label">Apellidos</label>
-                            <input type="text" class="form-control" id="apellidos" th:field="*{apellidos}" required>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" th:field="*{email}" required>
-                        <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" th:field="*{password}" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefono" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" id="telefono" required>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
-                    </div>
-                </form>
-                 <div class="mt-3 text-center">
-                    <p>¿Ya tienes una cuenta? <a th:href="@{/login}">Inicia sesión</a></p>
-                </div>
+<div class="container" style="max-width: 700px; margin-top: 3rem; margin-bottom: 3rem;">
+  <div class="card shadow-lg animate__animated animate__fadeIn">
+    <div class="card-body p-5">
+      <h2 class="card-title text-center mb-4">Crear una Cuenta</h2>
+
+      <!-- Mensaje de error global -->
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Mensaje de éxito -->
+      <div *ngIf="successMessage" class="alert alert-success" role="alert">
+        {{ successMessage }}
+      </div>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Fila: Nombre y Apellidos -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="nombre" class="form-label">Nombre *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="nombre" 
+              formControlName="nombre"
+              [class.is-invalid]="nombre?.invalid && nombre?.touched"
+              [class.is-valid]="nombre?.valid && nombre?.touched">
+            <div class="invalid-feedback" *ngIf="nombre?.invalid && nombre?.touched">
+              {{ getErrorMessage('nombre') }}
             </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="apellidos" class="form-label">Apellidos *</label>
+            <input 
+              type="text" 
+              class="form-control" 
+              id="apellidos" 
+              formControlName="apellidos"
+              [class.is-invalid]="apellidos?.invalid && apellidos?.touched"
+              [class.is-valid]="apellidos?.valid && apellidos?.touched">
+            <div class="invalid-feedback" *ngIf="apellidos?.invalid && apellidos?.touched">
+              {{ getErrorMessage('apellidos') }}
+            </div>
+          </div>
         </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email *</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            formControlName="email"
+            [class.is-invalid]="email?.invalid && email?.touched"
+            [class.is-valid]="email?.valid && email?.touched">
+          <div class="invalid-feedback" *ngIf="email?.invalid && email?.touched">
+            {{ getErrorMessage('email') }}
+          </div>
+        </div>
+
+        <!-- Fila: Contraseñas -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="password" class="form-label">Contraseña *</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="password" 
+              formControlName="password"
+              [class.is-invalid]="password?.invalid && password?.touched"
+              [class.is-valid]="password?.valid && password?.touched">
+            <div class="invalid-feedback" *ngIf="password?.invalid && password?.touched">
+              {{ getErrorMessage('password') }}
+            </div>
+            <div class="form-text">
+              <small>Mínimo 8 caracteres con mayúscula, minúscula, número y símbolo</small>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="confirmPassword" class="form-label">Confirmar Contraseña *</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="confirmPassword" 
+              formControlName="confirmPassword"
+              [class.is-invalid]="(confirmPassword?.invalid && confirmPassword?.touched) || (signupForm.errors?.['passwordMismatch'] && confirmPassword?.touched)"
+              [class.is-valid]="confirmPassword?.valid && confirmPassword?.touched && !signupForm.errors?.['passwordMismatch']">
+            <div class="invalid-feedback" *ngIf="confirmPassword?.invalid && confirmPassword?.touched">
+              {{ getErrorMessage('confirmPassword') }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Dirección -->
+        <div class="mb-3">
+          <label for="direccion" class="form-label">Dirección</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="direccion" 
+            formControlName="direccion"
+            placeholder="Ingresa tu dirección (opcional)"
+            [class.is-invalid]="direccion?.invalid && direccion?.touched"
+            [class.is-valid]="direccion?.valid && direccion?.touched">
+          <div class="invalid-feedback" *ngIf="direccion?.invalid && direccion?.touched">
+            {{ getErrorMessage('direccion') }}
+          </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input 
+            type="tel" 
+            class="form-control" 
+            id="telefono" 
+            formControlName="telefono"
+            placeholder="Ej: +52 123 456 7890 (opcional)"
+            [class.is-invalid]="telefono?.invalid && telefono?.touched"
+            [class.is-valid]="telefono?.valid && telefono?.touched">
+          <div class="invalid-feedback" *ngIf="telefono?.invalid && telefono?.touched">
+            {{ getErrorMessage('telefono') }}
+          </div>
+          <div class="form-text">
+            <small>Formato: +[código país] [número] (10-14 dígitos)</small>
+          </div>
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="d-grid">
+          <button 
+            type="submit" 
+            class="btn btn-primary btn-lg"
+            [disabled]="isLoading"
+            [class.loading]="isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+            {{ isLoading ? 'Creando cuenta...' : 'Registrarse' }}
+          </button>
+        </div>
+      </form>
+
+      <!-- Enlaces adicionales -->
+      <div class="mt-3 text-center">
+        <p>¿Ya tienes una cuenta? <a routerLink="/login" class="text-decoration-none">Inicia sesión</a></p>
+      </div>
     </div>
-</html>
+  </div>
+</div>
