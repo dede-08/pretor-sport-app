@@ -146,7 +146,7 @@ public class JwtUtil {
         return createToken(claims, username, jwtExpiration);
     }
 
-    // Método para extraer el token del header Authorization
+    //metodo para extraer el token del header Authorization
     public String extractTokenFromHeader(String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             return authHeader.substring(7);
@@ -154,7 +154,7 @@ public class JwtUtil {
         return null;
     }
 
-    // Método para obtener información del token en un formato legible
+    //metodo para obtener informacion sensible sobre el token
     public Map<String, Object> getTokenInfo(String token) {
         try {
             Claims claims = extractAllClaims(token);

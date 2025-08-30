@@ -2,8 +2,8 @@ package com.pretor_sport.app.service;
 
 import com.pretor_sport.app.model.Cliente;
 import com.pretor_sport.app.repository.ClienteRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -16,17 +16,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final ClienteRepository clienteRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    // Cambia a inyección por setter
+    @Autowired
+    public void setClienteRepository(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
+    }
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.debug("Cargando usuario por email: {}", email);
-        
+
         // Buscamos el cliente por su email y que esté activo
         Cliente cliente = clienteRepository.findByEmailAndActivo(email, true)
                 .orElseThrow(() -> {
@@ -47,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .credentialsExpired(false)
                 .disabled(!cliente.getEmailVerificado())
                 .build();
-        
+
         log.debug("Usuario cargado exitosamente: {} con rol: {}", email, cliente.getRol());
         return userDetails;
     }

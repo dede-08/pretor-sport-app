@@ -40,25 +40,25 @@ public class ClienteRequestDTO {
     )
     private String telefono;
     
-    @Pattern(
-        regexp = "^(ROLE_CLIENTE|ROLE_EMPLEADO|ROLE_ADMIN)$",
-        message = "El rol debe ser: ROLE_CLIENTE, ROLE_EMPLEADO o ROLE_ADMIN"
-    )
-    private String rol = "ROLE_CLIENTE";
-    
-    // Método de utilidad para validar el rol
-    @AssertTrue(message = "El rol especificado no es válido")
-    public boolean isValidRole() {
-        if (rol == null) {
-            rol = "ROLE_CLIENTE";
-            return true;
-        }
-        try {
-            // Verificar que el rol existe en el enum
-            com.pretor_sport.app.model.Cliente.Rol.valueOf(rol);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
+//    @Pattern(
+//        regexp = "^(ROLE_CLIENTE|ROLE_EMPLEADO|ROLE_ADMIN)$",
+//        message = "El rol debe ser: ROLE_CLIENTE, ROLE_EMPLEADO o ROLE_ADMIN"
+//    )
+//    private String rol = "ROLE_CLIENTE";
+//
+//    //metodo para validar el rol
+//    @AssertTrue(message = "El rol especificado no es válido")
+//    public boolean isValidRole() {
+//        if (rol == null) {
+//            rol = "ROLE_CLIENTE";
+//            return true;
+//        }
+//        try {
+//            // Verificar que el rol existe en el enum
+//            com.pretor_sport.app.model.Cliente.Rol.valueOf(rol);
+//            return true;
+//        } catch (IllegalArgumentException e) {
+//            return false;
+//        }
+//    }
 }

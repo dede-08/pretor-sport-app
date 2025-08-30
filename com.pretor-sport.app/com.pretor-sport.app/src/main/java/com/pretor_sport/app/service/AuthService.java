@@ -108,8 +108,9 @@ public class AuthService {
         nuevoCliente.setPassword(passwordEncoder.encode(registroRequest.getPassword()));
         nuevoCliente.setDireccion(registroRequest.getDireccion());
         nuevoCliente.setTelefono(registroRequest.getTelefono());
-        nuevoCliente.setRol(Cliente.Rol.valueOf(registroRequest.getRol() != null ? 
-                          registroRequest.getRol() : "ROLE_CLIENTE"));
+        nuevoCliente.setRol(Cliente.Rol.ROLE_CLIENTE);
+        //nuevoCliente.setRol(Cliente.Rol.valueOf(registroRequest.getRol() != null ?
+        //                  registroRequest.getRol() : "ROLE_CLIENTE"));
         nuevoCliente.setActivo(true);
         nuevoCliente.setEmailVerificado(false); // En producción debería ser false
         nuevoCliente.setTokenVerificacion(UUID.randomUUID().toString());

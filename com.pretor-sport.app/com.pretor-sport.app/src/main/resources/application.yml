@@ -7,20 +7,28 @@ server:
       force: true
 
 spring:
+  config:
+    import: optional:file:.env.properties
   application:
     name: ${APP_NAME:pretor-sport-backend}
-    
+
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/pretor_sport_db
+    username: postgres
+    password: 123456
     driver-class-name: org.postgresql.Driver
-    
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true  # Cambia a true temporalmente para debugging
     properties:
       hibernate:
         format_sql: true
@@ -29,19 +37,19 @@ spring:
           batch_size: 25
         order_inserts: true
         order_updates: true
-        
+
   jackson:
     property-naming-strategy: SNAKE_CASE
     default-property-inclusion: NON_NULL
     serialization:
       write-dates-as-timestamps: false
     time-zone: America/Mexico_City
-    
+
   servlet:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-      
+
   security:
     user:
       name: ${SPRING_SECURITY_USER_NAME:admin}
@@ -86,6 +94,7 @@ logging:
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.boot.context.config: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
