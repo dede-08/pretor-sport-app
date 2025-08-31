@@ -134,7 +134,8 @@ export class SignupComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error en registro:', error);
-          this.errorMessage = error || 'Error al crear la cuenta';
+          // Mejor manejo del mensaje de error:
+          this.errorMessage = error?.error?.message || error?.message || 'Error al crear la cuenta';
           this.isLoading = false;
         },
         complete: () => {

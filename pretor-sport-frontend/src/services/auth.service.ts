@@ -94,9 +94,7 @@ export class AuthService {
       );
   }
 
-  /**
-   * Registrar nuevo usuario
-   */
+  //registrar usuario nuevo
   register(userData: RegisterRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.API_URL}/register`, userData)
       .pipe(
