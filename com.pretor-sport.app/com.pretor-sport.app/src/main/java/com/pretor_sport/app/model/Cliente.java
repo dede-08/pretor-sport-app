@@ -119,7 +119,7 @@ public class Cliente {
         return Collections.singletonList(new SimpleGrantedAuthority(rol.name()));
     }
 
-    // Método para verificar si el usuario está habilitado
+    //metodo para verificar si el usuario esta habilitado
     @Transient
     public boolean isEnabled() {
         return activo && emailVerificado;

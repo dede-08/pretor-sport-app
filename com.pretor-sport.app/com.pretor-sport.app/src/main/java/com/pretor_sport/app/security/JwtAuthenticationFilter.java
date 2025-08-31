@@ -93,11 +93,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String path = request.getServletPath();
-        System.out.println("PATH = " + request.getRequestURI());
+    protected boolean shouldNotFilter(HttpServletRequest request){
+        String path = request.getRequestURI();
+        System.out.println("SERVLET PATH = " + path);
         
-        // Lista de endpoints que no necesitan autenticación
+        //lista de endpoints que no necesitan autenticación
         return path.startsWith("/api/auth/") ||
                path.startsWith("/api/auth/refresh") ||
                path.startsWith("/api/health") ||
