@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -94,16 +93,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request){
-        String path = request.getRequestURI();
+        String path = request.getServletPath();
         System.out.println("SERVLET PATH = " + path);
         
         //lista de endpoints que no necesitan autenticación
-        return path.startsWith("/api/auth/") ||
-               path.startsWith("/api/auth/refresh") ||
-               path.startsWith("/api/health") ||
-               path.startsWith("/api/public/") ||
-               path.startsWith("/api/v1/api-docs") ||
-               path.startsWith("/swagger-ui") ||
-               path.startsWith("/v3/api-docs");
+        // Con context-path /api, el servlet path no incluye el /api
+        return path.startsWith("/auth/register") ||
+                path.startsWith("/auth/login") ||
+                path.startsWith("/auth/refresh") ||
+                path.startsWith("/auth/verify-email") ||
+                path.startsWith("/auth/health") ||
+                path.startsWith("/health") ||
+                path.startsWith("/public/") ||
+                path.startsWith("/v1/api-docs") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/v3/api-docs");
     }
 }

@@ -46,13 +46,17 @@ public class ClienteController {
         return "cliente/perfil";
     }
 
-    @PostMapping("/perfil/actualizar")
-    public String actualizarPerfil(Authentication authentication, @ModelAttribute Cliente clienteDatos, RedirectAttributes redirectAttributes) {
+        @PostMapping("/perfil/actualizar")
+    public String actualizarPerfil(Authentication authentication, @Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "cliente/perfil";
+        }
+
         String email = authentication.getName();
         Cliente clienteActual = clienteService.buscarPorEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        clienteService.actualizarPerfil(clienteActual.getId(), clienteDatos);
+        clienteService.actualizarPerfil(clienteActual.getId(), cliente);
         redirectAttributes.addFlashAttribute("perfilActualizado", "Tu perfil ha sido actualizado exitosamente.");
         return "redirect:/perfil";
     }

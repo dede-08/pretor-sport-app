@@ -21,8 +21,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 
-import java.util.List;
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -45,56 +43,61 @@ public class SecurityConfig {
             // Configurar autorización de requests
             .authorizeHttpRequests(auth -> auth
                 // Endpoints públicos (sin autenticación)
+                // Con context-path /api, las rutas no incluyen el /api
                 .requestMatchers("/registro").permitAll()
-                .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/health").permitAll()
-                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/auth/register").permitAll()
+                .requestMatchers("/auth/login").permitAll()
+                .requestMatchers("/auth/refresh").permitAll()
+                .requestMatchers("/auth/verify-email").permitAll()
+                .requestMatchers("/auth/health").permitAll()
+                .requestMatchers("/health").permitAll()
+                .requestMatchers("/public/**").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 
                 // Endpoints para productos (lectura pública, escritura restringida)
-                .requestMatchers(HttpMethod.GET, "/api/productos/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/categorias/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/productos/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/productos/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/productos/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categorias/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/productos/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/productos/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/productos/**").hasRole("ADMIN")
                 
                 // Endpoints para categorías
-                .requestMatchers(HttpMethod.POST, "/api/categorias/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/categorias/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/categorias/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/categorias/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/categorias/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/categorias/**").hasRole("ADMIN")
                 
                 // Endpoints para proveedores (solo admin y empleados)
-                .requestMatchers("/api/proveedores/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers("/proveedores/**").hasAnyRole("EMPLEADO", "ADMIN")
                 
                 // Endpoints para clientes
-                .requestMatchers(HttpMethod.GET, "/api/clientes/me").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/clientes/me").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/clientes/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/clientes/**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/clientes/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/clientes/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/clientes/me").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/clientes/me").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/clientes/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/clientes/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/clientes/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
                 
                 // Endpoints para pedidos
-                .requestMatchers(HttpMethod.GET, "/api/pedidos/mis-pedidos").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.POST, "/api/pedidos").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.GET, "/api/pedidos/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.PUT, "/api/pedidos/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/api/pedidos/**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/pedidos/mis-pedidos").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.POST, "/pedidos").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/pedidos/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/pedidos/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/pedidos/**").hasRole("ADMIN")
                 
                 // Endpoints para pagos
-                .requestMatchers("/api/pagos/**").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
+                .requestMatchers("/pagos/**").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
                 
                 // Endpoints para ventas (solo empleados y admin)
-                .requestMatchers("/api/ventas/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers("/ventas/**").hasAnyRole("EMPLEADO", "ADMIN")
                 
                 // Endpoints de administración (solo admin)
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/reportes/**").hasAnyRole("EMPLEADO", "ADMIN")
-                .requestMatchers("/api/estadisticas/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/reportes/**").hasAnyRole("EMPLEADO", "ADMIN")
+                .requestMatchers("/estadisticas/**").hasAnyRole("EMPLEADO", "ADMIN")
                 
                 // Endpoints para carrito de compras
-                .requestMatchers("/api/carrito/**").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
+                .requestMatchers("/carrito/**").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
                 
                 // Cualquier otro endpoint requiere autenticación
                 .anyRequest().authenticated()

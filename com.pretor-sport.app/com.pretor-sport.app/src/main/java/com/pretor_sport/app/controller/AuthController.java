@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
@@ -29,9 +29,7 @@ public class AuthController {
     private final AuthService authService;
     private final JwtUtil jwtUtil;
 
-    /**
-     * Endpoint para iniciar sesión
-     */
+    //iniciar sesion
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
         try {
