@@ -74,13 +74,11 @@ export class AuthService {
     private http: HttpClient,
     private router: Router
   ) {
-    // Verificar token al inicializar
+    //verificar token al inicializar
     this.checkTokenValidity();
   }
 
-  /**
-   * Iniciar sesión
-   */
+  //iniciar sesion
   login(credentials: LoginRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials)
       .pipe(
@@ -108,9 +106,7 @@ export class AuthService {
       );
   }
 
-  /**
-   * Cerrar sesión
-   */
+  //cerrar sesion
   logout(): Observable<any> {
     return this.http.post(`${this.API_URL}/logout`, {})
       .pipe(
@@ -121,7 +117,7 @@ export class AuthService {
           this.router.navigate(['/login']);
         }),
         catchError(() => {
-          // Incluso si falla la petición al servidor, limpiar localmente
+          //incluso si falla la petición al servidor, limpiar localmente
           this.clearTokens();
           this.currentUserSubject.next(null);
           this.isAuthenticatedSubject.next(false);
@@ -131,9 +127,7 @@ export class AuthService {
       );
   }
 
-  /**
-   * Renovar token de acceso
-   */
+  //renovar el token de acceso
   refreshToken(): Observable<AuthResponse> {
     const refreshToken = this.getRefreshToken();
     
@@ -154,9 +148,7 @@ export class AuthService {
       );
   }
 
-  /**
-   * Obtener información del usuario actual
-   */
+  //obtener información del usuario actual
   getCurrentUser(): Observable<User> {
     return this.http.get<User>(`${this.API_URL}/me`)
       .pipe(
@@ -168,9 +160,7 @@ export class AuthService {
       );
   }
 
-  /**
-   * Validar token actual
-   */
+  //validar el token actual
   validateToken(): Observable<any> {
     return this.http.post(`${this.API_URL}/validate-token`, {})
       .pipe(
@@ -182,15 +172,13 @@ export class AuthService {
       );
   }
 
-  /**
-   * Verificar email con token
-   */
+  //verificar email con token
   verifyEmail(token: string): Observable<any> {
     return this.http.get(`${this.API_URL}/verify-email?token=${token}`)
       .pipe(catchError(this.handleError));
   }
 
-  // Métodos de utilidad para tokens
+  //metodos de utilidad para tokens
   getAccessToken(): string | null {
     return localStorage.getItem(this.ACCESS_TOKEN_KEY);
   }
@@ -224,7 +212,7 @@ export class AuthService {
     if (!token) return false;
 
     try {
-      // Verificar si el token no está expirado
+      //verificar si el token no está expirado
       const tokenData = JSON.parse(atob(token.split('.')[1]));
       const expirationTime = tokenData.exp * 1000;
       return Date.now() < expirationTime;
@@ -236,7 +224,7 @@ export class AuthService {
   private checkTokenValidity(): void {
     const hasToken = this.hasValidToken();
     if (!hasToken && this.getAccessToken()) {
-      // Token expirado, intentar renovar
+      //token expirado, intentar renovar
       const refreshToken = this.getRefreshToken();
       if (refreshToken) {
         this.refreshToken().subscribe({
@@ -255,7 +243,7 @@ export class AuthService {
     }
   }
 
-  // Métodos de utilidad para roles
+  //metodos de utilidad para roles
   hasRole(role: string): boolean {
     const user = this.currentUserSubject.value;
     return user ? user.rol === role : false;
