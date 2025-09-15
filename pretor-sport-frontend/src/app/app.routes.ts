@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { CategorysComponent } from './pages/categorys/categorys.component';
+import { ContactComponent } from './pages/contact/contact.component';
 
 export const routes: Routes = [
     {
@@ -19,6 +22,21 @@ export const routes: Routes = [
         component : LoginComponent,
         pathMatch : 'full'
     },
+    {
+        path : 'productos',
+        component : ProductsComponent,
+        pathMatch : 'full'
+    },
+    {
+        path : 'categorias',
+        component : CategorysComponent,
+        pathMatch : 'full'
+    },
+    {
+        path : 'contacto',
+        component : ContactComponent,
+        pathMatch : 'full'
+    }
     /*
     {
         path : 'admin',
