@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @Component({
@@ -13,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterOutlet,
     NavbarComponent,
     HomeComponent,
-    HttpClientModule
+    HttpClientModule,
+    FooterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
