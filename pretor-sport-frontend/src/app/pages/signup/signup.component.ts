@@ -64,7 +64,7 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  // Validador personalizado para contraseña
+  //validador personalizado para contraseña
   private passwordValidator(control: AbstractControl): ValidationErrors | null {
     if (!control.value) {
       return null;
@@ -87,10 +87,10 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  // Validador para teléfono
+  //validador para teléfono
   private phoneValidator(control: AbstractControl): ValidationErrors | null {
     if (!control.value) {
-      return null; // Teléfono es opcional
+      return null; //telefono es opcional
     }
 
     const phoneRegex = /^(\+\d{1,3}[- ]?)?\d{10,14}$/;
@@ -99,7 +99,7 @@ export class SignupComponent implements OnInit {
     return valid ? null : { phoneFormat: true };
   }
 
-  // Validador para confirmar contraseña
+  //validador para confirmar contraseña
   private passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
@@ -113,7 +113,7 @@ export class SignupComponent implements OnInit {
       this.errorMessage = '';
       this.successMessage = '';
 
-      // Crear objeto que coincida con RegisterRequest
+      //crear objeto que coincida con RegisterRequest
       const registerData: RegisterRequest = {
         nombre: this.signupForm.get('nombre')?.value,
         apellidos: this.signupForm.get('apellidos')?.value,
@@ -121,7 +121,7 @@ export class SignupComponent implements OnInit {
         password: this.signupForm.get('password')?.value,
         direccion: this.signupForm.get('direccion')?.value || undefined,
         telefono: this.signupForm.get('telefono')?.value || undefined,
-        rol: 'ROLE_CLIENTE' // Por defecto
+        rol: 'ROLE_CLIENTE' //por defecto
       };
 
       this.authService.register(registerData).subscribe({
@@ -129,12 +129,12 @@ export class SignupComponent implements OnInit {
           console.log('Registro exitoso:', response);
           this.successMessage = 'Cuenta creada exitosamente. Redirigiendo...';
           setTimeout(() => {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/home']);
           }, 2000);
         },
         error: (error) => {
           console.error('Error en registro:', error);
-          // Mejor manejo del mensaje de error:
+          //mejor manejo del mensaje de error:
           this.errorMessage = error?.error?.message || error?.message || 'Error al crear la cuenta';
           this.isLoading = false;
         },
@@ -154,7 +154,7 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  // Getters para facilitar acceso en template
+  //getters para facilitar acceso en template
   get nombre() { return this.signupForm.get('nombre'); }
   get apellidos() { return this.signupForm.get('apellidos'); }
   get email() { return this.signupForm.get('email'); }
@@ -163,7 +163,7 @@ export class SignupComponent implements OnInit {
   get direccion() { return this.signupForm.get('direccion'); }
   get telefono() { return this.signupForm.get('telefono'); }
 
-  // Métodos de utilidad para el template
+  //metodos de utilidad para el template
   getErrorMessage(fieldName: string): string {
     const control = this.signupForm.get(fieldName);
     if (control?.errors && control?.touched) {
@@ -187,7 +187,7 @@ export class SignupComponent implements OnInit {
       }
     }
 
-    // Verificar errores del formulario completo
+    //verificar errores del formulario completo
     if (fieldName === 'confirmPassword' && this.signupForm.errors?.['passwordMismatch'] && control?.touched) {
       return 'Las contraseñas no coinciden';
     }

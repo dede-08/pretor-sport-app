@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginData).subscribe({
         next: (response) => {
           console.log('Login exitoso:', response);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home']);
         },
         error: (error) => {
           console.error('Error en login:', error);
