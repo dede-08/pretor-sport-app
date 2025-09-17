@@ -26,10 +26,7 @@ public class ProductoController {
 
     private final ProductoService productoService;
 
-    /**
-     * Lista todos los productos con filtros y paginación
-     * GET /api/productos
-     */
+    //lista todos los productos con filtros y paginacion
     @GetMapping
     public ResponseEntity<Page<ProductoResponseDTO>> listarProductos(
             @RequestParam(required = false) String busqueda,

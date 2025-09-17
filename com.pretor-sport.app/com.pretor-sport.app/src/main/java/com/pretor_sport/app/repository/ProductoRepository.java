@@ -36,7 +36,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
            "(:precioMin IS NULL OR p.precio >= :precioMin) AND " +
            "(:precioMax IS NULL OR p.precio <= :precioMax) AND " +
            "(:tallas IS NULL OR p.talla IN :tallas) AND " +
-           "(:colores IS NULL OR LOWER(p.color) IN :colores) AND " +
+           "(:colores IS NULL OR p.color IN :colores) AND " +
            "(:genero IS NULL OR p.genero = :genero) AND " +
            "(:materiales IS NULL OR LOWER(p.material) IN :materiales) AND " +
            "(:soloDisponibles = false OR (p.activo = true AND p.stock > 0)) AND " +

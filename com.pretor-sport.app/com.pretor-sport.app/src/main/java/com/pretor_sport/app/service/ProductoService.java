@@ -38,11 +38,17 @@ public class ProductoService {
     public Page<ProductoResponseDTO> listarProductos(ProductoFilterDTO filtros) {
         log.debug("Listando productos con filtros: {}", filtros);
         
-        // Crear objeto de paginación
+        // Validar y crear objeto de paginación
+        String ordenarPor = filtros.getOrdenarPor();
+        List<String> camposValidos = List.of("nombre", "precio", "marca", "modelo", "fechaCreacion");
+        if (ordenarPor == null || !camposValidos.contains(ordenarPor)) {
+            ordenarPor = "nombre"; // Campo por defecto
+        }
+
         Sort sort = Sort.by(
-            filtros.getDireccion().equalsIgnoreCase("desc") ? 
-                Sort.Direction.DESC : Sort.Direction.ASC, 
-            filtros.getOrdenarPor()
+            filtros.getDireccion().equalsIgnoreCase("desc") ?
+                Sort.Direction.DESC : Sort.Direction.ASC,
+            ordenarPor
         );
         
         Pageable pageable = PageRequest.of(
