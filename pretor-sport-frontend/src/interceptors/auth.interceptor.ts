@@ -14,13 +14,13 @@ export const AuthInterceptor: HttpInterceptorFn = (
 
   // URLs que no requieren autenticación
   const skipUrls = [
-    '/api/auth/login',
-    '/api/auth/register',
-    '/api/auth/refresh',
-    '/api/auth/verify-email',
-    '/api/auth/health',
-    '/api/auth/roles',
-    '/api/public/'
+    '/auth/login',
+    '/auth/register',
+    '/auth/refresh',
+    '/auth/verify-email',
+    '/auth/health',
+    '/auth/roles',
+    '/public/'
   ];
 
   // Verificar si la URL debe ser omitida del interceptor

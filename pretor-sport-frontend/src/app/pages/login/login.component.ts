@@ -11,6 +11,7 @@ import { AuthService, LoginRequest } from '../../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading = false;
@@ -74,12 +75,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Getters para facilitar acceso en template
+  //getters
   get email() { return this.loginForm.get('email'); }
   get password() { return this.loginForm.get('password'); }
   get rememberMe() { return this.loginForm.get('rememberMe'); }
 
-  // Métodos de utilidad para el template
+  //metodos de utilidad para el template
   getErrorMessage(fieldName: string): string {
     const control = this.loginForm.get(fieldName);
     if (control?.errors && control?.touched) {
