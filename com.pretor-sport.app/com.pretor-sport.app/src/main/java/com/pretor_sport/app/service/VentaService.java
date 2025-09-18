@@ -15,16 +15,16 @@ public class VentaService {
     private final PedidoRepository pedidoRepository;
     private final ProductoRepository productoRepository;
     private final PagoRepository pagoRepository;
-    private final ClienteRepository clienteRepository; // Añadido para buscar el historial
+    private final UsuarioRepository usuarioRepository; // Añadido para buscar el historial
 
     public VentaService(VentaRepository ventaRepository, PedidoRepository pedidoRepository,
                         ProductoRepository productoRepository, PagoRepository pagoRepository,
-                        ClienteRepository clienteRepository) {
+                        UsuarioRepository usuarioRepository) {
         this.ventaRepository = ventaRepository;
         this.pedidoRepository = pedidoRepository;
         this.productoRepository = productoRepository;
         this.pagoRepository = pagoRepository;
-        this.clienteRepository = clienteRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     /**
@@ -85,7 +85,7 @@ public class VentaService {
     /**
      * Obtiene el historial de compras de un cliente específico.
      */
-    public List<Venta> obtenerHistorialDeCompras(Cliente cliente) {
-        return ventaRepository.findByPedido_Cliente(cliente);
+    public List<Venta> obtenerHistorialDeCompras(Usuario usuario) {
+        return ventaRepository.findByPedido_Usuario(usuario);
     }
 }

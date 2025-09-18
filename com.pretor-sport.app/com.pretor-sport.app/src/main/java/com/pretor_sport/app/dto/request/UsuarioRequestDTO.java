@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteRequestDTO {
+public class UsuarioRequestDTO {
     
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
@@ -45,8 +45,8 @@ public class ClienteRequestDTO {
 //        message = "El rol debe ser: ROLE_CLIENTE, ROLE_EMPLEADO o ROLE_ADMIN"
 //    )
 //    private String rol = "ROLE_CLIENTE";
-//
-//    //metodo para validar el rol
+////
+////    //metodo para validar el rol
 //    @AssertTrue(message = "El rol especificado no es válido")
 //    public boolean isValidRole() {
 //        if (rol == null) {
@@ -54,11 +54,11 @@ public class ClienteRequestDTO {
 //            return true;
 //        }
 //        try {
-//            // Verificar que el rol existe en el enum
-//            com.pretor_sport.app.model.Cliente.Rol.valueOf(rol);
+////            // Verificar que el rol existe en el enum
+//            com.pretor_sport.app.model.Usuario.Rol.valueOf(rol);
 //            return true;
-//        } catch (IllegalArgumentException e) {
-//            return false;
-//        }
-//    }
+////        } catch (IllegalArgumentException e) {
+////            return false;
+////        }
+////    }
 }

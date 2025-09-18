@@ -21,8 +21,8 @@ public class Pedido {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente cliente;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
 
     @Column(name = "fecha_creacion", nullable = false)
     private LocalDateTime fechaCreacion;

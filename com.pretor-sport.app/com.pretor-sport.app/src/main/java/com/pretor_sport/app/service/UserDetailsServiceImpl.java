@@ -1,7 +1,7 @@
 package com.pretor_sport.app.service;
 
-import com.pretor_sport.app.model.Cliente;
-import com.pretor_sport.app.repository.ClienteRepository;
+import com.pretor_sport.app.model.Usuario;
+import com.pretor_sport.app.repository.UsuarioRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,12 +20,11 @@ import java.util.Collections;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private UsuarioRepository usuarioRepository;
 
-    // Cambia a inyección por setter
     @Autowired
-    public void setClienteRepository(ClienteRepository clienteRepository) {
-        this.clienteRepository = clienteRepository;
+    public void setUsuarioRepository(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override
@@ -33,28 +32,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         log.debug("Cargando usuario por email: {}", email);
 
-        // Buscamos el cliente por su email y que esté activo
-        Cliente cliente = clienteRepository.findByEmailAndActivo(email, true)
+        Usuario usuario = usuarioRepository.findByEmailAndActivo(email, true)
                 .orElseThrow(() -> {
                     log.warn("Usuario no encontrado o inactivo: {}", email);
                     return new UsernameNotFoundException("No se encontró un usuario activo con el email: " + email);
                 });
 
-        // Creamos la lista de roles/autoridades usando el enum
-        GrantedAuthority authority = new SimpleGrantedAuthority(cliente.getRol().name());
+        GrantedAuthority authority = new SimpleGrantedAuthority(usuario.getRol().name());
 
-        // Creamos y retornamos el objeto UserDetails que Spring Security utiliza
         UserDetails userDetails = User.builder()
-                .username(cliente.getEmail())
-                .password(cliente.getPassword())
+                .username(usuario.getEmail())
+                .password(usuario.getPassword())
                 .authorities(Collections.singletonList(authority))
                 .accountExpired(false)
-                .accountLocked(!cliente.getActivo())
+                .accountLocked(!usuario.getActivo())
                 .credentialsExpired(false)
-                .disabled(!cliente.getEmailVerificado())
+                .disabled(!usuario.getEmailVerificado())
                 .build();
 
-        log.debug("Usuario cargado exitosamente: {} con rol: {}", email, cliente.getRol());
+        log.debug("Usuario cargado exitosamente: {} con rol: {}", email, usuario.getRol());
         return userDetails;
     }
 }

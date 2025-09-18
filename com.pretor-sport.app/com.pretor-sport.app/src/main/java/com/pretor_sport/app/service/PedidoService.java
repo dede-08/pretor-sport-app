@@ -18,17 +18,14 @@ public class PedidoService {
         this.productoRepository = productoRepository;
     }
 
-    /**
-     * Obtiene el carrito de compras activo de un cliente. Si no existe, crea uno nuevo.
-     */
 
     //obtiene el carrito de compras activo de un cliente. si no existe
     @Transactional
-    public Pedido getCarritoActivo(Cliente cliente) {
-        return pedidoRepository.findByClienteAndEstado(cliente, "CARRITO")
+    public Pedido getCarritoActivo(Usuario usuario) {
+        return pedidoRepository.findByUsuarioAndEstado(usuario, "CARRITO")
                 .orElseGet(() -> {
                     Pedido nuevoCarrito = new Pedido();
-                    nuevoCarrito.setCliente(cliente);
+                    nuevoCarrito.setUsuario(usuario);
                     nuevoCarrito.setEstado("CARRITO");
                     return pedidoRepository.save(nuevoCarrito);
                 });
@@ -36,8 +33,8 @@ public class PedidoService {
 
     //agrega un producto al carrito del cliente, si el producto ya esta en el carrito se actualiza la cantidad
     @Transactional
-    public Pedido agregarProductoAlCarrito(Cliente cliente, Long productoId, int cantidad) {
-        Pedido carrito = getCarritoActivo(cliente);
+    public Pedido agregarProductoAlCarrito(Usuario usuario, Long productoId, int cantidad) {
+        Pedido carrito = getCarritoActivo(usuario);
         Producto producto = productoRepository.findById(productoId)
                 .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con id: " + productoId));
 
@@ -45,17 +42,17 @@ public class PedidoService {
             throw new IllegalStateException("Stock insuficiente para el producto: " + producto.getNombre());
         }
 
-        // Busca si el producto ya está en el carrito
+        //busca si el producto ya está en el carrito
         Optional<DetallePedido> detalleExistente = carrito.getDetalles().stream()
                 .filter(detalle -> detalle.getProducto().getId().equals(productoId))
                 .findFirst();
 
         if (detalleExistente.isPresent()) {
-            // Si ya existe, actualiza la cantidad
+            //si ya existe, actualiza la cantidad
             DetallePedido detalle = detalleExistente.get();
             detalle.setCantidad(detalle.getCantidad() + cantidad);
         } else {
-            // Si no existe, crea un nuevo detalle
+            //si no existe, crea un nuevo detalle
             DetallePedido nuevoDetalle = new DetallePedido();
             nuevoDetalle.setProducto(producto);
             nuevoDetalle.setCantidad(cantidad);

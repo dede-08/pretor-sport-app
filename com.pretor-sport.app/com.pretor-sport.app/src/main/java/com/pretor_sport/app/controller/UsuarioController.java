@@ -1,7 +1,7 @@
 package com.pretor_sport.app.controller;
 
-import com.pretor_sport.app.model.Cliente;
-import com.pretor_sport.app.service.ClienteService;
+import com.pretor_sport.app.model.Usuario;
+import com.pretor_sport.app.service.UsuarioService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,21 +14,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 
 @Controller
-public class ClienteController {
+public class UsuarioController {
 
-    private final ClienteService clienteService;
+    private final UsuarioService usuarioService;
 
-    public ClienteController(ClienteService clienteService) {
-        this.clienteService = clienteService;
+    public UsuarioController(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
 
     @PostMapping("/registro")
-    public String registrarCliente(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String registrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "auth/registro";
         }
         try {
-            clienteService.registrarCliente(cliente);
+            usuarioService.registrarUsuario(usuario);
             redirectAttributes.addFlashAttribute("registroExitoso", true);
             return "redirect:/login?registroExitoso=true";
         } catch (IllegalStateException e) {
@@ -39,24 +39,24 @@ public class ClienteController {
 
     @GetMapping("/perfil")
     public String mostrarPerfil(Authentication authentication, Model model) {
-        String email = authentication.getName(); // Obtiene el email del usuario autenticado
-        Cliente cliente = clienteService.buscarPorEmail(email)
+        String email = authentication.getName();
+        Usuario usuario = usuarioService.buscarPorEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        model.addAttribute("cliente", cliente);
+        model.addAttribute("usuario", usuario);
         return "cliente/perfil";
     }
 
-        @PostMapping("/perfil/actualizar")
-    public String actualizarPerfil(Authentication authentication, @Valid @ModelAttribute("cliente") Cliente cliente, BindingResult result, RedirectAttributes redirectAttributes) {
+    @PostMapping("/perfil/actualizar")
+    public String actualizarPerfil(Authentication authentication, @Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             return "cliente/perfil";
         }
 
         String email = authentication.getName();
-        Cliente clienteActual = clienteService.buscarPorEmail(email)
+        Usuario usuarioActual = usuarioService.buscarPorEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        clienteService.actualizarPerfil(clienteActual.getId(), cliente);
+        usuarioService.actualizarPerfil(usuarioActual.getId(), usuario);
         redirectAttributes.addFlashAttribute("perfilActualizado", "Tu perfil ha sido actualizado exitosamente.");
         return "redirect:/perfil";
     }

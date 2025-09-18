@@ -1,10 +1,10 @@
 package com.pretor_sport.app.controller;
 
-import com.pretor_sport.app.dto.request.ClienteRequestDTO;
+import com.pretor_sport.app.dto.request.UsuarioRequestDTO;
 import com.pretor_sport.app.dto.request.LoginRequestDTO;
 import com.pretor_sport.app.dto.request.RefreshTokenRequestDTO;
 import com.pretor_sport.app.dto.response.AuthResponseDTO;
-import com.pretor_sport.app.model.Cliente;
+import com.pretor_sport.app.model.Usuario;
 import com.pretor_sport.app.security.JwtUtil;
 import com.pretor_sport.app.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,7 +46,7 @@ public class AuthController {
      * Endpoint para registrar nuevo usuario
      */
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody ClienteRequestDTO registroRequest) {
+    public ResponseEntity<?> register(@Valid @RequestBody UsuarioRequestDTO registroRequest) {
         try {
             AuthResponseDTO authResponse = authService.register(registroRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(authResponse);
@@ -101,9 +101,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Endpoint para verificar email
-     */
+    //endpoint para verificar el email
     @GetMapping("/verify-email")
     public ResponseEntity<?> verifyEmail(@RequestParam("token") String token) {
         try {
@@ -121,9 +119,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Endpoint para obtener información del usuario actual
-     */
+    //endpoint para obtener info del usuario actual
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> getCurrentUser() {
@@ -131,23 +127,23 @@ public class AuthController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String email = authentication.getName();
             
-            Cliente cliente = authService.getCurrentUser(email);
+            Usuario usuario = authService.getCurrentUser(email);
             
-            // Crear respuesta sin información sensible
+            //crear respuesta sin información sensible
             Map<String, Object> userInfo = new java.util.HashMap<>();
-            userInfo.put("id", cliente.getId());
-            userInfo.put("nombre", cliente.getNombre());
-            userInfo.put("apellidos", cliente.getApellidos());
-            userInfo.put("email", cliente.getEmail());
-            userInfo.put("direccion", cliente.getDireccion() != null ? cliente.getDireccion() : "");
-            userInfo.put("telefono", cliente.getTelefono() != null ? cliente.getTelefono() : "");
-            userInfo.put("rol", cliente.getRol().name());
-            userInfo.put("nombreCompleto", cliente.getNombreCompleto());
-            userInfo.put("iniciales", cliente.getIniciales());
-            userInfo.put("emailVerificado", cliente.getEmailVerificado());
-            userInfo.put("activo", cliente.getActivo());
-            userInfo.put("fechaRegistro", cliente.getFechaRegistro());
-            userInfo.put("ultimoAcceso", cliente.getUltimoAcceso());
+            userInfo.put("id", usuario.getId());
+            userInfo.put("nombre", usuario.getNombre());
+            userInfo.put("apellidos", usuario.getApellidos());
+            userInfo.put("email", usuario.getEmail());
+            userInfo.put("direccion", usuario.getDireccion() != null ? usuario.getDireccion() : "");
+            userInfo.put("telefono", usuario.getTelefono() != null ? usuario.getTelefono() : "");
+            userInfo.put("rol", usuario.getRol().name());
+            userInfo.put("nombreCompleto", usuario.getNombreCompleto());
+            userInfo.put("iniciales", usuario.getIniciales());
+            userInfo.put("emailVerificado", usuario.getEmailVerificado());
+            userInfo.put("activo", usuario.getActivo());
+            userInfo.put("fechaRegistro", usuario.getFechaRegistro());
+            userInfo.put("ultimoAcceso", usuario.getUltimoAcceso());
             
             return ResponseEntity.ok(userInfo);
         } catch (Exception e) {
@@ -157,9 +153,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Endpoint para validar token
-     */
+    //endpoint para validar token
     @PostMapping("/validate-token")
     public ResponseEntity<?> validateToken(HttpServletRequest request) {
         try {
@@ -194,9 +188,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Endpoint de salud para verificar que el servicio de auth está funcionando
-     */
+    //endpoint para verificar que el authservice este funcionando
     @GetMapping("/health")
     public ResponseEntity<?> health() {
         return ResponseEntity.ok(Map.of(
@@ -206,9 +198,7 @@ public class AuthController {
         ));
     }
 
-    /**
-     * Endpoint para obtener información sobre los roles disponibles
-     */
+    //endpoint para obtener info sobre los roles
     @GetMapping("/roles")
     public ResponseEntity<?> getRoles() {
         Map<String, Object> roles = Map.of(

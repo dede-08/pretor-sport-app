@@ -16,16 +16,16 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
-@Table(name = "clientes", indexes = {
-    @Index(name = "idx_cliente_email", columnList = "email"),
-    @Index(name = "idx_cliente_rol", columnList = "rol"),
-    @Index(name = "idx_cliente_activo", columnList = "activo")
+@Table(name = "usuarios", indexes = {
+    @Index(name = "idx_usuario_email", columnList = "email"),
+    @Index(name = "idx_usuario_rol", columnList = "rol"),
+    @Index(name = "idx_usuario_activo", columnList = "activo")
 })
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Cliente {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,8 +55,8 @@ public class Cliente {
 
     @Column(length = 20)
     @Pattern(
-        regexp = "^(\\+\\d{1,3}[- ]?)?\\d{10,14}$",
-        message = "El formato del teléfono no es válido"
+        regexp = "^\\+?[0-9\\s-()]{7,20}$",
+        message = "El formato del teléfono no es válido. Caracteres permitidos: números, espacios, guiones y paréntesis."
     )
     private String telefono;
 
