@@ -129,7 +129,7 @@ export class SignupComponent implements OnInit {
           console.log('Registro exitoso:', response);
           this.successMessage = 'Cuenta creada exitosamente. Redirigiendo...';
           setTimeout(() => {
-            this.router.navigate(['/home']);
+            this.router.navigate(['']);
           }, 2000);
         },
         error: (error) => {
