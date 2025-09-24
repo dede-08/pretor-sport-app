@@ -49,7 +49,7 @@ public class Producto {
     @Column(name = "imagen_url", length = 255)
     private String imagenUrl;
 
-    // Campos específicos para artículos deportivos
+    //campos específicos para artículos deportivos
     @Column(length = 50)
     private String marca;
 
@@ -102,13 +102,13 @@ public class Producto {
         HOMBRE, MUJER, NIÑO, NIÑA, UNISEX
     }
 
-    // Método para verificar disponibilidad
+    //metodo para verificar disponibilidad
     @Transient
     public boolean isDisponible() {
         return activo && stock > 0;
     }
 
-    // Método para obtener el estado del stock
+    //metodo para obtener el estado del stock
     @Transient
     public String getEstadoStock() {
         if (stock == 0) {

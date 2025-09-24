@@ -49,7 +49,7 @@ public class ProductoController {
         try {
             log.debug("Listando productos con filtros - página: {}, tamaño: {}", pagina, tamanoPagina);
             
-            // Crear objeto de filtros
+            //crear objeto de filtros
             ProductoFilterDTO filtros = new ProductoFilterDTO();
             filtros.setBusqueda(busqueda);
             filtros.setCategoriaIds(categoriaIds);
@@ -79,10 +79,7 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Obtiene un producto por su ID
-     * GET /api/productos/{id}
-     */
+    //obtiene un producto por su id
     @GetMapping("/{id}")
     public ResponseEntity<?> obtenerProducto(@PathVariable Long id) {
         try {
@@ -99,11 +96,8 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Crea un nuevo producto
-     * POST /api/productos
-     */
-    @PostMapping
+    //crea un nuevo producto
+    @PostMapping("/add")
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
     public ResponseEntity<?> crearProducto(@Valid @RequestBody ProductoRequestDTO request) {
         try {
@@ -124,10 +118,7 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Actualiza un producto existente
-     * PUT /api/productos/{id}
-     */
+    //actualiza un producto existente
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
     public ResponseEntity<?> actualizarProducto(
@@ -151,10 +142,8 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Elimina un producto (soft delete)
-     * DELETE /api/productos/{id}
-     */
+
+    //elimina un producto por id
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> eliminarProducto(@PathVariable Long id) {
@@ -176,10 +165,7 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Obtiene productos por categoría
-     * GET /api/productos/categoria/{categoriaId}
-     */
+    //obtiene productos por categoria
     @GetMapping("/categoria/{categoriaId}")
     public ResponseEntity<?> obtenerProductosPorCategoria(@PathVariable Long categoriaId) {
         try {
@@ -196,10 +182,7 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Obtiene productos destacados
-     * GET /api/productos/destacados
-     */
+    //obtiene productos destacados
     @GetMapping("/destacados")
     public ResponseEntity<?> obtenerProductosDestacados(
             @RequestParam(defaultValue = "8") Integer limite) {
@@ -217,10 +200,7 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Busca productos por término de búsqueda
-     * GET /api/productos/buscar
-     */
+    //busca productos por termino de busqueda
     @GetMapping("/buscar")
     public ResponseEntity<?> buscarProductos(
             @RequestParam String termino,
@@ -241,10 +221,7 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Obtiene estadísticas de productos (solo para administradores)
-     * GET /api/productos/estadisticas
-     */
+    //obtiene estadisticas de los productos (solo admins)
     @GetMapping("/estadisticas")
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
     public ResponseEntity<?> obtenerEstadisticas() {
@@ -274,10 +251,8 @@ public class ProductoController {
         }
     }
 
-    /**
-     * Endpoint de salud para verificar que el servicio de productos está funcionando
-     * GET /api/productos/health
-     */
+
+    //endpoint para verificar que el servicio de productos esta funcionando
     @GetMapping("/health")
     public ResponseEntity<?> health() {
         return ResponseEntity.ok(Map.of(

@@ -37,12 +37,12 @@ public class ProductoResponseDTO {
     private BigDecimal precioConDescuento;
     private Integer descuentoPorcentaje;
     
-    // Método para determinar si el producto está disponible
+    //metodo para determinar si el producto está disponible
     public Boolean getDisponible() {
         return stock != null && stock > 0;
     }
     
-    // Método para obtener el estado del stock
+    //metodo para obtener el estado del stock
     public String getEstadoStock() {
         if (stock == null || stock == 0) {
             return "SIN_STOCK";

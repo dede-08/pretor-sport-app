@@ -37,7 +37,7 @@ public class ProductoRequestDTO {
     )
     private String imagenUrl;
     
-    @NotNull(message = "La categoría es obligatoria")
+    //@NotNull(message = "La categoría es obligatoria")
     @Positive(message = "El ID de la categoría debe ser un número positivo")
     private Long categoriaId;
     
@@ -75,8 +75,8 @@ public class ProductoRequestDTO {
     
     private List<String> caracteristicas; // Lista de características adicionales
     
-    @AssertTrue(message = "Debe proporcionarse al menos una imagen")
-    public boolean isImagenUrlValid() {
-        return imagenUrl != null && !imagenUrl.trim().isEmpty();
-    }
+//    @AssertTrue(message = "Debe proporcionarse al menos una imagen")
+//    public boolean isImagenUrlValid() {
+//        return imagenUrl != null && !imagenUrl.trim().isEmpty();
+//    }
 }

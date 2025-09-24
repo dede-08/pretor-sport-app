@@ -27,7 +27,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @Query("SELECT p FROM Producto p WHERE p.activo = true ORDER BY p.fechaCreacion DESC")
     List<Producto> findProductosDestacados(Pageable pageable);
     
-    // Método personalizado para filtrar productos con múltiples criterios
+    //metodo personalizado para filtrar productos con múltiples criterios
     @Query("SELECT p FROM Producto p WHERE " +
            "(:busqueda IS NULL OR LOWER(p.nombre) LIKE LOWER(CONCAT('%', :busqueda, '%')) OR " +
            "LOWER(p.descripcion) LIKE LOWER(CONCAT('%', :busqueda, '%'))) AND " +
@@ -57,7 +57,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
             @Param("pesoMax") BigDecimal pesoMax,
             Pageable pageable);
     
-    // Método simplificado para obtener productos destacados con límite
+    //metodo simplificado para obtener productos destacados con límite
     @Query(value = "SELECT * FROM productos WHERE activo = true ORDER BY fecha_creacion DESC LIMIT :limite", 
            nativeQuery = true)
     List<Producto> findProductosDestacados(@Param("limite") int limite);
