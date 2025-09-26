@@ -1,1 +1,61 @@
-<p>products works!</p>
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <br>
+                <h2 class="hero-title navbar-brand">Nuestros Productos</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Category Bar -->
+<div class="category-bar bg-light py-2 mb-4">
+    <div class="container">
+        <ul class="nav nav-pills justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" [class.active]="selectedCategoriaId === null" (click)="selectCategoria(null)" href="javascript:void(0)">Todas</a>
+            </li>
+            <li class="nav-item" *ngFor="let categoria of categorias">
+                <a class="nav-link" [class.active]="selectedCategoriaId === categoria.id" (click)="selectCategoria(categoria.id)" href="javascript:void(0)">{{ categoria.nombre }}</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <section class="featured-products py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-4">
+                    <h3 *ngIf="selectedCategoriaId === null">Todos los productos</h3>
+                    <h3 *ngIf="selectedCategoriaId !== null">{{ selectedCategoriaNombre }}</h3>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                <div class="col" *ngFor="let producto of productos">
+                    <div class="card h-100 product-card">
+                        <img [src]="producto.imagenUrl || 'https://via.placeholder.com/300'" class="card-img-top" alt="{{ producto.nombre }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text">{{ producto.descripcion }}</p>
+                            <p class="card-text"><strong>Precio:</strong> S/ {{ producto.precio | number:'1.2-2' }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-primary">Ver Detalles</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje si no hay productos -->
+                <div class="col-12" *ngIf="productos.length === 0">
+                    <div class="alert alert-info text-center" role="alert">
+                        No hay productos disponibles en esta categoría.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
