@@ -27,11 +27,8 @@ public class VentaService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    /**
-     * Procesa un pedido para generar una venta.
-     * Esta operación es transaccional: si algo falla (ej. stock), se revierten todos los cambios.
-     * La anotación @Transactional es crucial aquí.
-     */
+
+    //PROCESA UN PEDIDO PARA GENERAR UNA VENTA
     @Transactional
     public Venta procesarVenta(Long pedidoId, String metodoPago) {
         // 1. Obtener el pedido y validar su estado
@@ -82,9 +79,7 @@ public class VentaService {
         return ventaGuardada;
     }
 
-    /**
-     * Obtiene el historial de compras de un cliente específico.
-     */
+    //OBTIENE EL HISTORIAL DE COMPRAS DE UN CLIENTE ESPECIFICO
     public List<Venta> obtenerHistorialDeCompras(Usuario usuario) {
         return ventaRepository.findByPedido_Usuario(usuario);
     }

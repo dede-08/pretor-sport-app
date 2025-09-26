@@ -15,4 +15,9 @@ CREATE DATABASE pretor_sport_db
 
 SELECT * FROM productos;
 
-SELECT * FROM Clientes;
+SELECT * FROM Usuarios;
+
+SELECT * FROM categorias;
+
+INSERT INTO categorias (activa, descripcion, fecha_actualizacion, fecha_creacion, icono_url, nombre, orden, tipo)
+VALUES (TRUE, 'Pelotas de futbol', NOW(), NOW(), 'pelotasfutbol.png', 'Pelotas', 1, 'EQUIPAMIENTO');

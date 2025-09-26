@@ -31,18 +31,16 @@ public class ProductoService {
     private final CategoriaRepository categoriaRepository;
     private final ProveedorRepository proveedorRepository;
 
-    /**
-     * Lista todos los productos con paginación y filtros
-     */
+    //LISTA TODOS LOS PRODUCTOS CON PAGINACION Y FILTROS
     @Transactional(readOnly = true)
     public Page<ProductoResponseDTO> listarProductos(ProductoFilterDTO filtros) {
         log.debug("Listando productos con filtros: {}", filtros);
         
-        // Validar y crear objeto de paginación
+        //validar y crear objeto de paginación
         String ordenarPor = filtros.getOrdenarPor();
         List<String> camposValidos = List.of("nombre", "precio", "marca", "modelo", "fechaCreacion");
         if (ordenarPor == null || !camposValidos.contains(ordenarPor)) {
-            ordenarPor = "nombre"; // Campo por defecto
+            ordenarPor = "nombre"; //campo por defecto
         }
 
         Sort sort = Sort.by(
@@ -57,7 +55,7 @@ public class ProductoService {
             sort
         );
         
-        // Aplicar filtros y obtener productos
+        //aplicar filtros y obtener productos
         Page<Producto> productos = productoRepository.findProductosConFiltros(
             filtros.getBusqueda(),
             filtros.getCategoriaIds(),
@@ -77,9 +75,7 @@ public class ProductoService {
         return productos.map(this::convertirADTO);
     }
 
-    /**
-     * Obtiene un producto por su ID
-     */
+    //OBTIENE PRODUCTO POR ID
     @Transactional(readOnly = true)
     public Optional<ProductoResponseDTO> obtenerProductoPorId(Long id) {
         log.debug("Obteniendo producto con ID: {}", id);
@@ -87,25 +83,23 @@ public class ProductoService {
             .map(this::convertirADTO);
     }
 
-    /**
-     * Crea un nuevo producto
-     */
+    //CREAR UN NUEVO PRODUCTO
     @Transactional
     public ProductoResponseDTO crearProducto(ProductoRequestDTO request) {
         log.info("Creando nuevo producto: {}", request.getNombre());
         
-        // Validar que la categoría existe
+        //validar que la categoría existe
         Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
             .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada con ID: " + request.getCategoriaId()));
         
-        // Validar que el proveedor existe (si se proporciona)
+        //validar que el proveedor existe (si se proporciona)
         Proveedor proveedor = null;
         if (request.getProveedorId() != null) {
             proveedor = proveedorRepository.findById(request.getProveedorId())
                 .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID: " + request.getProveedorId()));
         }
         
-        // Crear el producto
+        //crear el producto
         Producto producto = new Producto();
         producto.setNombre(request.getNombre());
         producto.setDescripcion(request.getDescripcion());
@@ -131,9 +125,7 @@ public class ProductoService {
         return convertirADTO(productoGuardado);
     }
 
-    /**
-     * Actualiza un producto existente
-     */
+    //ACTUALIZA UN PRODUCTO EXISTENTE
     @Transactional
     public ProductoResponseDTO actualizarProducto(Long id, ProductoRequestDTO request) {
         log.info("Actualizando producto con ID: {}", id);
@@ -141,18 +133,18 @@ public class ProductoService {
         Producto producto = productoRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + id));
         
-        // Validar que la categoría existe
+        //validar que la categoría existe
         Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
             .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada con ID: " + request.getCategoriaId()));
         
-        // Validar que el proveedor existe (si se proporciona)
+        //validar que el proveedor existe (si se proporciona)
         Proveedor proveedor = null;
         if (request.getProveedorId() != null) {
             proveedor = proveedorRepository.findById(request.getProveedorId())
                 .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID: " + request.getProveedorId()));
         }
         
-        // Actualizar campos
+        //actualizar campos
         producto.setNombre(request.getNombre());
         producto.setDescripcion(request.getDescripcion());
         producto.setPrecio(request.getPrecio());
@@ -176,9 +168,7 @@ public class ProductoService {
         return convertirADTO(productoActualizado);
     }
 
-    /**
-     * Elimina un producto (soft delete)
-     */
+    //ELIMINA UN PRODUCTO
     @Transactional
     public void eliminarProducto(Long id) {
         log.info("Eliminando producto con ID: {}", id);
@@ -192,9 +182,7 @@ public class ProductoService {
         log.info("Producto eliminado exitosamente con ID: {}", id);
     }
 
-    /**
-     * Obtiene productos por categoría
-     */
+    //OBTIENE PRODUCTOS POR CATEGORIA
     @Transactional(readOnly = true)
     public List<ProductoResponseDTO> obtenerProductosPorCategoria(Long categoriaId) {
         log.debug("Obteniendo productos para categoría ID: {}", categoriaId);
@@ -205,9 +193,8 @@ public class ProductoService {
             .collect(Collectors.toList());
     }
 
-    /**
-     * Obtiene productos destacados
-     */
+
+    //OBTIENE PRODUCTOS DESTACADOS
     @Transactional(readOnly = true)
     public List<ProductoResponseDTO> obtenerProductosDestacados(int limite) {
         log.debug("Obteniendo {} productos destacados", limite);
@@ -218,9 +205,7 @@ public class ProductoService {
             .collect(Collectors.toList());
     }
 
-    /**
-     * Busca productos por término de búsqueda
-     */
+    //BUSCA PRODUCTOS POR TERMINO DE BUSQUEDA
     @Transactional(readOnly = true)
     public Page<ProductoResponseDTO> buscarProductos(String termino, Pageable pageable) {
         log.debug("Buscando productos con término: {}", termino);
@@ -229,9 +214,7 @@ public class ProductoService {
         return productos.map(this::convertirADTO);
     }
 
-    /**
-     * Convierte un Producto a ProductoResponseDTO
-     */
+    //CONVIERTE UN PRODUCTO A ProductoResponseDTO
     private ProductoResponseDTO convertirADTO(Producto producto) {
         ProductoResponseDTO dto = new ProductoResponseDTO();
         dto.setId(producto.getId());
@@ -251,7 +234,7 @@ public class ProductoService {
         dto.setDisponible(producto.isDisponible());
         dto.setEstadoStock(producto.getEstadoStock());
         
-        // Convertir categoría
+        //convertir categoría
         if (producto.getCategoria() != null) {
             ProductoResponseDTO.CategoriaSimpleDTO categoriaDTO = new ProductoResponseDTO.CategoriaSimpleDTO();
             categoriaDTO.setId(producto.getCategoria().getId());
@@ -261,7 +244,7 @@ public class ProductoService {
             dto.setCategoria(categoriaDTO);
         }
         
-        // Convertir proveedor
+        //convertir proveedor
         if (producto.getProveedor() != null) {
             ProductoResponseDTO.ProveedorSimpleDTO proveedorDTO = new ProductoResponseDTO.ProveedorSimpleDTO();
             proveedorDTO.setId(producto.getProveedor().getId());

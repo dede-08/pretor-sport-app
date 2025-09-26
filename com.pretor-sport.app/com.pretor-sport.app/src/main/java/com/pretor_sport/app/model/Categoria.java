@@ -61,7 +61,7 @@ public class Categoria {
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Producto> productos;
 
-    // Enum para tipos de categoría
+    //enum para tipos de categoría
     public enum TipoCategoria {
         CALZADO,
         ROPA,
@@ -71,7 +71,7 @@ public class Categoria {
         TECNOLOGIA
     }
 
-    // Método para contar productos activos
+    //metodo para contar productos activos
     @Transient
     public long getProductosActivosCount() {
         if (productos == null) return 0;
