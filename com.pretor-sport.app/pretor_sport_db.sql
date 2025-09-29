@@ -18,6 +18,10 @@ SELECT * FROM productos;
 SELECT * FROM Usuarios;
 
 SELECT * FROM categorias;
+SELECT * FROM proveedores;
+
+INSERT INTO proveedores (direccion, email, nombre, ruc, telefono)
+VALUES ('Av. Los Maestros 23423', 'adidas@sport.com', 'Adidas', '5352-AD', '982647182');
 
 INSERT INTO categorias (activa, descripcion, fecha_actualizacion, fecha_creacion, icono_url, nombre, orden, tipo)
-VALUES (TRUE, 'Pelotas de futbol', NOW(), NOW(), 'pelotasfutbol.png', 'Pelotas', 1, 'EQUIPAMIENTO');
+VALUES (TRUE, 'Zapatillas deportivas', NOW(), NOW(), 'Zapatillas.png', 'Zapatillas', 2, 'EQUIPAMIENTO');

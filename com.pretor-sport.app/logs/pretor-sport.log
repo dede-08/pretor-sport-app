@@ -1,23 +1,23 @@
-2025-09-25 20:15:07 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 32620 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
-2025-09-25 20:15:07 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-25 20:15:07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2025-09-25 20:15:07 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2025-09-25 20:15:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25 20:15:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 80 ms. Found 7 JPA repository interfaces.
-2025-09-25 20:15:09 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-09-25 20:15:09 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-25 20:15:09 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-25 20:15:09 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-25 20:15:09 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2034 ms
-2025-09-25 20:15:09 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-25 20:15:09 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
-2025-09-25 20:15:09 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-25 20:15:10 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-25 20:15:10 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2025-09-25 20:15:10 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@56501973
-2025-09-25 20:15:10 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2025-09-25 20:15:10 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-25 20:15:10 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-09-28 18:46:48 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 20044 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 18:46:48 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 18:46:48 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-28 18:46:48 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-28 18:46:49 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 18:46:49 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 67 ms. Found 7 JPA repository interfaces.
+2025-09-28 18:46:50 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 18:46:50 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 18:46:50 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 18:46:50 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 18:46:50 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1643 ms
+2025-09-28 18:46:50 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 18:46:50 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-28 18:46:50 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 18:46:50 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 18:46:50 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-28 18:46:51 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@33612e45
+2025-09-28 18:46:51 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-28 18:46:51 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 18:46:51 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
 	Database driver: undefined/unknown
 	Database version: 17.0
@@ -25,40 +25,36 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-09-25 20:15:11 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-25 20:15:12 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 20:15:12 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
-2025-09-25 20:15:14 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-25 20:15:14 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-25 20:15:15 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-25 20:15:15 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
-2025-09-25 20:15:15 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-09-25 20:15:15 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-09-25 20:15:15 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-09-25 20:15:15 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-09-25 20:15:15 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-09-25 20:15:15 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-09-25 20:15:15 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 9.008 seconds (process running for 9.742)
-2025-09-25 20:15:43 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-25 20:15:43 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@796f60bb
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@395726fc
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-09-25 20:15:43 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
-2025-09-25 20:15:43 [http-nio-8080-exec-1] ERROR c.pretor_sport.app.security.JwtUtil - Error al parsear JWT: JWT expired 79994968 milliseconds ago at 2025-09-25T03:02:29.000Z. Current time: 2025-09-26T01:15:43.968Z. Allowed clock skew: 0 milliseconds.
-2025-09-25 20:15:43 [http-nio-8080-exec-1] ERROR c.p.a.s.JwtAuthenticationFilter - Error en la autenticación JWT: JWT expired 79994968 milliseconds ago at 2025-09-25T03:02:29.000Z. Current time: 2025-09-26T01:15:43.968Z. Allowed clock skew: 0 milliseconds.
-2025-09-25 20:15:43 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-25 20:15:50 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
-2025-09-25 20:15:50 [http-nio-8080-exec-5] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
-2025-09-25 20:15:50 [http-nio-8080-exec-5] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
-2025-09-25 20:15:50 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/login", parameters={}
-2025-09-25 20:15:50 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.AuthController#login(LoginRequestDTO)
-2025-09-25 20:15:50 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginRequestDTO(email=admin@pretor.com, password=pretorsportadmin100@, rememberMe=false)]
-2025-09-25 20:15:50 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+2025-09-28 18:46:52 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 18:46:52 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 18:46:52 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-28 18:46:54 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 18:46:54 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 18:46:54 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 18:46:54 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 18:46:54 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 18:46:54 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 18:46:54 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 18:46:55 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 18:46:55 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 18:46:55 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 18:46:55 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 7.036 seconds (process running for 7.794)
+2025-09-28 18:47:21 [http-nio-8080-exec-4] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-28 18:47:21 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@5d29453f
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@2731ef05
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-28 18:47:21 [http-nio-8080-exec-4] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/login", parameters={}
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.AuthController#login(LoginRequestDTO)
+2025-09-28 18:47:21 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginRequestDTO(email=admin@pretor.com, password=pretorsportadmin100@, rememberMe=false)]
+2025-09-28 18:47:22 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -79,8 +75,8 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 20:15:51 [http-nio-8080-exec-5] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
-2025-09-25 20:15:51 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+2025-09-28 18:47:22 [http-nio-8080-exec-4] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-09-28 18:47:22 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -101,7 +97,7 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 20:15:51 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+2025-09-28 18:47:22 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
     /* UPDATE
         Usuario u 
     SET
@@ -112,7 +108,7 @@
         ultimo_acceso=? 
     where
         u1_0.email=?
-2025-09-25 20:15:51 [http-nio-8080-exec-5] DEBUG org.hibernate.SQL - 
+2025-09-28 18:47:23 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -133,12 +129,12 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 20:15:51 [http-nio-8080-exec-5] INFO  c.p.app.service.AuthService - Usuario autenticado exitosamente: admin@pretor.com con rol: ROLE_ADMIN
-2025-09-25 20:15:51 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-09-25 20:15:51 [http-nio-8080-exec-5] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [AuthResponseDTO(accessToken=eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoiQUNDRVNTIiwidXNlcklkIjoxLCJyb2wiOiJST0x (truncated)...]
-2025-09-25 20:15:51 [http-nio-8080-exec-5] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+2025-09-28 18:47:23 [http-nio-8080-exec-4] INFO  c.p.app.service.AuthService - Usuario autenticado exitosamente: admin@pretor.com con rol: ROLE_ADMIN
+2025-09-28 18:47:23 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 18:47:23 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [AuthResponseDTO(accessToken=eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoiQUNDRVNTIiwidXNlcklkIjoxLCJyb2wiOiJST0x (truncated)...]
+2025-09-28 18:47:23 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -159,41 +155,428 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:16:21 [http-nio-8080-exec-4] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: pelota mikasa
-2025-09-25 20:16:21 [http-nio-8080-exec-4] INFO  c.p.app.service.ProductoService - Creando nuevo producto: pelota mikasa
-2025-09-25 20:16:21 [http-nio-8080-exec-4] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
-2025-09-25 20:16:21 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
-2025-09-25 20:21:55 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 2 class path changes (0 additions, 2 deletions, 0 modifications)
-2025-09-25 20:21:55 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-25 20:21:55 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-25 20:21:55 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 20:21:55 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2025-09-25 20:21:55 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2025-09-25 20:21:55 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 32620 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
-2025-09-25 20:21:55 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-25 20:21:56 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25 20:21:56 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 25 ms. Found 7 JPA repository interfaces.
-2025-09-25 20:21:56 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-09-25 20:21:56 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-25 20:21:56 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-25 20:21:56 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-25 20:21:56 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 415 ms
-2025-09-25 20:21:56 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-25 20:21:56 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-25 20:21:56 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-25 20:21:56 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
-2025-09-25 20:21:56 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@1f2be2df
-2025-09-25 20:21:56 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
-2025-09-25 20:21:56 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-25 20:21:56 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 18:47:40 [http-nio-8080-exec-2] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: pelota mikasa
+2025-09-28 18:47:40 [http-nio-8080-exec-2] INFO  c.p.app.service.ProductoService - Creando nuevo producto: pelota mikasa
+2025-09-28 18:47:40 [http-nio-8080-exec-2] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
+2025-09-28 18:47:40 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-09-28 18:56:54 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-28 18:56:55 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-28 18:56:55 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 18:56:55 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-28 18:56:55 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-28 18:57:00 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 28704 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 18:57:00 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 18:57:00 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-28 18:57:00 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-28 18:57:01 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 18:57:01 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 78 ms. Found 7 JPA repository interfaces.
+2025-09-28 18:57:02 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 18:57:02 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 18:57:02 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 18:57:02 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 18:57:02 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1577 ms
+2025-09-28 18:57:02 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 18:57:02 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-28 18:57:02 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 18:57:02 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 18:57:02 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-28 18:57:02 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3bc40183
+2025-09-28 18:57:02 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-28 18:57:03 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 18:57:03 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-28 18:57:04 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 18:57:04 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 18:57:04 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-28 18:57:06 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 18:57:06 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 18:57:06 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 18:57:06 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 18:57:06 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 18:57:07 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 18:57:07 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 18:57:07 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 18:57:07 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 18:57:07 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 18:57:07 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 7.157 seconds (process running for 7.722)
+2025-09-28 18:57:09 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-28 18:57:09 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@42948802
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@5833b6c
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-28 18:57:09 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /auth/login
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /auth/login
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/login", parameters={}
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.AuthController#login(LoginRequestDTO)
+2025-09-28 18:57:09 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginRequestDTO(email=admin@pretor.com, password=pretorsportadmin100@, rememberMe=false)]
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG o.s.s.a.d.DaoAuthenticationProvider - Authenticated user
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* UPDATE
+        Usuario u 
+    SET
+        u.ultimoAcceso = :fechaAcceso 
+    WHERE
+        u.email = :email */ update usuarios u1_0 
+    set
+        ultimo_acceso=? 
+    where
+        u1_0.email=?
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 18:57:10 [http-nio-8080-exec-1] INFO  c.p.app.service.AuthService - Usuario autenticado exitosamente: admin@pretor.com con rol: ROLE_ADMIN
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [AuthResponseDTO(accessToken=eyJhbGciOiJIUzUxMiJ9.eyJ0eXBlIjoiQUNDRVNTIiwidXNlcklkIjoxLCJyb2wiOiJST0x (truncated)...]
+2025-09-28 18:57:10 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 18:57:30 [http-nio-8080-exec-3] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {categoriaId=La categoría es obligatoria}
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T18:57:30.734606300, status=400, error=Erro (truncated)...]
+2025-09-28 18:57:30 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO): [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] ]
+2025-09-28 18:57:30 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 18:58:14 [http-nio-8080-exec-6] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {categoriaId=La categoría es obligatoria}
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T18:58:14.174368800, status=400, error=Erro (truncated)...]
+2025-09-28 18:58:14 [http-nio-8080-exec-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO): [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] ]
+2025-09-28 18:58:14 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 19:05:07 [http-nio-8080-exec-7] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {categoriaId=La categoría es obligatoria}
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T19:05:07.632505100, status=400, error=Erro (truncated)...]
+2025-09-28 19:05:07 [http-nio-8080-exec-7] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO): [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] ]
+2025-09-28 19:05:07 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 19:20:00 [http-nio-8080-exec-10] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {categoriaId=La categoría es obligatoria}
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T19:20:00.506876300, status=400, error=Erro (truncated)...]
+2025-09-28 19:20:00 [http-nio-8080-exec-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO): [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] ]
+2025-09-28 19:20:00 [http-nio-8080-exec-10] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 19:20:15 [http-nio-8080-exec-8] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {categoriaId=La categoría es obligatoria}
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T19:20:15.233252400, status=400, error=Erro (truncated)...]
+2025-09-28 19:20:15 [http-nio-8080-exec-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO): [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] ]
+2025-09-28 19:20:15 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 19:21:07 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-28 19:21:07 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-28 19:21:07 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:21:07 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-28 19:21:07 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-28 19:21:13 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 17832 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 19:21:13 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 19:21:13 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-28 19:21:13 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-28 19:21:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 19:21:13 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 7 JPA repository interfaces.
+2025-09-28 19:21:14 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 19:21:14 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 19:21:14 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 19:21:14 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 19:21:14 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1387 ms
+2025-09-28 19:21:14 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 19:21:14 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-28 19:21:14 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 19:21:15 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 19:21:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-28 19:21:15 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4e6088af
+2025-09-28 19:21:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-28 19:21:15 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 19:21:15 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-28 19:21:16 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 19:21:16 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:21:17 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-28 19:21:18 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 19:21:18 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 19:21:18 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 19:21:18 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 19:21:18 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 19:21:18 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 19:21:19 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 19:21:19 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 19:21:19 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 19:21:19 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 19:21:19 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 6.348 seconds (process running for 6.9)
+2025-09-28 19:21:21 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-28 19:21:21 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@62d26d31
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@158fb5c7
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-28 19:21:21 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 19:21:21 [http-nio-8080-exec-1] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {imagenUrlValid=Debe proporcionarse al menos una imagen, categoriaId=La categoría es obligatoria}
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T19:21:21.609291600, status=400, error=Erro (truncated)...]
+2025-09-28 19:21:21 [http-nio-8080-exec-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO) with 2 errors: [Field error in object 'productoRequestDTO' on field 'imagenUrlValid': rejected value [false]; codes [AssertTrue.productoRequestDTO.imagenUrlValid,AssertTrue.imagenUrlValid,AssertTrue.boolean,AssertTrue]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.imagenUrlValid,imagenUrlValid]; arguments []; default message [imagenUrlValid]]; default message [Debe proporcionarse al menos una imagen]] [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] ]
+2025-09-28 19:21:21 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 19:23:11 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 1 deletion, 0 modifications)
+2025-09-28 19:23:11 [Thread-5] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-28 19:23:12 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-28 19:23:12 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:23:12 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-28 19:23:12 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-28 19:23:12 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 17832 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 19:23:12 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 19:23:12 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 19:23:12 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 7 JPA repository interfaces.
+2025-09-28 19:23:12 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 19:23:12 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 19:23:12 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 19:23:12 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 19:23:12 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 330 ms
+2025-09-28 19:23:12 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 19:23:12 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 19:23:12 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 19:23:12 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-09-28 19:23:12 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@1b5fb8
+2025-09-28 19:23:12 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-09-28 19:23:12 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 19:23:12 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
 	Database driver: undefined/unknown
 	Database version: 17.0
@@ -201,43 +584,43 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-09-25 20:21:56 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-25 20:21:56 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 20:21:56 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-25 20:21:56 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-25 20:21:57 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-25 20:21:57 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
-2025-09-25 20:21:57 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-09-25 20:21:57 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-09-25 20:21:57 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-09-25 20:21:57 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-09-25 20:21:57 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-09-25 20:21:57 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-09-25 20:21:57 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 1.573 seconds (process running for 411.298)
-2025-09-25 20:21:57 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2025-09-25 20:21:58 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 2 class path changes (2 additions, 0 deletions, 0 modifications)
-2025-09-25 20:21:58 [Thread-7] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-25 20:21:59 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-25 20:21:59 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 20:21:59 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
-2025-09-25 20:21:59 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
-2025-09-25 20:21:59 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 32620 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
-2025-09-25 20:21:59 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
-2025-09-25 20:21:59 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-09-25 20:21:59 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 7 JPA repository interfaces.
-2025-09-25 20:21:59 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2025-09-25 20:21:59 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2025-09-25 20:21:59 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
-2025-09-25 20:21:59 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
-2025-09-25 20:21:59 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 326 ms
-2025-09-25 20:21:59 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-09-25 20:21:59 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
-2025-09-25 20:21:59 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-09-25 20:21:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
-2025-09-25 20:21:59 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@4c570dd1
-2025-09-25 20:21:59 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
-2025-09-25 20:21:59 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-09-25 20:21:59 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2025-09-28 19:23:12 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 19:23:13 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:23:13 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 19:23:13 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 19:23:13 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 19:23:13 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 19:23:13 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 19:23:13 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 19:23:13 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 19:23:13 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 19:23:13 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 19:23:13 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 19:23:13 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 1.321 seconds (process running for 121.208)
+2025-09-28 19:23:13 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-09-28 19:23:14 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2025-09-28 19:23:14 [Thread-7] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-28 19:23:15 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-28 19:23:15 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:23:15 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-09-28 19:23:15 [Thread-7] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-09-28 19:23:15 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 17832 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 19:23:15 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 19:23:15 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 19:23:15 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 21 ms. Found 7 JPA repository interfaces.
+2025-09-28 19:23:15 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 19:23:15 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 19:23:15 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 19:23:15 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 19:23:15 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 259 ms
+2025-09-28 19:23:15 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 19:23:15 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 19:23:15 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 19:23:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-09-28 19:23:15 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.postgresql.jdbc.PgConnection@24b1030f
+2025-09-28 19:23:15 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-09-28 19:23:15 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 19:23:15 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
 	Database driver: undefined/unknown
 	Database version: 17.0
@@ -245,31 +628,31 @@
 	Isolation level: undefined/unknown
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2025-09-25 20:21:59 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-09-25 20:22:00 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 20:22:00 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
-2025-09-25 20:22:00 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
-2025-09-25 20:22:00 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-09-25 20:22:00 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
-2025-09-25 20:22:00 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2025-09-25 20:22:00 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
-2025-09-25 20:22:00 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2025-09-25 20:22:00 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
-2025-09-25 20:22:00 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
-2025-09-25 20:22:00 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2025-09-25 20:22:00 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 1.516 seconds (process running for 414.552)
-2025-09-25 20:22:00 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
-2025-09-25 20:44:08 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2025-09-25 20:44:08 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@1569e742
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@569c5b51
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2025-09-25 20:44:08 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 33 ms
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+2025-09-28 19:23:15 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 19:23:16 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:23:16 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 19:23:16 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 19:23:16 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 19:23:16 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 19:23:16 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 19:23:16 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 19:23:16 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 19:23:16 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 19:23:16 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 19:23:16 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 19:23:16 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 1.389 seconds (process running for 124.287)
+2025-09-28 19:23:16 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-09-28 19:26:54 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-28 19:26:54 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@7fdb67c1
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@55216658
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-28 19:26:54 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -290,20 +673,73 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:44:08 [http-nio-8080-exec-2] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: pelota mikasa
-2025-09-25 20:44:08 [http-nio-8080-exec-2] INFO  c.p.app.service.ProductoService - Creando nuevo producto: pelota mikasa
-2025-09-25 20:44:08 [http-nio-8080-exec-2] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
-2025-09-25 20:44:08 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 19:26:54 [http-nio-8080-exec-3] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {imagenUrlValid=Debe proporcionarse al menos una imagen, categoriaId=La categoría es obligatoria}
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T19:26:54.290921800, status=400, error=Erro (truncated)...]
+2025-09-28 19:26:54 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO) with 2 errors: [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] [Field error in object 'productoRequestDTO' on field 'imagenUrlValid': rejected value [false]; codes [AssertTrue.productoRequestDTO.imagenUrlValid,AssertTrue.imagenUrlValid,AssertTrue.boolean,AssertTrue]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.imagenUrlValid,imagenUrlValid]; arguments []; default message [imagenUrlValid]]; default message [Debe proporcionarse al menos una imagen]] ]
+2025-09-28 19:26:54 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 19:28:10 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-28 19:28:10 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-28 19:28:10 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:28:10 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-09-28 19:28:10 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-09-28 19:28:16 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 24148 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 19:28:16 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 19:28:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-28 19:28:16 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-28 19:28:17 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 19:28:17 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 7 JPA repository interfaces.
+2025-09-28 19:28:17 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 19:28:17 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 19:28:17 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 19:28:17 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 19:28:17 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1244 ms
+2025-09-28 19:28:17 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 19:28:17 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-28 19:28:17 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 19:28:18 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 19:28:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-28 19:28:18 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6ac49387
+2025-09-28 19:28:18 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-28 19:28:18 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 19:28:18 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-28 19:28:19 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 19:28:19 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:28:19 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-28 19:28:21 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 19:28:21 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 19:28:21 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 19:28:21 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 19:28:21 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 19:28:21 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 19:28:21 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 19:28:21 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 19:28:22 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 19:28:22 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 19:28:22 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 5.947 seconds (process running for 6.487)
+2025-09-28 19:28:27 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-28 19:28:27 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@64cdf5be
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@5e27c273
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-28 19:28:27 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -324,20 +760,73 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:44:30 [http-nio-8080-exec-4] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: pelota mikasa
-2025-09-25 20:44:30 [http-nio-8080-exec-4] INFO  c.p.app.service.ProductoService - Creando nuevo producto: pelota mikasa
-2025-09-25 20:44:30 [http-nio-8080-exec-4] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
-2025-09-25 20:44:30 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:28:27 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:28:28 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:28:28 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Using @ExceptionHandler com.pretor_sport.app.config.GlobalExceptionHandler#handleValidationExceptions(MethodArgumentNotValidException, WebRequest)
+2025-09-28 19:28:28 [http-nio-8080-exec-2] WARN  c.p.a.config.GlobalExceptionHandler - Errores de validación: {imagenUrlValid=Debe proporcionarse al menos una imagen, categoriaId=La categoría es obligatoria}
+2025-09-28 19:28:28 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:28:28 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [GlobalExceptionHandler.ErrorResponse(timestamp=2025-09-28T19:28:28.115418200, status=400, error=Erro (truncated)...]
+2025-09-28 19:28:28 [http-nio-8080-exec-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public org.springframework.http.ResponseEntity<?> com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO) with 2 errors: [Field error in object 'productoRequestDTO' on field 'categoriaId': rejected value [null]; codes [NotNull.productoRequestDTO.categoriaId,NotNull.categoriaId,NotNull.java.lang.Long,NotNull]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.categoriaId,categoriaId]; arguments []; default message [categoriaId]]; default message [La categoría es obligatoria]] [Field error in object 'productoRequestDTO' on field 'imagenUrlValid': rejected value [false]; codes [AssertTrue.productoRequestDTO.imagenUrlValid,AssertTrue.imagenUrlValid,AssertTrue.boolean,AssertTrue]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [productoRequestDTO.imagenUrlValid,imagenUrlValid]; arguments []; default message [imagenUrlValid]]; default message [Debe proporcionarse al menos una imagen]] ]
+2025-09-28 19:28:28 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 400 BAD_REQUEST
+2025-09-28 19:31:03 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-28 19:31:04 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-28 19:31:04 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:31:04 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-28 19:31:04 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-28 19:31:09 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 25416 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 19:31:09 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 19:31:09 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-28 19:31:09 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-28 19:31:10 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 19:31:10 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 77 ms. Found 7 JPA repository interfaces.
+2025-09-28 19:31:11 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 19:31:11 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 19:31:11 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 19:31:11 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 19:31:11 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1812 ms
+2025-09-28 19:31:11 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 19:31:11 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-28 19:31:11 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 19:31:12 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 19:31:12 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-28 19:31:12 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@22b0c898
+2025-09-28 19:31:12 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-28 19:31:12 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 19:31:12 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-28 19:31:13 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 19:31:13 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:31:13 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-28 19:31:15 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 19:31:15 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 19:31:16 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 19:31:16 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 19:31:16 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 19:31:16 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 19:31:16 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 19:31:16 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 19:31:16 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 19:31:16 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 19:31:16 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 7.398 seconds (process running for 7.907)
+2025-09-28 19:31:35 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-28 19:31:35 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@67c19ad7
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@1e538d0b
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-28 19:31:35 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -358,20 +847,21 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 20:58:32 [http-nio-8080-exec-6] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: pelota mikasa
-2025-09-25 20:58:32 [http-nio-8080-exec-6] INFO  c.p.app.service.ProductoService - Creando nuevo producto: pelota mikasa
-2025-09-25 20:58:32 [http-nio-8080-exec-6] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
-2025-09-25 20:58:32 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:31:35 [http-nio-8080-exec-1] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:31:36 [http-nio-8080-exec-1] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:31:36 [http-nio-8080-exec-1] INFO  c.p.a.controller.ProductoController - Request DTO recibido: ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de alto rendimiento con tecnología de amortiguación avanzada. Ideales para corredores de larga distancia., precio=180.50, stock=50, imagenUrl=null, categoriaId=null, proveedorId=null, marca=Adidas, modelo=UltraBoost 2.0, talla=TALLA_42.5, color=Negro/Blanco, genero=HOMBRE, material=Primeknit, peso=0.31, caracteristicas=[Suela de caucho Continental™ para un agarre óptimo, Mediasuela Boost para una amortiguación receptiva, Parte superior de tejido Primeknit que se adapta al pie])
+2025-09-28 19:31:36 [http-nio-8080-exec-1] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: Zapatillas de Running UltraBoost 2.0
+2025-09-28 19:31:36 [http-nio-8080-exec-1] INFO  c.p.app.service.ProductoService - Creando nuevo producto: Zapatillas de Running UltraBoost 2.0
+2025-09-28 19:31:36 [http-nio-8080-exec-1] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
+2025-09-28 19:31:36 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:31:36 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{error=Error interno, message=Error inesperado al crear producto}]
+2025-09-28 19:31:36 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG org.hibernate.SQL - 
     /* <criteria> */ select
         u1_0.id,
         u1_0.activo,
@@ -392,20 +882,342 @@
     where
         u1_0.email=? 
         and u1_0.activo=?
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=pelota mikasa, descripcion=pelota tamaño 5 mikasa blanca, precio=80.00, st (truncated)...]
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
-2025-09-25 21:00:12 [http-nio-8080-exec-7] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: pelota mikasa
-2025-09-25 21:00:12 [http-nio-8080-exec-7] INFO  c.p.app.service.ProductoService - Creando nuevo producto: pelota mikasa
-2025-09-25 21:00:12 [http-nio-8080-exec-7] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
-2025-09-25 21:00:12 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
-2025-09-25 21:10:32 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2025-09-25 21:10:33 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
-2025-09-25 21:10:33 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2025-09-25 21:10:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
-2025-09-25 21:10:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:35:12 [http-nio-8080-exec-4] INFO  c.p.a.controller.ProductoController - Request DTO recibido: ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de alto rendimiento con tecnología de amortiguación avanzada. Ideales para corredores de larga distancia., precio=180.50, stock=50, imagenUrl=null, categoriaId=null, proveedorId=null, marca=Adidas, modelo=UltraBoost 2.0, talla=TALLA_42.5, color=Negro/Blanco, genero=HOMBRE, material=Primeknit, peso=0.31, caracteristicas=[Suela de caucho Continental™ para un agarre óptimo, Mediasuela Boost para una amortiguación receptiva, Parte superior de tejido Primeknit que se adapta al pie])
+2025-09-28 19:35:12 [http-nio-8080-exec-4] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: Zapatillas de Running UltraBoost 2.0
+2025-09-28 19:35:12 [http-nio-8080-exec-4] INFO  c.p.app.service.ProductoService - Creando nuevo producto: Zapatillas de Running UltraBoost 2.0
+2025-09-28 19:35:12 [http-nio-8080-exec-4] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{error=Error interno, message=Error inesperado al crear producto}]
+2025-09-28 19:35:12 [http-nio-8080-exec-4] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=..., descripcion=..., precio=180.50, stock=50, imagenUrl=null, categoriaId (truncated)...]
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:36:25 [http-nio-8080-exec-7] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:36:25 [http-nio-8080-exec-7] INFO  c.p.a.controller.ProductoController - Request DTO recibido: ProductoRequestDTO(nombre=..., descripcion=..., precio=180.50, stock=50, imagenUrl=null, categoriaId=null, proveedorId=null, marca=..., modelo=..., talla=..., color=..., genero=..., material=..., peso=0.31, caracteristicas=[])
+2025-09-28 19:36:25 [http-nio-8080-exec-7] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: ...
+2025-09-28 19:36:25 [http-nio-8080-exec-7] INFO  c.p.app.service.ProductoService - Creando nuevo producto: ...
+2025-09-28 19:36:25 [http-nio-8080-exec-7] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
+2025-09-28 19:36:26 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:36:26 [http-nio-8080-exec-7] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{error=Error interno, message=Error inesperado al crear producto}]
+2025-09-28 19:36:26 [http-nio-8080-exec-7] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-09-28 19:38:33 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-28 19:38:33 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-28 19:38:33 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:38:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-28 19:38:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-28 19:38:39 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 18904 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-09-28 19:38:39 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-09-28 19:38:39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-28 19:38:39 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-28 19:38:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-28 19:38:39 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 82 ms. Found 7 JPA repository interfaces.
+2025-09-28 19:38:40 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-28 19:38:40 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-28 19:38:40 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-09-28 19:38:40 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-28 19:38:40 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1368 ms
+2025-09-28 19:38:40 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-28 19:38:40 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-09-28 19:38:40 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-28 19:38:40 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-28 19:38:40 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-28 19:38:41 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@35c08ec7
+2025-09-28 19:38:41 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-28 19:38:41 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-28 19:38:41 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-28 19:38:42 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-28 19:38:42 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-28 19:38:42 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-28 19:38:43 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-28 19:38:43 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-28 19:38:44 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-28 19:38:44 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-09-28 19:38:44 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-09-28 19:38:44 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-09-28 19:38:44 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-09-28 19:38:44 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-09-28 19:38:44 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-28 19:38:44 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-28 19:38:44 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 6.034 seconds (process running for 6.519)
+2025-09-28 19:38:54 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-28 19:38:54 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@71f01d43
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@83a8313
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-09-28 19:38:54 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=..., descripcion=..., precio=180.50, stock=50, imagenUrl=null, categoriaId (truncated)...]
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:38:54 [http-nio-8080-exec-2] INFO  c.p.a.controller.ProductoController - Request DTO recibido: ProductoRequestDTO(nombre=..., descripcion=..., precio=180.50, stock=50, imagenUrl=null, categoriaId=null, proveedorId=null, marca=..., modelo=..., talla=..., color=..., genero=..., material=..., peso=0.31, caracteristicas=[])
+2025-09-28 19:38:54 [http-nio-8080-exec-2] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: ...
+2025-09-28 19:38:54 [http-nio-8080-exec-2] INFO  c.p.app.service.ProductoService - Creando nuevo producto: ...
+2025-09-28 19:38:54 [http-nio-8080-exec-2] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
+2025-09-28 19:38:54 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=..., descripcion=..., precio=180.50, stock=50, imagenUrl=null, categoriaId (truncated)...]
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:39:19 [http-nio-8080-exec-3] INFO  c.p.a.controller.ProductoController - Request DTO recibido: ProductoRequestDTO(nombre=..., descripcion=..., precio=180.50, stock=50, imagenUrl=null, categoriaId=null, proveedorId=null, marca=..., modelo=..., talla=..., color=..., genero=..., material=..., peso=0.31, caracteristicas=[])
+2025-09-28 19:39:19 [http-nio-8080-exec-3] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: ...
+2025-09-28 19:39:19 [http-nio-8080-exec-3] INFO  c.p.app.service.ProductoService - Creando nuevo producto: ...
+2025-09-28 19:39:19 [http-nio-8080-exec-3] ERROR c.p.a.controller.ProductoController - Error inesperado al crear producto: The given id must not be null
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [{message=Error inesperado al crear producto, error=Error interno}]
+2025-09-28 19:39:19 [http-nio-8080-exec-3] DEBUG o.s.web.servlet.DispatcherServlet - Completed 500 INTERNAL_SERVER_ERROR
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de (truncated)...]
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:42:23 [http-nio-8080-exec-6] INFO  c.p.a.controller.ProductoController - Request DTO recibido: ProductoRequestDTO(nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de running de alto rendimiento., precio=180.50, stock=50, imagenUrl=https://example.com/image.jpg, categoriaId=4, proveedorId=1, marca=Adidas, modelo=UltraBoost 2.0, talla=TALLA_42, color=Negro/Blanco, genero=HOMBRE, material=Primeknit, peso=0.31, caracteristicas=[Suela de caucho Continental., Mediasuela Boost.])
+2025-09-28 19:42:23 [http-nio-8080-exec-6] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: Zapatillas de Running UltraBoost 2.0
+2025-09-28 19:42:23 [http-nio-8080-exec-6] INFO  c.p.app.service.ProductoService - Creando nuevo producto: Zapatillas de Running UltraBoost 2.0
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.activa,
+        c1_0.descripcion,
+        c1_0.fecha_actualizacion,
+        c1_0.fecha_creacion,
+        c1_0.icono_url,
+        c1_0.nombre,
+        c1_0.orden,
+        c1_0.tipo 
+    from
+        categorias c1_0 
+    where
+        c1_0.id=?
+2025-09-28 19:42:23 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        p1_0.id,
+        p1_0.direccion,
+        p1_0.email,
+        p1_0.nombre,
+        p1_0.ruc,
+        p1_0.telefono 
+    from
+        proveedores p1_0 
+    where
+        p1_0.id=?
+2025-09-28 19:42:24 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* insert for
+        com.pretor_sport.app.model.Producto */insert 
+    into
+        productos (activo, categoria_id, color, descripcion, fecha_actualizacion, fecha_creacion, genero, imagen_url, marca, material, modelo, nombre, peso, precio, proveedor_id, stock, talla) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-09-28 19:42:24 [http-nio-8080-exec-6] INFO  c.p.app.service.ProductoService - Producto creado exitosamente con ID: 1
+2025-09-28 19:42:24 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* insert for
+        com.pretor_sport.app.model.Producto.caracteristicas */insert 
+    into
+        producto_caracteristicas (producto_id, caracteristica) 
+    values
+        (?, ?)
+2025-09-28 19:42:24 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* insert for
+        com.pretor_sport.app.model.Producto.caracteristicas */insert 
+    into
+        producto_caracteristicas (producto_id, caracteristica) 
+    values
+        (?, ?)
+2025-09-28 19:42:24 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:42:24 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [ProductoResponseDTO(id=1, nombre=Zapatillas de Running UltraBoost 2.0, descripcion=Zapatillas de run (truncated)...]
+2025-09-28 19:42:24 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 201 CREATED
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Securing POST /productos/add
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* <criteria> */ select
+        u1_0.id,
+        u1_0.activo,
+        u1_0.apellidos,
+        u1_0.direccion,
+        u1_0.email,
+        u1_0.email_verificado,
+        u1_0.fecha_actualizacion,
+        u1_0.fecha_registro,
+        u1_0.nombre,
+        u1_0.password,
+        u1_0.rol,
+        u1_0.telefono,
+        u1_0.token_verificacion,
+        u1_0.ultimo_acceso 
+    from
+        usuarios u1_0 
+    where
+        u1_0.email=? 
+        and u1_0.activo=?
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.security.web.FilterChainProxy - Secured POST /productos/add
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - POST "/productos/add", parameters={}
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#crearProducto(ProductoRequestDTO)
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [ProductoRequestDTO(nombre=Pelota MiKasa 2.5, descripcion=Pelota de cuero MiKasa UltraBoost 5.1, prec (truncated)...]
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorizing method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.s.a.m.AuthorizationManagerBeforeMethodInterceptor - Authorized method invocation ReflectiveMethodInvocation: public org.springframework.http.ResponseEntity com.pretor_sport.app.controller.ProductoController.crearProducto(com.pretor_sport.app.dto.request.ProductoRequestDTO); target is of class [com.pretor_sport.app.controller.ProductoController]
+2025-09-28 19:47:10 [http-nio-8080-exec-9] INFO  c.p.a.controller.ProductoController - Request DTO recibido: ProductoRequestDTO(nombre=Pelota MiKasa 2.5, descripcion=Pelota de cuero MiKasa UltraBoost 5.1, precio=80.00, stock=20, imagenUrl=https://example.com/image.jpg, categoriaId=4, proveedorId=1, marca=MiKasa, modelo=UltraBoost 5.1, talla=TALLA_5, color=Negro/Blanco, genero=HOMBRE, material=Cuero, peso=0.90, caracteristicas=[Cuero sintetico anti-esppinas, Tamaño Boost para un mejor agarre])
+2025-09-28 19:47:10 [http-nio-8080-exec-9] INFO  c.p.a.controller.ProductoController - Creando nuevo producto: Pelota MiKasa 2.5
+2025-09-28 19:47:10 [http-nio-8080-exec-9] INFO  c.p.app.service.ProductoService - Creando nuevo producto: Pelota MiKasa 2.5
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.activa,
+        c1_0.descripcion,
+        c1_0.fecha_actualizacion,
+        c1_0.fecha_creacion,
+        c1_0.icono_url,
+        c1_0.nombre,
+        c1_0.orden,
+        c1_0.tipo 
+    from
+        categorias c1_0 
+    where
+        c1_0.id=?
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    select
+        p1_0.id,
+        p1_0.direccion,
+        p1_0.email,
+        p1_0.nombre,
+        p1_0.ruc,
+        p1_0.telefono 
+    from
+        proveedores p1_0 
+    where
+        p1_0.id=?
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* insert for
+        com.pretor_sport.app.model.Producto */insert 
+    into
+        productos (activo, categoria_id, color, descripcion, fecha_actualizacion, fecha_creacion, genero, imagen_url, marca, material, modelo, nombre, peso, precio, proveedor_id, stock, talla) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+2025-09-28 19:47:10 [http-nio-8080-exec-9] INFO  c.p.app.service.ProductoService - Producto creado exitosamente con ID: 2
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* insert for
+        com.pretor_sport.app.model.Producto.caracteristicas */insert 
+    into
+        producto_caracteristicas (producto_id, caracteristica) 
+    values
+        (?, ?)
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG org.hibernate.SQL - 
+    /* insert for
+        com.pretor_sport.app.model.Producto.caracteristicas */insert 
+    into
+        producto_caracteristicas (producto_id, caracteristica) 
+    values
+        (?, ?)
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [ProductoResponseDTO(id=2, nombre=Pelota MiKasa 2.5, descripcion=Pelota de cuero MiKasa UltraBoost 5. (truncated)...]
+2025-09-28 19:47:10 [http-nio-8080-exec-9] DEBUG o.s.web.servlet.DispatcherServlet - Completed 201 CREATED
