@@ -38,7 +38,7 @@ public class ProductoService {
         
         //validar y crear objeto de paginación
         String ordenarPor = filtros.getOrdenarPor();
-        List<String> camposValidos = List.of("nombre", "precio", "marca", "modelo", "fechaCreacion");
+        List<String> camposValidos = List.of("nombre", "precio", "marca", "modelo", "fechaCreacion", "stock", "genero", "peso");
         if (ordenarPor == null || !camposValidos.contains(ordenarPor)) {
             ordenarPor = "nombre"; //campo por defecto
         }

@@ -1,5 +1,4 @@
 -- Database: pretor_sport_db
-
 -- DROP DATABASE IF EXISTS pretor_sport_db;
 
 CREATE DATABASE pretor_sport_db
@@ -14,9 +13,7 @@ CREATE DATABASE pretor_sport_db
     IS_TEMPLATE = False;
 
 SELECT * FROM productos;
-
 SELECT * FROM Usuarios;
-
 SELECT * FROM categorias;
 SELECT * FROM proveedores;
 
