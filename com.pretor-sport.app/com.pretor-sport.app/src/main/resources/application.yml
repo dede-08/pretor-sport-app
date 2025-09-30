@@ -26,7 +26,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: true  # Cambia a true temporalmente para debugging
     properties:
       hibernate:
@@ -80,7 +80,7 @@ app:
       low-stock-threshold: 5
       out-of-stock-threshold: 0
   images:
-    base-url: http://localhost:8080/api/images
+    base-url: http://localhost:8080/images
     upload-dir: uploads/images
     allowed-extensions: jpg,jpeg,png,gif,webp
     max-size: 5MB

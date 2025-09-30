@@ -29,16 +29,16 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     
     //metodo personalizado para filtrar productos con múltiples criterios
     @Query("SELECT p FROM Producto p WHERE " +
-           "(:busqueda IS NULL OR LOWER(p.nombre) LIKE LOWER(CONCAT('%', :busqueda, '%')) OR " +
-           "LOWER(p.descripcion) LIKE LOWER(CONCAT('%', :busqueda, '%'))) AND " +
+           "(:busqueda IS NULL OR p.nombre LIKE CONCAT('%', :busqueda, '%') OR " +
+           "p.descripcion LIKE CONCAT('%', :busqueda, '%')) AND " +
            "(:categoriaIds IS NULL OR p.categoria.id IN :categoriaIds) AND " +
-           "(:marca IS NULL OR LOWER(p.marca) LIKE LOWER(CONCAT('%', :marca, '%'))) AND " +
+           "(:marca IS NULL OR p.marca LIKE CONCAT('%', :marca, '%')) AND " +
            "(:precioMin IS NULL OR p.precio >= :precioMin) AND " +
            "(:precioMax IS NULL OR p.precio <= :precioMax) AND " +
            "(:tallas IS NULL OR p.talla IN :tallas) AND " +
            "(:colores IS NULL OR p.color IN :colores) AND " +
            "(:genero IS NULL OR p.genero = :genero) AND " +
-           "(:materiales IS NULL OR LOWER(p.material) IN :materiales) AND " +
+           "(:materiales IS NULL OR p.material IN :materiales) AND " +
            "(:soloDisponibles = false OR (p.activo = true AND p.stock > 0)) AND " +
            "(:pesoMin IS NULL OR p.peso >= :pesoMin) AND " +
            "(:pesoMax IS NULL OR p.peso <= :pesoMax)")
