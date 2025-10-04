@@ -24,14 +24,7 @@ VALUES ('Av. Los Maestros 23423', 'adidas@sport.com', 'Adidas', '5352-AD', '9826
 INSERT INTO categorias (activa, descripcion, fecha_actualizacion, fecha_creacion, icono_url, nombre, orden, tipo)
 VALUES (TRUE, 'Zapatillas deportivas', NOW(), NOW(), 'Zapatillas.png', 'Zapatillas', 2, 'EQUIPAMIENTO');
 
--- Si 'nombre' es bytea:
-      ALTER TABLE productos ALTER COLUMN nombre TYPE TEXT;
-
-      -- Si 'descripcion' es bytea:
-      ALTER TABLE productos ALTER COLUMN descripcion TYPE TEXT;
-
-      -- Si 'marca' es bytea:
-      ALTER TABLE productos ALTER COLUMN marca TYPE TEXT;
-
-      -- Si 'material' es bytea:
-      ALTER TABLE productos ALTER COLUMN material TYPE TEXT;
+ALTER TABLE productos ALTER COLUMN material TYPE VARCHAR(50);
+ALTER TABLE productos ALTER COLUMN nombre TYPE VARCHAR(100);
+ALTER TABLE productos ALTER COLUMN descripcion TYPE VARCHAR(1000);
+ALTER TABLE productos ALTER COLUMN marca TYPE VARCHAR(50);

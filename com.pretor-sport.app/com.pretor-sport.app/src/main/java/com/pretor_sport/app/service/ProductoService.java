@@ -55,16 +55,37 @@ public class ProductoService {
             sort
         );
         
+        // Preparar parámetros para LIKE
+        String busquedaLike = null;
+        if (filtros.getBusqueda() != null && !filtros.getBusqueda().isEmpty()) {
+            busquedaLike = "%" + filtros.getBusqueda() + "%";
+        }
+
+        String marcaLike = null;
+        if (filtros.getMarca() != null && !filtros.getMarca().isEmpty()) {
+            marcaLike = "%" + filtros.getMarca() + "%";
+        }
+
+        // Convertir genero a Enum
+        Producto.Genero generoEnum = null;
+        if (filtros.getGenero() != null) {
+            try {
+                generoEnum = Producto.Genero.valueOf(filtros.getGenero().toUpperCase());
+            } catch (IllegalArgumentException e) {
+                log.warn("Valor de genero no válido: {}", filtros.getGenero());
+            }
+        }
+
         //aplicar filtros y obtener productos
         Page<Producto> productos = productoRepository.findProductosConFiltros(
-            filtros.getBusqueda(),
+            busquedaLike,
             filtros.getCategoriaIds(),
-            filtros.getMarca(),
+            marcaLike,
             filtros.getPrecioMin(),
             filtros.getPrecioMax(),
             filtros.getTallas(),
             filtros.getColores(),
-            filtros.getGenero(),
+            generoEnum,
             filtros.getMateriales(),
             filtros.getSoloDisponibles(),
             filtros.getPesoMin(),

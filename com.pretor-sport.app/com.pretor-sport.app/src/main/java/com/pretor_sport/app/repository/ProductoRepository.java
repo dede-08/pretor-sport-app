@@ -29,10 +29,9 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     
     //metodo personalizado para filtrar productos con múltiples criterios
     @Query("SELECT p FROM Producto p WHERE " +
-           "(:busqueda IS NULL OR p.nombre LIKE CONCAT('%', :busqueda, '%') OR " +
-           "p.descripcion LIKE CONCAT('%', :busqueda, '%')) AND " +
+           "(:busqueda IS NULL OR p.nombre LIKE :busqueda OR p.descripcion LIKE :busqueda) AND " +
            "(:categoriaIds IS NULL OR p.categoria.id IN :categoriaIds) AND " +
-           "(:marca IS NULL OR p.marca LIKE CONCAT('%', :marca, '%')) AND " +
+           "(:marca IS NULL OR p.marca LIKE :marca) AND " +
            "(:precioMin IS NULL OR p.precio >= :precioMin) AND " +
            "(:precioMax IS NULL OR p.precio <= :precioMax) AND " +
            "(:tallas IS NULL OR p.talla IN :tallas) AND " +
@@ -50,7 +49,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
             @Param("precioMax") BigDecimal precioMax,
             @Param("tallas") List<String> tallas,
             @Param("colores") List<String> colores,
-            @Param("genero") String genero,
+            @Param("genero") Producto.Genero genero,
             @Param("materiales") List<String> materiales,
             @Param("soloDisponibles") Boolean soloDisponibles,
             @Param("pesoMin") BigDecimal pesoMin,
