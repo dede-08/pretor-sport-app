@@ -84,7 +84,7 @@ public class Usuario {
     @Column(name = "fecha_actualizacion")
     private LocalDateTime fechaActualizacion;
 
-    // Enum para roles
+    //enum para roles
     public enum Rol {
         ROLE_CLIENTE("Cliente"),
         ROLE_EMPLEADO("Empleado"),
@@ -101,7 +101,7 @@ public class Usuario {
         }
     }
 
-    // Métodos de utilidad
+    //metodos de utilidad
     @Transient
     public String getNombreCompleto() {
         return nombre + " " + apellidos;

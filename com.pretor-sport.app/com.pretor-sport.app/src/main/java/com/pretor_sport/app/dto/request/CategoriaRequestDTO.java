@@ -35,7 +35,7 @@ public class CategoriaRequestDTO {
     
     @Min(value = 0, message = "El orden no puede ser negativo")
     @Max(value = 999, message = "El orden no puede ser mayor a 999")
-    private Integer orden = 0; // Para ordenar las categorías en la interfaz
+    private Integer orden = 0; //para ordenar las categorías en la interfaz
     
-    private Boolean activa = true; // Para activar/desactivar categorías
+    private Boolean activa = true; //para activar/desactivar categorías
 }

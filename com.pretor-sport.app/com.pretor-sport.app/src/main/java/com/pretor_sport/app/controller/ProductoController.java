@@ -228,15 +228,10 @@ public class ProductoController {
         try {
             log.debug("Obteniendo estadísticas de productos");
             
-            // Aquí podrías implementar estadísticas como:
-            // - Total de productos
-            // - Productos por categoría
-            // - Productos con stock bajo
-            // - Productos más vendidos
-            // etc.
+            //inplementar estadisticas de productos aqui
             
             Map<String, Object> estadisticas = Map.of(
-                "totalProductos", 0, // Implementar en el servicio
+                "totalProductos", 0, //implementar en el servicio
                 "productosActivos", 0,
                 "productosConStockBajo", 0,
                 "categoriasConProductos", 0

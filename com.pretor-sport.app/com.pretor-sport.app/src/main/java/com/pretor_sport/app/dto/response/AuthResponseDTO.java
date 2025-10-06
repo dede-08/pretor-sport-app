@@ -16,11 +16,11 @@ public class AuthResponseDTO {
     private String accessToken;
     private String refreshToken;
     private String tokenType = "Bearer";
-    private Long expiresIn; // En segundos
+    private Long expiresIn; //en segundos
     private LocalDateTime issuedAt;
     private LocalDateTime expiresAt;
     
-    // Información del usuario autenticado
+    //info del usuario autenticado
     private UsuarioInfo usuario;
     
     @Data
@@ -39,7 +39,7 @@ public class AuthResponseDTO {
         private LocalDateTime ultimoAcceso;
     }
     
-    // Método de conveniencia para crear una respuesta de autenticación
+    //metodo de conveniencia para crear una respuesta de autenticación
     public static AuthResponseDTO of(String accessToken, String refreshToken, Long expiresIn, 
                                    Long userId, String nombre, String apellidos, String email, 
                                    String rol, Boolean emailVerificado, LocalDateTime ultimoAcceso) {

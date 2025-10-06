@@ -1901,3 +1901,630 @@ Consider defining a bean of type 'com.pretor_sport.app.service.ProductoService' 
 2025-10-04 18:19:00 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
 2025-10-04 18:19:00 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
 2025-10-04 18:19:00 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2025-10-04 18:20:41 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Starting PretorSportBackendApplication using Java 17.0.12 with PID 24708 (C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app\com.pretor-sport.app\target\classes started by Ben in C:\Users\Ben\OneDrive\Desktop\pretor-sport-app\com.pretor-sport.app)
+2025-10-04 18:20:41 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - No active profile set, falling back to 1 default profile: "default"
+2025-10-04 18:20:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-10-04 18:20:41 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-10-04 18:20:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-10-04 18:20:42 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 7 JPA repository interfaces.
+2025-10-04 18:20:43 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-10-04 18:20:43 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-10-04 18:20:43 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.43]
+2025-10-04 18:20:43 [restartedMain] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-10-04 18:20:43 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1445 ms
+2025-10-04 18:20:43 [restartedMain] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-10-04 18:20:43 [restartedMain] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.22.Final
+2025-10-04 18:20:43 [restartedMain] INFO  o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-10-04 18:20:43 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-10-04 18:20:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-10-04 18:20:43 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@43814a9a
+2025-10-04 18:20:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-10-04 18:20:43 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-10-04 18:20:44 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-10-04 18:20:44 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-10-04 18:20:45 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-10-04 18:20:45 [restartedMain] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-10-04 18:20:46 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-10-04 18:20:46 [restartedMain] WARN  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-10-04 18:20:47 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-10-04 18:20:47 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 26 mappings in 'requestMappingHandlerMapping'
+2025-10-04 18:20:47 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2025-10-04 18:20:47 [restartedMain] DEBUG o.s.s.web.DefaultSecurityFilterChain - Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JwtAuthenticationFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-10-04 18:20:47 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-10-04 18:20:47 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-10-04 18:20:47 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-10-04 18:20:47 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-10-04 18:20:47 [restartedMain] INFO  c.p.a.PretorSportBackendApplication - Started PretorSportBackendApplication in 6.528 seconds (process running for 7.117)
+2025-10-04 18:20:50 [http-nio-8080-exec-6] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-10-04 18:20:50 [http-nio-8080-exec-6] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-10-04 18:20:50 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2025-10-04 18:20:50 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2025-10-04 18:20:50 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Detected FixedThemeResolver
+2025-10-04 18:20:50 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@5b1cd317
+2025-10-04 18:20:50 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@551e7af8
+2025-10-04 18:20:50 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2025-10-04 18:20:50 [http-nio-8080-exec-6] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Securing GET /productos?ordenarPor=popularidad&direccion=desc&tamanoPagina=8&pagina=0
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Securing GET /productos?tamanoPagina=12&pagina=0
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Securing GET /productos?ordenarPor=descuento&direccion=desc&tamanoPagina=8&pagina=0
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.s.w.a.AnonymousAuthenticationFilter - Set SecurityContextHolder to anonymous SecurityContext
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.security.web.FilterChainProxy - Secured GET /productos?ordenarPor=descuento&direccion=desc&tamanoPagina=8&pagina=0
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.security.web.FilterChainProxy - Secured GET /productos?ordenarPor=popularidad&direccion=desc&tamanoPagina=8&pagina=0
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.security.web.FilterChainProxy - Secured GET /productos?tamanoPagina=12&pagina=0
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - GET "/productos?ordenarPor=popularidad&direccion=desc&tamanoPagina=8&pagina=0", parameters={masked}
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - GET "/productos?ordenarPor=descuento&direccion=desc&tamanoPagina=8&pagina=0", parameters={masked}
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - GET "/productos?tamanoPagina=12&pagina=0", parameters={masked}
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#listarProductos(String, List, String, String, String, List, List, String, List, Boolean, String, String, String, String, Integer, Integer)
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#listarProductos(String, List, String, String, String, List, List, String, List, Boolean, String, String, String, String, Integer, Integer)
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.pretor_sport.app.controller.ProductoController#listarProductos(String, List, String, String, String, List, List, String, List, Boolean, String, String, String, String, Integer, Integer)
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        p 
+    FROM
+        Producto p 
+    WHERE
+        (
+            :busqueda IS NULL 
+            OR p.nombre LIKE :busqueda_1 
+            OR p.descripcion LIKE :busqueda_1
+        ) 
+        AND (
+            :categoriaIds IS NULL 
+            OR p.categoria.id IN :categoriaIds_1
+        ) 
+        AND (
+            :marca IS NULL 
+            OR p.marca LIKE :marca_1
+        ) 
+        AND (
+            :precioMin IS NULL 
+            OR p.precio >= :precioMin
+        ) 
+        AND (
+            :precioMax IS NULL 
+            OR p.precio <= :precioMax
+        ) 
+        AND (
+            :tallas IS NULL 
+            OR p.talla IN :tallas_1
+        ) 
+        AND (
+            :colores IS NULL 
+            OR p.color IN :colores_1
+        ) 
+        AND (
+            :genero IS NULL 
+            OR p.genero = :genero
+        ) 
+        AND (
+            :materiales IS NULL 
+            OR p.material IN :materiales_1
+        ) 
+        AND (
+            :soloDisponibles = false 
+            OR (
+                p.activo = true 
+                AND p.stock > 0
+            )
+        ) 
+        AND (
+            :pesoMin IS NULL 
+            OR p.peso >= :pesoMin
+        ) 
+        AND (
+            :pesoMax IS NULL 
+            OR p.peso <= :pesoMax
+        ) 
+    order by
+        p.nombre desc */ select
+            p1_0.id,
+            p1_0.activo,
+            p1_0.categoria_id,
+            p1_0.color,
+            p1_0.descripcion,
+            p1_0.fecha_actualizacion,
+            p1_0.fecha_creacion,
+            p1_0.genero,
+            p1_0.imagen_url,
+            p1_0.marca,
+            p1_0.material,
+            p1_0.modelo,
+            p1_0.nombre,
+            p1_0.peso,
+            p1_0.precio,
+            p1_0.proveedor_id,
+            p1_0.stock,
+            p1_0.talla 
+        from
+            productos p1_0 
+        where
+            (
+                ? is null 
+                or p1_0.nombre like ? escape '' 
+                or p1_0.descripcion like ? escape ''
+            ) 
+            and (
+                ? is null 
+                or p1_0.categoria_id in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.marca like ? escape ''
+            ) 
+            and (
+                ? is null 
+                or p1_0.precio>=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.precio<=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.talla in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.color in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.genero=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.material in (?)
+            ) 
+            and (
+                ?=false 
+                or (
+                    p1_0.activo=true 
+                    and p1_0.stock>0
+                )
+            ) 
+            and (
+                ? is null 
+                or p1_0.peso>=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.peso<=?
+            ) 
+        order by
+            p1_0.nombre desc 
+        fetch
+            first ? rows only
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        p 
+    FROM
+        Producto p 
+    WHERE
+        (
+            :busqueda IS NULL 
+            OR p.nombre LIKE :busqueda_1 
+            OR p.descripcion LIKE :busqueda_1
+        ) 
+        AND (
+            :categoriaIds IS NULL 
+            OR p.categoria.id IN :categoriaIds_1
+        ) 
+        AND (
+            :marca IS NULL 
+            OR p.marca LIKE :marca_1
+        ) 
+        AND (
+            :precioMin IS NULL 
+            OR p.precio >= :precioMin
+        ) 
+        AND (
+            :precioMax IS NULL 
+            OR p.precio <= :precioMax
+        ) 
+        AND (
+            :tallas IS NULL 
+            OR p.talla IN :tallas_1
+        ) 
+        AND (
+            :colores IS NULL 
+            OR p.color IN :colores_1
+        ) 
+        AND (
+            :genero IS NULL 
+            OR p.genero = :genero
+        ) 
+        AND (
+            :materiales IS NULL 
+            OR p.material IN :materiales_1
+        ) 
+        AND (
+            :soloDisponibles = false 
+            OR (
+                p.activo = true 
+                AND p.stock > 0
+            )
+        ) 
+        AND (
+            :pesoMin IS NULL 
+            OR p.peso >= :pesoMin
+        ) 
+        AND (
+            :pesoMax IS NULL 
+            OR p.peso <= :pesoMax
+        ) 
+    order by
+        p.nombre desc */ select
+            p1_0.id,
+            p1_0.activo,
+            p1_0.categoria_id,
+            p1_0.color,
+            p1_0.descripcion,
+            p1_0.fecha_actualizacion,
+            p1_0.fecha_creacion,
+            p1_0.genero,
+            p1_0.imagen_url,
+            p1_0.marca,
+            p1_0.material,
+            p1_0.modelo,
+            p1_0.nombre,
+            p1_0.peso,
+            p1_0.precio,
+            p1_0.proveedor_id,
+            p1_0.stock,
+            p1_0.talla 
+        from
+            productos p1_0 
+        where
+            (
+                ? is null 
+                or p1_0.nombre like ? escape '' 
+                or p1_0.descripcion like ? escape ''
+            ) 
+            and (
+                ? is null 
+                or p1_0.categoria_id in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.marca like ? escape ''
+            ) 
+            and (
+                ? is null 
+                or p1_0.precio>=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.precio<=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.talla in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.color in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.genero=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.material in (?)
+            ) 
+            and (
+                ?=false 
+                or (
+                    p1_0.activo=true 
+                    and p1_0.stock>0
+                )
+            ) 
+            and (
+                ? is null 
+                or p1_0.peso>=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.peso<=?
+            ) 
+        order by
+            p1_0.nombre desc 
+        fetch
+            first ? rows only
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        p 
+    FROM
+        Producto p 
+    WHERE
+        (
+            :busqueda IS NULL 
+            OR p.nombre LIKE :busqueda_1 
+            OR p.descripcion LIKE :busqueda_1
+        ) 
+        AND (
+            :categoriaIds IS NULL 
+            OR p.categoria.id IN :categoriaIds_1
+        ) 
+        AND (
+            :marca IS NULL 
+            OR p.marca LIKE :marca_1
+        ) 
+        AND (
+            :precioMin IS NULL 
+            OR p.precio >= :precioMin
+        ) 
+        AND (
+            :precioMax IS NULL 
+            OR p.precio <= :precioMax
+        ) 
+        AND (
+            :tallas IS NULL 
+            OR p.talla IN :tallas_1
+        ) 
+        AND (
+            :colores IS NULL 
+            OR p.color IN :colores_1
+        ) 
+        AND (
+            :genero IS NULL 
+            OR p.genero = :genero
+        ) 
+        AND (
+            :materiales IS NULL 
+            OR p.material IN :materiales_1
+        ) 
+        AND (
+            :soloDisponibles = false 
+            OR (
+                p.activo = true 
+                AND p.stock > 0
+            )
+        ) 
+        AND (
+            :pesoMin IS NULL 
+            OR p.peso >= :pesoMin
+        ) 
+        AND (
+            :pesoMax IS NULL 
+            OR p.peso <= :pesoMax
+        ) 
+    order by
+        p.nombre asc */ select
+            p1_0.id,
+            p1_0.activo,
+            p1_0.categoria_id,
+            p1_0.color,
+            p1_0.descripcion,
+            p1_0.fecha_actualizacion,
+            p1_0.fecha_creacion,
+            p1_0.genero,
+            p1_0.imagen_url,
+            p1_0.marca,
+            p1_0.material,
+            p1_0.modelo,
+            p1_0.nombre,
+            p1_0.peso,
+            p1_0.precio,
+            p1_0.proveedor_id,
+            p1_0.stock,
+            p1_0.talla 
+        from
+            productos p1_0 
+        where
+            (
+                ? is null 
+                or p1_0.nombre like ? escape '' 
+                or p1_0.descripcion like ? escape ''
+            ) 
+            and (
+                ? is null 
+                or p1_0.categoria_id in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.marca like ? escape ''
+            ) 
+            and (
+                ? is null 
+                or p1_0.precio>=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.precio<=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.talla in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.color in (?)
+            ) 
+            and (
+                ? is null 
+                or p1_0.genero=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.material in (?)
+            ) 
+            and (
+                ?=false 
+                or (
+                    p1_0.activo=true 
+                    and p1_0.stock>0
+                )
+            ) 
+            and (
+                ? is null 
+                or p1_0.peso>=?
+            ) 
+            and (
+                ? is null 
+                or p1_0.peso<=?
+            ) 
+        order by
+            p1_0.nombre 
+        fetch
+            first ? rows only
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.activa,
+        c1_0.descripcion,
+        c1_0.fecha_actualizacion,
+        c1_0.fecha_creacion,
+        c1_0.icono_url,
+        c1_0.nombre,
+        c1_0.orden,
+        c1_0.tipo 
+    from
+        categorias c1_0 
+    where
+        c1_0.id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.activa,
+        c1_0.descripcion,
+        c1_0.fecha_actualizacion,
+        c1_0.fecha_creacion,
+        c1_0.icono_url,
+        c1_0.nombre,
+        c1_0.orden,
+        c1_0.tipo 
+    from
+        categorias c1_0 
+    where
+        c1_0.id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.id,
+        c1_0.activa,
+        c1_0.descripcion,
+        c1_0.fecha_actualizacion,
+        c1_0.fecha_creacion,
+        c1_0.icono_url,
+        c1_0.nombre,
+        c1_0.orden,
+        c1_0.tipo 
+    from
+        categorias c1_0 
+    where
+        c1_0.id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        p1_0.id,
+        p1_0.direccion,
+        p1_0.email,
+        p1_0.nombre,
+        p1_0.ruc,
+        p1_0.telefono 
+    from
+        proveedores p1_0 
+    where
+        p1_0.id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        p1_0.id,
+        p1_0.direccion,
+        p1_0.email,
+        p1_0.nombre,
+        p1_0.ruc,
+        p1_0.telefono 
+    from
+        proveedores p1_0 
+    where
+        p1_0.id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        p1_0.id,
+        p1_0.direccion,
+        p1_0.email,
+        p1_0.nombre,
+        p1_0.ruc,
+        p1_0.telefono 
+    from
+        proveedores p1_0 
+    where
+        p1_0.id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-8] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-10-04 18:20:51 [http-nio-8080-exec-6] WARN  o.s.d.w.c.SpringDataJacksonConfiguration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [Page 1 of 1 containing com.pretor_sport.app.dto.response.ProductoResponseDTO instances]
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [Page 1 of 1 containing com.pretor_sport.app.dto.response.ProductoResponseDTO instances]
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [Page 1 of 1 containing com.pretor_sport.app.dto.response.ProductoResponseDTO instances]
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.producto_id,
+        c1_0.caracteristica 
+    from
+        producto_caracteristicas c1_0 
+    where
+        c1_0.producto_id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.producto_id,
+        c1_0.caracteristica 
+    from
+        producto_caracteristicas c1_0 
+    where
+        c1_0.producto_id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.producto_id,
+        c1_0.caracteristica 
+    from
+        producto_caracteristicas c1_0 
+    where
+        c1_0.producto_id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.producto_id,
+        c1_0.caracteristica 
+    from
+        producto_caracteristicas c1_0 
+    where
+        c1_0.producto_id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.producto_id,
+        c1_0.caracteristica 
+    from
+        producto_caracteristicas c1_0 
+    where
+        c1_0.producto_id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    select
+        c1_0.producto_id,
+        c1_0.caracteristica 
+    from
+        producto_caracteristicas c1_0 
+    where
+        c1_0.producto_id=?
+2025-10-04 18:20:51 [http-nio-8080-exec-8] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-04 18:20:51 [http-nio-8080-exec-6] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-04 18:20:51 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-10-04 18:21:06 [SpringApplicationShutdownHook] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-10-04 18:21:06 [tomcat-shutdown] INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-10-04 18:21:06 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-10-04 18:21:06 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-10-04 18:21:06 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

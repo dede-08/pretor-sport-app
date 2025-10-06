@@ -28,7 +28,7 @@ public class Pedido {
     private LocalDateTime fechaCreacion;
 
     @Column(nullable = false, length = 20)
-    private String estado; // E.g., "CARRITO", "PENDIENTE", "COMPLETADO"
+    private String estado; //"CARRITO", "PENDIENTE", "COMPLETADO"
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetallePedido> detalles = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Pedido {
         this.fechaCreacion = LocalDateTime.now();
     }
 
-    // metodo transitorio para calcular el subtotal del pedido
+    //metodo transitorio para calcular el subtotal del pedido
     @Transient
     public BigDecimal getSubtotal() {
         return detalles.stream()

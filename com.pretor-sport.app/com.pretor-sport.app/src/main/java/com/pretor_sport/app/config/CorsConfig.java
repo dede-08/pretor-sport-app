@@ -19,19 +19,19 @@ public class CorsConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // Permitir orígenes específicos (frontend Angular)
+        //permitir orígenes específicos (frontend Angular)
         configuration.setAllowedOriginPatterns(Arrays.asList(
             frontendUrl,
             "http://localhost:4200",
             "http://127.0.0.1:4200"
         ));
         
-        // Métodos HTTP permitidos
+        //metodos HTTP permitidos
         configuration.setAllowedMethods(Arrays.asList(
             "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"
         ));
         
-        // Headers permitidos
+        //headers permitidos
         configuration.setAllowedHeaders(Arrays.asList(
             "Authorization",
             "Content-Type",
@@ -42,7 +42,7 @@ public class CorsConfig {
             "Access-Control-Request-Headers"
         ));
         
-        // Headers expuestos
+        //headers expuestos
         configuration.setExposedHeaders(Arrays.asList(
             "Access-Control-Allow-Origin",
             "Access-Control-Allow-Credentials",
@@ -50,10 +50,10 @@ public class CorsConfig {
             "X-Total-Count"
         ));
         
-        // Permitir credenciales (cookies, headers de autorización, etc.)
+        //permitir credenciales (cookies, headers de autorización, etc.)
         configuration.setAllowCredentials(true);
         
-        // Tiempo de caché para preflight requests
+        //tiempo de caché para preflight requests
         configuration.setMaxAge(3600L);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

@@ -48,8 +48,8 @@ public class VentaService {
             int cantidadSolicitada = detalle.getCantidad();
 
             if (producto.getStock() < cantidadSolicitada) {
-                // Si no hay stock suficiente, se lanza una excepción.
-                // Gracias a @Transactional, todas las operaciones anteriores (si las hubiera) se revierten.
+                //si no hay stock suficiente, se lanza una excepción.
+                //gracias a @Transactional, todas las operaciones anteriores (si las hubiera) se revierten.
                 throw new IllegalStateException("Stock insuficiente para el producto: " + producto.getNombre());
             }
             producto.setStock(producto.getStock() - cantidadSolicitada);

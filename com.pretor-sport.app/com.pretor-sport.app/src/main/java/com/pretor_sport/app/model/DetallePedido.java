@@ -29,9 +29,9 @@ public class DetallePedido {
     private int cantidad;
 
     @Column(name = "precio_unitario", nullable = false, precision = 10, scale = 2)
-    private BigDecimal precioUnitario; // Guarda el precio en el momento de la compra
+    private BigDecimal precioUnitario; //guarda el precio en el momento de la compra
 
-    // Método para calcular el subtotal de esta línea de pedido
+    //metodo para calcular el subtotal de esta línea de pedido
     public BigDecimal getSubtotal() {
         if (precioUnitario == null) {
             return BigDecimal.ZERO;

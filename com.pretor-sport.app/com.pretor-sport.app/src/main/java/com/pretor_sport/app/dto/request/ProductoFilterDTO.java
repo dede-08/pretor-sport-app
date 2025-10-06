@@ -14,9 +14,9 @@ import java.util.List;
 public class ProductoFilterDTO {
     
     @Size(max = 100, message = "El término de búsqueda no puede exceder los 100 caracteres")
-    private String busqueda; // Búsqueda por nombre o descripción
+    private String busqueda; //busqueda por nombre o descripción
     
-    private List<Long> categoriaIds; // Filtrar por categorías
+    private List<Long> categoriaIds; //filtrar por categorías
     
     @Size(max = 50, message = "La marca no puede exceder los 50 caracteres")
     private String marca;
@@ -27,7 +27,7 @@ public class ProductoFilterDTO {
     @DecimalMax(value = "99999.99", message = "El precio máximo no puede ser mayor a 99,999.99")
     private BigDecimal precioMax;
     
-    private List<String> tallas; // XS, S, M, L, XL, etc.
+    private List<String> tallas; //XS, S, M, L, XL, etc.
     
     private List<String> colores;
     
@@ -39,7 +39,7 @@ public class ProductoFilterDTO {
     
     private List<String> materiales;
     
-    private Boolean soloDisponibles = true; // Solo mostrar productos en stock
+    private Boolean soloDisponibles = true; //solo mostrar productos en stock
     
     @DecimalMin(value = "0.01", message = "El peso mínimo debe ser mayor que 0")
     private BigDecimal pesoMin;
@@ -47,7 +47,7 @@ public class ProductoFilterDTO {
     @DecimalMax(value = "999.99", message = "El peso máximo no puede ser mayor a 999.99")
     private BigDecimal pesoMax;
     
-    // Parámetros de ordenamiento y paginación
+    //parametros de ordenamiento y paginación
     @Pattern(
         regexp = "^(nombre|precio|fechaCreacion|popularidad|descuento)$",
         message = "El campo de ordenamiento debe ser: nombre, precio, fechaCreacion, popularidad o descuento"
@@ -67,7 +67,7 @@ public class ProductoFilterDTO {
     @Max(value = 100, message = "El tamaño de página no puede ser mayor a 100")
     private Integer tamanoPagina = 20;
     
-    // Validación personalizada para el rango de precios
+    //validacion personalizada para el rango de precios
     @AssertTrue(message = "El precio máximo debe ser mayor que el precio mínimo")
     public boolean isPrecioRangeValid() {
         if (precioMin != null && precioMax != null) {
@@ -76,7 +76,7 @@ public class ProductoFilterDTO {
         return true;
     }
     
-    // Validación personalizada para el rango de pesos
+    //validacion personalizada para el rango de pesos
     @AssertTrue(message = "El peso máximo debe ser mayor que el peso mínimo")
     public boolean isPesoRangeValid() {
         if (pesoMin != null && pesoMax != null) {

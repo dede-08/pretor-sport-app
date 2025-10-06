@@ -26,5 +26,5 @@ public class CarritoItemRequestDTO {
     private String colorSeleccionado;
     
     @Size(max = 255, message = "Las notas no pueden exceder los 255 caracteres")
-    private String notas; // Notas especiales del cliente
+    private String notas; //notas especiales del cliente
 }

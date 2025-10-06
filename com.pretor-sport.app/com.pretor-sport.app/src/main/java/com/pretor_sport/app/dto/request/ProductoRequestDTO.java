@@ -44,7 +44,7 @@ public class ProductoRequestDTO {
     @Positive(message = "El ID del proveedor debe ser un número positivo")
     private Long proveedorId;
     
-    // Campos específicos para artículos deportivos
+    //campos específicos para artículos deportivos
     @Size(max = 50, message = "La marca no puede exceder los 50 caracteres")
     private String marca;
     
@@ -73,7 +73,7 @@ public class ProductoRequestDTO {
     @DecimalMax(value = "999.99", message = "El peso no puede ser mayor a 999.99 kg")
     private BigDecimal peso; // en kilogramos
     
-    private List<String> caracteristicas; // Lista de características adicionales
+    private List<String> caracteristicas; //lista de características adicionales
     
     @AssertTrue(message = "Debe proporcionarse al menos una imagen")
     public boolean isImagenUrlValid() {

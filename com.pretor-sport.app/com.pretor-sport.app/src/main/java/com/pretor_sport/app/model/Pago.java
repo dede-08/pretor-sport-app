@@ -25,10 +25,10 @@ public class Pago {
     private LocalDateTime fechaPago;
 
     @Column(name = "metodo_pago", nullable = false, length = 50)
-    private String metodoPago; // E.g., "TARJETA_CREDITO", "PAYPAL"
+    private String metodoPago; //"TARJETA_CREDITO", "PAYPAL"
 
     @Column(name = "estado_pago", nullable = false, length = 20)
-    private String estado; // E.g., "APROBADO", "RECHAZADO", "PENDIENTE"
+    private String estado; //"APROBADO", "RECHAZADO", "PENDIENTE"
 
     @Column(name = "id_transaccion", length = 100)
     private String idTransaccion; // ID de la pasarela de pago

@@ -42,9 +42,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Endpoint para registrar nuevo usuario
-     */
+    //registrar nuevo usuario
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UsuarioRequestDTO registroRequest) {
         try {
@@ -61,9 +59,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Endpoint para renovar access token
-     */
+    //renovar access token
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody RefreshTokenRequestDTO refreshRequest) {
         try {
@@ -80,9 +76,7 @@ public class AuthController {
         }
     }
 
-    /**
-     * Endpoint para cerrar sesión
-     */
+    //logout
     @PostMapping("/logout")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<?> logout(HttpServletRequest request) {

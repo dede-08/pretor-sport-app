@@ -20,12 +20,12 @@ public class UsuarioResponseDTO {
     private LocalDateTime fechaRegistro;
     private String rol;
     
-    // Método para obtener el nombre completo
+    //metodo para obtener el nombre completo
     public String getNombreCompleto() {
         return nombre + " " + apellidos;
     }
     
-    // Método para obtener iniciales
+    //metodo para obtener iniciales
     public String getIniciales() {
         String inicial1 = nombre != null && !nombre.isEmpty() ? nombre.substring(0, 1).toUpperCase() : "";
         String inicial2 = apellidos != null && !apellidos.isEmpty() ? apellidos.substring(0, 1).toUpperCase() : "";

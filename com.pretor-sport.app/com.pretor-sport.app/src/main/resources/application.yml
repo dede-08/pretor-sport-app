@@ -27,7 +27,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
-    show-sql: true  # Cambia a true temporalmente para debugging
+    show-sql: true  #cambiar a true temporalmente para debuggear
     properties:
       hibernate:
         format_sql: true
@@ -55,7 +55,7 @@ spring:
       password: ${SPRING_SECURITY_USER_PASSWORD:admin123}
       roles: ADMIN
 
-# Configuración específica de la aplicación
+#configuración específica de la aplicación
 app:
   frontend:
     url: ${FRONTEND_URL:http://localhost:4200}
@@ -85,7 +85,7 @@ app:
     allowed-extensions: jpg,jpeg,png,gif,webp
     max-size: 5MB
 
-# Configuración de logging
+#configuración de logging
 logging:
   level:
     com.pretor_sport.app: INFO
@@ -100,17 +100,17 @@ logging:
   file:
     name: logs/pretor-sport.log
 
-# Configuración de validación
+#configuración de validacion
 validation:
   messages:
     locale: es_MX
 
-# Configuración de paginación por defecto
+#configuración de paginacion por defecto
 pagination:
   default-page-size: 20
   max-page-size: 100
 
-# Configuración de caché
+#configuración de cache
 cache:
   categories:
     ttl: 3600 # 1 hora

@@ -35,31 +35,31 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String jwt;
         final String userEmail;
 
-        // Si no hay header Authorization o no empieza con Bearer, continúa con la cadena de filtros
+        //si no hay header Authorization o no empieza con Bearer, continua con la cadena de filtros
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        // Extrae el token JWT del header
+        //extrae el token JWT del header
         jwt = jwtUtil.extractTokenFromHeader(authHeader);
         
         try {
-            // Extrae el email del usuario del token
+            //extrae el email del usuario del token
             userEmail = jwtUtil.extractUsername(jwt);
 
-            // Si tenemos un email y no hay autenticación en el contexto de seguridad
+            //si tenemos un email y no hay autenticacion en el contexto de seguridad
             if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 
-                // Carga los detalles del usuario
+                //carga los detalles del usuario
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
-                // Valida el token
+                //valida el token
                 if (jwtUtil.validateToken(jwt, userDetails)) {
                     
-                    // Verifica que no sea un refresh token
+                    //verifica que no sea un refresh token
                     if (!jwtUtil.isRefreshToken(jwt)) {
-                        // Crea el token de autenticación
+                        //crea el token de autenticacion
                         UsernamePasswordAuthenticationToken authToken = 
                             new UsernamePasswordAuthenticationToken(
                                 userDetails,
@@ -67,10 +67,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                 userDetails.getAuthorities()
                             );
                         
-                        // Añade detalles adicionales a la autenticación
+                        //añade detalles adicionales a la autenticacion
                         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                         
-                        // Establece la autenticación en el contexto de seguridad
+                        //establece la autenticacion en el contexto de seguridad
                         SecurityContextHolder.getContext().setAuthentication(authToken);
                         
                         log.debug("Usuario autenticado: {} con rol: {}", 
@@ -84,10 +84,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         } catch (Exception e) {
             log.error("Error en la autenticación JWT: {}", e.getMessage());
-            // No establecemos la autenticación, dejamos que Spring Security maneje el error
+            // No establecemos la autenticacion, dejamos que spring security maneje el error
         }
 
-        // Continúa con la cadena de filtros
+        //continua con la cadena de filtros
         filterChain.doFilter(request, response);
     }
 
@@ -97,7 +97,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         System.out.println("SERVLET PATH = " + path);
         
         //lista de endpoints que no necesitan autenticación
-        // Con context-path /api, el servlet path no incluye el /api
         return path.startsWith("/auth/register") ||
                 path.startsWith("/auth/login") ||
                 path.startsWith("/auth/refresh") ||

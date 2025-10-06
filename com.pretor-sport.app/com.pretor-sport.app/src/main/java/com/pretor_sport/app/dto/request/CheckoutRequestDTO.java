@@ -34,7 +34,7 @@ public class CheckoutRequestDTO {
     @Size(max = 500, message = "Las notas no pueden exceder los 500 caracteres")
     private String notasEspeciales;
     
-    // DTO interno para dirección de envío
+    //DTO interno para dirección de envío
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

@@ -22,9 +22,7 @@ public class HealthController {
     private final DataSource dataSource;
     private final Environment environment;
 
-    /**
-     * Endpoint básico de salud
-     */
+    //endpoint basico de salud
     @GetMapping
     public ResponseEntity<Map<String, Object>> health() {
         Map<String, Object> health = new HashMap<>();
@@ -35,11 +33,11 @@ public class HealthController {
             health.put("application", "Pretor Sport Backend");
             health.put("version", "1.0.0");
             
-            // Verificar conexión a la base de datos
+            //verificar conexion a la base de datos
             boolean dbHealthy = checkDatabaseHealth();
             health.put("database", dbHealthy ? "UP" : "DOWN");
             
-            // Información del entorno
+            //informacion del entorno
             Map<String, Object> environment = new HashMap<>();
             environment.put("activeProfiles", this.environment.getActiveProfiles());
             environment.put("javaVersion", System.getProperty("java.version"));
@@ -55,27 +53,25 @@ public class HealthController {
         }
     }
 
-    /**
-     * Endpoint detallado de salud (solo para administradores)
-     */
+    //enpoint detallado de salud (solo disponible para administradores)
     @GetMapping("/detailed")
     public ResponseEntity<Map<String, Object>> detailedHealth() {
         Map<String, Object> health = new HashMap<>();
         
         try {
-            // Información básica
+            //información basica
             health.put("status", "UP");
             health.put("timestamp", LocalDateTime.now());
             health.put("application", "Pretor Sport Backend");
             
-            // Información de la base de datos
+            //info de la base de datos
             Map<String, Object> database = new HashMap<>();
             database.put("status", checkDatabaseHealth() ? "UP" : "DOWN");
             database.put("url", environment.getProperty("spring.datasource.url"));
             database.put("driverClassName", environment.getProperty("spring.datasource.driver-class-name"));
             health.put("database", database);
             
-            // Información de la JVM
+            //info de la JVM
             Runtime runtime = Runtime.getRuntime();
             Map<String, Object> jvm = new HashMap<>();
             jvm.put("maxMemory", runtime.maxMemory() / 1024 / 1024 + " MB");
@@ -85,7 +81,7 @@ public class HealthController {
             jvm.put("availableProcessors", runtime.availableProcessors());
             health.put("jvm", jvm);
             
-            // Información del sistema
+            //info del sistema
             Map<String, Object> system = new HashMap<>();
             system.put("osName", System.getProperty("os.name"));
             system.put("osVersion", System.getProperty("os.version"));
@@ -104,7 +100,7 @@ public class HealthController {
 
     private boolean checkDatabaseHealth() {
         try (Connection connection = dataSource.getConnection()) {
-            return connection.isValid(5); // timeout de 5 segundos
+            return connection.isValid(5); //timeout de 5 segundos
         } catch (Exception e) {
             return false;
         }

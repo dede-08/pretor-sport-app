@@ -14,20 +14,20 @@ import java.util.List;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
     
-    // Busca productos cuyo nombre contenga el término de búsqueda, ignorando mayúsculas y minúsculas
+    //busca productos cuyo nombre contenga el termino de búsqueda, ignorando mayusculas y minusculas
     Page<Producto> findByNombreContainingIgnoreCase(String nombre, Pageable pageable);
     
-    // Busca productos activos cuyo nombre contenga el término de búsqueda
+    //busca productos activos cuyo nombre contenga el termino de busqueda
     Page<Producto> findByNombreContainingIgnoreCaseAndActivoTrue(String nombre, Pageable pageable);
     
-    // Obtiene productos por categoría y que estén activos
+    //obtiene productos por categoría y que esten activos
     List<Producto> findByCategoriaIdAndActivoTrue(Long categoriaId);
     
-    // Obtiene productos destacados (puedes personalizar la lógica)
+    //obtiene productos destacados
     @Query("SELECT p FROM Producto p WHERE p.activo = true ORDER BY p.fechaCreacion DESC")
     List<Producto> findProductosDestacados(Pageable pageable);
     
-    //metodo personalizado para filtrar productos con múltiples criterios
+    //metodo personalizado para filtrar productos con multiples criterios
     @Query("SELECT p FROM Producto p WHERE " +
            "(:busqueda IS NULL OR p.nombre LIKE :busqueda OR p.descripcion LIKE :busqueda) AND " +
            "(:categoriaIds IS NULL OR p.categoria.id IN :categoriaIds) AND " +
@@ -56,7 +56,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
             @Param("pesoMax") BigDecimal pesoMax,
             Pageable pageable);
     
-    //metodo simplificado para obtener productos destacados con límite
+    //metodo simplificado para obtener productos destacados con limite
     @Query(value = "SELECT * FROM productos WHERE activo = true ORDER BY fecha_creacion DESC LIMIT :limite", 
            nativeQuery = true)
     List<Producto> findProductosDestacados(@Param("limite") int limite);

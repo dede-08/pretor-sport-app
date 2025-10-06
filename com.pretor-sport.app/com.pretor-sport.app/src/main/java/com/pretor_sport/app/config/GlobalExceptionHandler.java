@@ -100,7 +100,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    // Clase interna para la respuesta de error
+    //clase interna para la respuesta de error
     @lombok.Data
     @lombok.Builder
     public static class ErrorResponse {

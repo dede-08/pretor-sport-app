@@ -6,7 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PagoRepository extends JpaRepository<Pago, Long> {
-    // Por ahora, los métodos CRUD básicos son suficientes.
-    // Podríamos añadir búsquedas por metodo de pago o estado si fuera necesario
-    // Ejemplo: List<Pago> findByMetodoPago(String metodoPago);
+    //se puede añadir busquedas por metodo de pago o estado si es necesario mas adelante
 }
