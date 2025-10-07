@@ -10,16 +10,26 @@ import com.pretor_sport.app.repository.CategoriaRepository;
 import com.pretor_sport.app.repository.ProductoRepository;
 import com.pretor_sport.app.repository.ProveedorRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +37,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductoService {
 
+    @Value("${app.images.upload-dir}")
+    private String uploadDir;
+
+    @Value("${app.images.base-url}")
+    private String baseUrl;
+
     private final ProductoRepository productoRepository;
+
     private final CategoriaRepository categoriaRepository;
     private final ProveedorRepository proveedorRepository;
 
@@ -234,6 +251,41 @@ public class ProductoService {
         Page<Producto> productos = productoRepository.findByNombreContainingIgnoreCaseAndActivoTrue(termino, pageable);
         return productos.map(this::convertirADTO);
     }
+
+
+
+    public String saveProductImage(Long productoId, MultipartFile file) throws IOException {
+        // 1. Validar que el producto exista
+        Producto producto = productoRepository.findById(productoId)
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+
+        // 2. Generar un nombre de archivo único para evitar colisiones
+        String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileExtension = "";
+        int lastIndex = originalFileName.lastIndexOf(".");
+        if (lastIndex >= 0) {
+            fileExtension = originalFileName.substring(lastIndex);
+        }
+        String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
+
+        // 3. Definir la ruta de guardado
+        Path uploadPath = Paths.get(uploadDir);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath); // Crea el directorio si no existe
+        }
+        Path filePath = uploadPath.resolve(uniqueFileName);
+
+        // 4. Guardar el archivo en el servidor
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+        // 5. Construir la URL pública y actualizar el producto
+        String imageUrl = baseUrl + "/" + uniqueFileName;
+        producto.setImagenUrl(imageUrl);
+        productoRepository.save(producto);
+
+        return imageUrl;
+    }
+
 
     //CONVIERTE UN PRODUCTO A ProductoResponseDTO
     private ProductoResponseDTO convertirADTO(Producto producto) {

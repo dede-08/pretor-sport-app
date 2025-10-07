@@ -14,7 +14,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -245,6 +248,22 @@ public class ProductoController {
                 .body(Map.of("error", "Error interno", "message", e.getMessage()));
         }
     }
+
+    @PostMapping("/{id}/image")
+    public ResponseEntity<Map<String, String>> uploadProductImage(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
+        try {
+            String imageUrl = productoService.saveProductImage(id, file);
+            Map<String, String> response = new HashMap<>();
+            response.put("imagenUrl", imageUrl);
+            return ResponseEntity.ok(response);
+        } catch (IOException e) {
+            // Considera un manejo de errores más robusto
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 
 
     //endpoint para verificar que el servicio de productos esta funcionando
