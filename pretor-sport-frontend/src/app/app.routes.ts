@@ -5,6 +5,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CategorysComponent } from './pages/categorys/categorys.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { adminGuard } from '../guards/admin.guard';
 
 export const routes: Routes = [
     {
@@ -36,13 +38,12 @@ export const routes: Routes = [
         path : 'contacto',
         component : ContactComponent,
         pathMatch : 'full'
-    }
-    /*
+    },
     {
         path : 'admin',
         component : DashboardComponent,
         canActivate : [adminGuard],
-        children : [
+        /*children : [
             {
                 path : 'profile',
                 component : ProfileComponent
@@ -51,12 +52,6 @@ export const routes: Routes = [
                 path : '',
                 component : WelcomeComponent
             }
-        ]
+        ]*/
     },
-    {
-        path : 'user-dashboard',
-        component : UserDashboardComponent,
-        pathMatch : 'full',
-        canActivate : [normalGuard]
-    }*/
 ];
