@@ -172,6 +172,15 @@ export class AuthService {
       );
   }
 
+  public isLoggedIn(){
+    let tokenStr = localStorage.getItem('token');
+    if(tokenStr == undefined || tokenStr == '' || tokenStr == null){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
   //verificar email con token
   verifyEmail(token: string): Observable<any> {
     return this.http.get(`${this.API_URL}/verify-email?token=${token}`)
