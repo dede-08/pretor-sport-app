@@ -1,5 +1,39 @@
-<p>dashboard works!</p>
-
-<div>
+<div class="container mt-4">
+    <h2>Product Management</h2>
     
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Categoria</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of productos">
+                    <td>{{product.id}}</td>
+                    <td>
+                        <img [src]="product.imagenUrl" alt="{{product.nombre}}" style="width: 50px; height: 50px;">
+                    </td>
+                    <td>{{product.nombre}}</td>
+                    <td>{{product.descripcion}}</td>
+                    <td>${{product.precio}}</td>
+                    <td>{{product.stock}}</td>
+                    <td>{{product.categoria}}</td>
+                    <td>
+                        <button class="btn btn-primary btn-sm me-2" (click)="updateProduct(product)">
+                            <i class="fas fa-edit"></i> Update
+                        </button>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

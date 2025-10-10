@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { 
-  Producto, 
-  ProductoRequest, 
-  ProductoFilter 
+import {
+  Producto,
+  ProductoRequest,
+  ProductoFilter
 } from '../models/producto.model';
 
 export interface ApiResponse<T> {
@@ -28,7 +28,7 @@ export class ProductoService {
   private productosSubject = new BehaviorSubject<Producto[]>([]);
   public productos$ = this.productosSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   //obtener todos los productos con filtros y paginacion
   getProductos(filtros?: ProductoFilter): Observable<ApiResponse<Producto>> {
@@ -120,7 +120,7 @@ export class ProductoService {
       tamanoPagina: limite,
       pagina: 0
     };
-    
+
     return this.getProductos(filtros).pipe(
       map(response => response.content)
     );
@@ -134,7 +134,7 @@ export class ProductoService {
       tamanoPagina: limite,
       pagina: 0
     };
-    
+
     return this.getProductos(filtros).pipe(
       map(response => response.content.filter(p => p.descuentoPorcentaje && p.descuentoPorcentaje > 0))
     );
@@ -173,5 +173,14 @@ export class ProductoService {
   //limpiar caché de productos
   limpiarCache(): void {
     this.productosSubject.next([]);
+  }
+
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`)
+      .pipe(
+        tap(() => {
+          this.refrescarProductos();
+        })
+      );
   }
 }

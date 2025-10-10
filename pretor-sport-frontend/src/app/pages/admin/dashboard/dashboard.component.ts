@@ -16,33 +16,40 @@ import { ProductoService } from '../../../../services/producto.service';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
+
   productos: Producto[] = [];
   categorias: CategoriaSimple[] = [];
 
-  constructor(private productoService: ProductoService) {}
+  constructor(private productoService: ProductoService) { }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.cargarProductos();
-    this.cargarCategorias();
+
   }
 
-  cargarProductos(categoriaId?: number): void{
-    const filtro = categoriaId ? {categoriaIds:[categoriaId]} : {};
+  cargarProductos(categoriaId?: number): void {
+    const filtro = categoriaId ? { categoriaIds: [categoriaId] } : {};
     this.productoService.getProductos(filtro).subscribe(response => {
       this.productos = response.content;
     });
   }
 
-  cargarCategorias(): void {
-    this.productoService.getProductos().subscribe(response => {
-      const categoriasUnicas = new Map<number, CategoriaSimple>();
-      response.content.forEach(producto => {
-        if (producto.categoria) {
-          categoriasUnicas.set(producto.categoria.id, producto.categoria);
+  updateProduct(product: any) {
+    // Implement navigation to update form or open modal
+    console.log('Update product:', product);
+  }
+
+  deleteProduct(id: number) {
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.productoService.deleteProduct(id).subscribe({
+        next: () => {
+          this.cargarProductos(); // Reload the list after deletion
+        },
+        error: (error) => {
+          console.error('Error deleting product:', error);
         }
       });
-      this.categorias = Array.from(categoriasUnicas.values());
-    });
+    }
   }
 }
 
