@@ -83,10 +83,17 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials)
       .pipe(
         tap(response => {
+          console.log('AuthService login: Guardando tokens y usuario');
           this.setTokens(response.accessToken, response.refreshToken);
           this.setUser(response.usuario);
           this.currentUserSubject.next(response.usuario);
           this.isAuthenticatedSubject.next(true);
+          
+          // Verificar que todo se guardó correctamente
+          console.log('AuthService login: Verificación post-login');
+          console.log('AuthService login: Token guardado:', !!this.getAccessToken());
+          console.log('AuthService login: Usuario guardado:', this.getCurrentUserSync());
+          console.log('AuthService login: Estado autenticado:', this.isAuthenticatedSubject.value);
         }),
         catchError(this.handleError)
       );
@@ -172,13 +179,12 @@ export class AuthService {
       );
   }
 
-  public isLoggedIn(){
-    let tokenStr = localStorage.getItem('token');
-    if(tokenStr == undefined || tokenStr == '' || tokenStr == null){
-      return false;
-    }else{
-      return true;
-    }
+  public isLoggedIn(): boolean {
+    const isAuth = this.isAuthenticatedSubject.value;
+    const hasToken = this.hasValidToken();
+    const result = isAuth && hasToken;
+    console.log('AuthService isLoggedIn:', { isAuth, hasToken, result });
+    return result;
   }
 
   //verificar email con token
@@ -254,17 +260,20 @@ export class AuthService {
 
   //metodos de utilidad para roles
   hasRole(role: string): boolean {
-    const user = this.currentUserSubject.value;
+    const user = this.currentUserSubject.value || this.getUserFromStorage();
+    console.log('AuthService hasRole:', { role, user, userRole: user?.rol });
     return user ? user.rol === role : false;
   }
 
   hasAnyRole(roles: string[]): boolean {
-    const user = this.currentUserSubject.value;
+    const user = this.currentUserSubject.value || this.getUserFromStorage();
     return user ? roles.includes(user.rol) : false;
   }
 
   isAdmin(): boolean {
-    return this.hasRole('ROLE_ADMIN');
+    const result = this.hasRole('ROLE_ADMIN');
+    console.log('AuthService isAdmin:', result);
+    return result;
   }
 
   isEmpleado(): boolean {
@@ -273,6 +282,10 @@ export class AuthService {
 
   isCliente(): boolean {
     return this.hasRole('ROLE_CLIENTE');
+  }
+
+  getCurrentUserSync(): User | null {
+    return this.currentUserSubject.value || this.getUserFromStorage();
   }
 
   canManageProducts(): boolean {

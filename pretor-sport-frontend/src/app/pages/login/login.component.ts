@@ -52,7 +52,9 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginData).subscribe({
         next: (response) => {
           console.log('Login exitoso:', response);
-          this.router.navigate(['']);
+          console.log('Usuario recibido:', response.usuario);
+          console.log('Rol del usuario:', response.usuario.rol);
+          this.redirectBasedOnRole(response.usuario.rol);
         },
         error: (error) => {
           console.error('Error en login:', error);
@@ -73,6 +75,44 @@ export class LoginComponent implements OnInit {
       const control = this.loginForm.get(key);
       control?.markAsTouched();
     });
+  }
+
+  private redirectBasedOnRole(userRole: string): void {
+    console.log('Iniciando redirección basada en rol:', userRole);
+    
+    // Usar setTimeout para asegurar que el estado de autenticación se haya actualizado
+    setTimeout(() => {
+      switch (userRole) {
+        case 'ROLE_ADMIN':
+          console.log('Detectado rol ADMIN - Redirigiendo al dashboard de administrador');
+          this.router.navigateByUrl('/admin').then(success => {
+            if (success) {
+              console.log('Redirección exitosa a /admin');
+            } else {
+              console.error('Error en redirección a /admin, intentando con window.location');
+              // Fallback usando window.location si router.navigate falla
+              window.location.href = '/admin';
+            }
+          }).catch(error => {
+            console.error('Error en redirección a /admin:', error);
+            // Fallback: redirigir al home
+            this.router.navigate(['/']);
+          });
+          break;
+        case 'ROLE_EMPLEADO':
+          console.log('Detectado rol EMPLEADO - Redirigiendo al home');
+          this.router.navigate(['/']);
+          break;
+        case 'ROLE_CLIENTE':
+          console.log('Detectado rol CLIENTE - Redirigiendo al home');
+          this.router.navigate(['/']);
+          break;
+        default:
+          console.warn('Rol no reconocido:', userRole, '- Redirigiendo al home por defecto');
+          this.router.navigate(['/']);
+          break;
+      }
+    }, 100); // Pequeño delay para asegurar que el estado se actualice
   }
 
   //getters
