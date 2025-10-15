@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../services/producto.service';
 import { Producto, CategoriaSimple } from '../../../models/producto.model';
 import { RouterModule } from '@angular/router';
+import { ConfigService } from '../../../services/config.service';
 
 @Component({
   selector: 'app-products',
@@ -17,7 +18,10 @@ export class ProductsComponent implements OnInit {
   selectedCategoriaId: number | null = null;
   selectedCategoriaNombre: string | null = null;
 
-  constructor(private productoService: ProductoService) { }
+  constructor(
+    private productoService: ProductoService,
+    private configService: ConfigService
+  ) { }
 
   ngOnInit(): void {
     this.cargarProductos();
@@ -52,5 +56,12 @@ export class ProductsComponent implements OnInit {
       this.selectedCategoriaNombre = categoria ? categoria.nombre : null;
     }
     this.cargarProductos(categoriaId ?? undefined);
+  }
+
+  /**
+   * Obtiene la URL de la imagen del producto
+   */
+  obtenerImagenProducto(producto: Producto): string {
+    return this.configService.getImageUrl(producto.imagenUrl);
   }
 }

@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../services/producto.service';
 import { Producto } from '../../../models/producto.model';
+import { ConfigService } from '../../../services/config.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,10 @@ export class HomeComponent implements OnInit {
   error = false;
   errorMessage = '';
 
-  constructor(private productoService: ProductoService) {}
+  constructor(
+    private productoService: ProductoService,
+    private configService: ConfigService
+  ) {}
 
   ngOnInit() {
     this.cargarProductos();
@@ -81,9 +85,9 @@ export class HomeComponent implements OnInit {
     return precio * (1 - descuentoPorcentaje / 100);
   }
 
-  // Método para obtener imagen por defecto
+  // Método para obtener imagen del producto usando el servicio de configuración
   obtenerImagenProducto(producto: Producto): string {
-    return producto.imagenUrl || 'https://via.placeholder.com/300x300?text=Sin+Imagen';
+    return this.configService.getImageUrl(producto.imagenUrl);
   }
 
   // Método para verificar si hay stock
