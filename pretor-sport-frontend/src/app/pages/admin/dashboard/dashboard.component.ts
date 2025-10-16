@@ -23,7 +23,7 @@ export class DashboardComponent {
 
   constructor(
     private productoService: ProductoService,
-    private configService: ConfigService
+    public configService: ConfigService
   ) { }
 
   ngOnInit(): void {

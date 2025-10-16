@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private configService: ConfigService
+    public configService: ConfigService
   ) {}
 
   ngOnInit() {

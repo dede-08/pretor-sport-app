@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
   // URL base del backend
-  private readonly backendUrl = 'http://localhost:8080';
+  private readonly backendUrl = 'http://localhost:8080/uploads';
   
   // URL base para las imágenes
   private readonly imagesBaseUrl = `${this.backendUrl}/images`;
@@ -56,10 +56,17 @@ export class ConfigService {
   }
 
   /**
+   * Maneja errores de carga de imagen y devuelve una imagen de respaldo
+   */
+  handleImageError(event: any): void {
+    event.target.src = this.getDefaultImageUrl();
+  }
+
+  /**
    * Obtiene la URL de la imagen por defecto
    */
   getDefaultImageUrl(): string {
-    return 'https://via.placeholder.com/300x300?text=Sin+Imagen';
+    return '/assets/pelota mikasa white.webp'; // Usar imagen local como fallback
   }
 
   /**

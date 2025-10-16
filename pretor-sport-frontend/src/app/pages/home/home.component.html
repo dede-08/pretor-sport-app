@@ -62,7 +62,8 @@
               <div class="product-image">
                 <img [src]="obtenerImagenProducto(producto)" 
                      [alt]="producto.nombre" 
-                     class="img-fluid">
+                     class="img-fluid"
+                     (error)="configService.handleImageError($event)">
                 <div class="product-badges">
                   <span class="badge badge-featured">Destacado</span>
                   <span *ngIf="producto.descuentoPorcentaje && producto.descuentoPorcentaje > 0" 
@@ -120,7 +121,8 @@
               <div class="product-image">
                 <img [src]="obtenerImagenProducto(producto)" 
                      [alt]="producto.nombre" 
-                     class="img-fluid">
+                     class="img-fluid"
+                     (error)="configService.handleImageError($event)">
                 <div class="product-badges">
                   <span class="badge badge-discount">
                     -{{ producto.descuentoPorcentaje }}%
@@ -175,7 +177,8 @@
               <div class="product-image">
                 <img [src]="obtenerImagenProducto(producto)" 
                      [alt]="producto.nombre" 
-                     class="img-fluid">
+                     class="img-fluid"
+                     (error)="configService.handleImageError($event)">
                 <div class="product-badges">
                   <span *ngIf="producto.descuentoPorcentaje && producto.descuentoPorcentaje > 0" 
                         class="badge badge-discount">

@@ -37,7 +37,10 @@
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
                 <div class="col" *ngFor="let producto of productos">
                     <div class="card h-100 product-card">
-                        <img [src]="obtenerImagenProducto(producto)" class="card-img-top" alt="{{ producto.nombre }}">
+                        <img [src]="obtenerImagenProducto(producto)" 
+                             class="card-img-top" 
+                             alt="{{ producto.nombre }}"
+                             (error)="configService.handleImageError($event)">
                         <div class="card-body">
                             <h5 class="card-title">{{ producto.nombre }}</h5>
                             <p class="card-text">{{ producto.descripcion }}</p>
