@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/health").permitAll()
                 .requestMatchers("/health").permitAll()
                 .requestMatchers("/public/**").permitAll()
+                .requestMatchers("/images/**").permitAll()  // Permitir acceso público a imágenes estáticas
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 
