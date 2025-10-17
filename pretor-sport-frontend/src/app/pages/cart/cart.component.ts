@@ -26,13 +26,13 @@ export class CartComponent implements OnInit, OnDestroy {
   error: string | null = null;
   cuponCodigo = '';
   aplicandoCupon = false;
-  
+
   private destroy$ = new Subject<void>();
 
   constructor(
     private cartService: CartService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadCart();
@@ -47,7 +47,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private loadCart(): void {
     this.loading = true;
     this.error = null;
-    
+
     this.cartService.getCart()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -77,8 +77,15 @@ export class CartComponent implements OnInit, OnDestroy {
       });
   }
 
+  onQuantityChange(item: CartItem, value: string): void {
+    const newQuantity = parseInt(value, 10);
+    if (!isNaN(newQuantity)) {
+      this.updateQuantity(item, newQuantity);
+    }
+  }
+
   updateQuantity(item: CartItem, newQuantity: number): void {
-    if (newQuantity < 1) {
+    if (isNaN(newQuantity) || newQuantity < 1) {
       this.removeItem(item.id);
       return;
     }
