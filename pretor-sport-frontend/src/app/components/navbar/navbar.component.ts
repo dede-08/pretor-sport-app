@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { Observable } from 'rxjs';
+import { CartService } from '../../../services/cart.service';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,18 +12,34 @@ import { Observable } from 'rxjs';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated$!: Observable<boolean>;
   currentUser$!: Observable<any>;
+  cartItemCount = 0;
+  
+  private destroy$ = new Subject<void>();
 
   constructor(
     private authService: AuthService,
+    private cartService: CartService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
     this.currentUser$ = this.authService.currentUser$;
+    
+    // Suscribirse a cambios en el carrito
+    this.cartService.cartSummary$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(summary => {
+        this.cartItemCount = summary.totalItems;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   onLogout(): void {

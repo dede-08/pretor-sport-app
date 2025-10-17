@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../services/producto.service';
+import { CartService } from '../../../services/cart.service';
+import { NotificationService } from '../../../services/notification.service';
 import { Producto, CategoriaSimple } from '../../../models/producto.model';
 import { RouterModule } from '@angular/router';
 import { ConfigService } from '../../../services/config.service';
@@ -20,6 +22,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
+    private cartService: CartService,
+    private notificationService: NotificationService,
     public configService: ConfigService
   ) { }
 
@@ -63,5 +67,27 @@ export class ProductsComponent implements OnInit {
    */
   obtenerImagenProducto(producto: Producto): string {
     return this.configService.getImageUrl(producto.imagenUrl);
+  }
+
+  /**
+   * Verifica si el producto tiene stock
+   */
+  tieneStock(producto: Producto): boolean {
+    return producto.stock > 0;
+  }
+
+  /**
+   * Agrega un producto al carrito
+   */
+  agregarAlCarrito(producto: Producto): void {
+    if (!this.tieneStock(producto)) {
+      this.notificationService.showWarning('Este producto no está disponible');
+      return;
+    }
+
+    this.cartService.addToCartLocal(producto, 1);
+    
+    // Mostrar notificación de éxito
+    this.notificationService.showSuccess(`"${producto.nombre}" agregado al carrito`);
   }
 }

@@ -6,6 +6,7 @@ import { ProductsComponent } from './pages/products/products.component';
 import { CategorysComponent } from './pages/categorys/categorys.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
+import { CartComponent } from './pages/cart/cart.component';
 import { adminGuard } from '../guards/admin.guard';
 
 export const routes: Routes = [
@@ -37,6 +38,11 @@ export const routes: Routes = [
     {
         path : 'contacto',
         component : ContactComponent,
+        pathMatch : 'full'
+    },
+    {
+        path : 'carrito',
+        component : CartComponent,
         pathMatch : 'full'
     },
     {

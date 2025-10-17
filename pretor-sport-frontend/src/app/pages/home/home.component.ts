@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../services/producto.service';
+import { CartService } from '../../../services/cart.service';
+import { NotificationService } from '../../../services/notification.service';
 import { Producto } from '../../../models/producto.model';
 import { ConfigService } from '../../../services/config.service';
 
@@ -22,6 +24,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
+    private cartService: CartService,
+    private notificationService: NotificationService,
     public configService: ConfigService
   ) {}
 
@@ -109,5 +113,18 @@ export class HomeComponent implements OnInit {
     if (producto.stock <= 5) return 'badge-warning';
     if (producto.stock <= 10) return 'badge-info';
     return 'badge-success';
+  }
+
+  // Método para agregar producto al carrito
+  agregarAlCarrito(producto: Producto): void {
+    if (!this.tieneStock(producto)) {
+      this.notificationService.showWarning('Este producto no está disponible');
+      return;
+    }
+
+    this.cartService.addToCartLocal(producto, 1);
+    
+    // Mostrar notificación de éxito
+    this.notificationService.showSuccess(`"${producto.nombre}" agregado al carrito`);
   }
 }

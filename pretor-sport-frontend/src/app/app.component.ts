@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './components/footer/footer.component';
+import { NotificationContainerComponent } from './components/notification-container/notification-container.component';
 
 
 @Component({
@@ -14,8 +14,8 @@ import { FooterComponent } from './components/footer/footer.component';
     RouterOutlet,
     NavbarComponent,
     FooterComponent,
-    HomeComponent,
-    HttpClientModule
+    HttpClientModule,
+    NotificationContainerComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

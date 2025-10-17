@@ -47,7 +47,16 @@
                             <p class="card-text"><strong>Precio:</strong> S/ {{ producto.precio | number:'1.2-2' }}</p>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-primary">Ver Detalles</a>
+                            <div class="d-grid gap-2">
+                                <button 
+                                    class="btn btn-primary" 
+                                    (click)="agregarAlCarrito(producto)"
+                                    [disabled]="!tieneStock(producto)">
+                                    <i class="fas fa-shopping-cart me-2"></i>
+                                    {{ tieneStock(producto) ? 'Agregar al Carrito' : 'Sin Stock' }}
+                                </button>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Ver Detalles</a>
+                            </div>
                         </div>
                     </div>
                 </div>
