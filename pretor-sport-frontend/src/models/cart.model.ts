@@ -1,7 +1,7 @@
 export interface CartItem {
   id: string; // ID único del item en el carrito
   producto: {
-    id: number;
+    id?: number;
     nombre: string;
     precio: number;
     imagenUrl?: string;

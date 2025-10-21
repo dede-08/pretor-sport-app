@@ -137,7 +137,7 @@ export class CartService {
   // Métodos locales para carrito offline
   addToCartLocal(producto: Producto, cantidad: number = 1, variantes?: any): void {
     const cart = this.getCartFromStorage() || this.createEmptyCart();
-    const existingItem = this.findCartItem(cart, producto.id, variantes);
+    const existingItem = this.findCartItem(cart, producto.id!, variantes);
     
     if (existingItem) {
       existingItem.cantidad += cantidad;

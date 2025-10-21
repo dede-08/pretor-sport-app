@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CartService } from '../../../services/cart.service';
@@ -9,7 +9,7 @@ import { Cart, CartItem, CartSummary } from '../../../models/cart.model';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
@@ -84,6 +84,11 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
+  setDefaultImage(event: Event): void {
+    const img = event.target as HTMLImageElement;
+    img.src = 'assets/default-product.png';
+  }
+
   updateQuantity(item: CartItem, newQuantity: number): void {
     if (isNaN(newQuantity) || newQuantity < 1) {
       this.removeItem(item.id);
@@ -99,13 +104,11 @@ export class CartComponent implements OnInit, OnDestroy {
       itemId: item.id,
       cantidad: newQuantity
     }).subscribe({
-      next: () => {
-        this.error = null;
-      },
-      error: (error) => {
-        this.error = 'Error al actualizar la cantidad';
-        console.error('Error updating cart item:', error);
-      }
+      next: () => this.error = null,
+    error: (error) => {
+      this.error = 'Error al actualizar la cantidad';
+      console.error('Error updating cart item:', error);
+    }
     });
   }
 

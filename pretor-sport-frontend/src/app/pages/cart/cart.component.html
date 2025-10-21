@@ -79,13 +79,13 @@
                         [src]="item.producto?.imagenUrl ?? 'assets/default-product.png'" 
                         [alt]="item.producto?.nombre"
                         class="cart-item-image me-3"
-                        (error)="($event.target as HTMLImageElement).src='assets/default-product.png'">
+                        (error)="setDefaultImage($event)">
                       <div>
                         <h6 class="mb-1">{{ item.producto?.nombre }}</h6>
                         <small class="text-muted">
-                          <span *ngIf="item.variantes?.talla">Talla: {{ item.variantes.talla ?? '' }}</span>
-                          <span *ngIf="item.variantes?.color"> | Color: {{ item.variantes.color }}</span>
-                          <span *ngIf="item.variantes?.genero"> | {{ item.variantes.genero }}</span>
+                          <span *ngIf="item.variantes?.talla">Talla: {{ item.variantes?.talla }}</span>Object 
+                          <span *ngIf="item.variantes?.color"> | Color: {{ item.variantes?.color }}</span>
+                          <span *ngIf="item.variantes?.genero"> | {{ item.variantes?.genero }}</span>
                         </small>
                         <div class="mt-1">
                           <span 
@@ -110,10 +110,11 @@
                         <i class="fas fa-minus"></i>
                       </button>
                       <input 
+                        #qtyInput
                         type="number" 
                         class="form-control text-center" 
-                        [value]="item.cantidad ?? 1"
-                        (change)="updateQuantity(item, +($event.target as HTMLInputElement).value)"
+                        [value]="item.cantidad"
+                        (change)="updateQuantity(item, +qtyInput.value)"
                         min="1"
                         [max]="item.producto?.stock">
                       <button 
