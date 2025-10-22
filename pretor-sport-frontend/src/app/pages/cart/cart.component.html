@@ -15,14 +15,14 @@
     </div>
   </div>
 
-  <!-- Error Message -->
+  <!-- mensaje de error-->
   <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
     <i class="fas fa-exclamation-triangle me-2"></i>
     {{ error }}
     <button type="button" class="btn-close" (click)="error = null"></button>
   </div>
 
-  <!-- Loading State -->
+  <!-- estado de carga-->
   <div *ngIf="loading" class="text-center py-5">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Cargando...</span>
@@ -30,7 +30,7 @@
     <p class="mt-3">Cargando carrito...</p>
   </div>
 
-  <!-- Empty Cart -->
+  <!-- carrito vacio -->
   <div *ngIf="!loading && isCartEmpty()" class="text-center py-5">
     <i class="fas fa-shopping-cart fa-4x text-muted mb-4"></i>
     <h3>Tu carrito está vacío</h3>
@@ -41,7 +41,7 @@
     </button>
   </div>
 
-  <!-- Cart Content -->
+  <!-- componente del carrito -->
   <div *ngIf="!loading && cart && !isCartEmpty()" class="row">
     <!-- Cart Items -->
     <div class="col-lg-8">
@@ -145,7 +145,7 @@
       </div>
     </div>
 
-    <!-- Order Summary -->
+    <!-- resumen del pedido -->
     <div class="col-lg-4">
       <div class="card">
         <div class="card-header">
@@ -155,7 +155,7 @@
           </h5>
         </div>
         <div class="card-body">
-          <!-- Coupon Section -->
+          <!-- seccion de cupon -->
           <div class="mb-4">
             <label for="couponCode" class="form-label">Código de Cupón</label>
             <div class="input-group">
@@ -189,7 +189,7 @@
             </div>
           </div>
 
-          <!-- Order Summary -->
+          <!-- resumen de la orden -->
           <div class="order-summary">
             <div class="d-flex justify-content-between mb-2">
               <span>Subtotal:</span>
@@ -214,13 +214,13 @@
             </div>
           </div>
 
-          <!-- Shipping Message -->
+          <!-- mensaje de envio -->
           <div class="alert alert-info mb-4">
             <i class="fas fa-truck me-2"></i>
             <span [ngClass]="getShippingMessageClass()">{{ getShippingMessage() }}</span>
           </div>
 
-          <!-- Action Buttons -->
+          <!-- botones de acciones -->
           <div class="d-grid gap-2">
             <button 
               class="btn btn-primary btn-lg"
