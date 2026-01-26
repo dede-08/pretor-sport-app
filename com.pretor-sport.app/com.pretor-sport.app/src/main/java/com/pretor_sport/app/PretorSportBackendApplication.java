@@ -16,5 +16,4 @@ public class PretorSportBackendApplication {
         SpringApplication.run(PretorSportBackendApplication.class, args);
 	}
 
-
 }

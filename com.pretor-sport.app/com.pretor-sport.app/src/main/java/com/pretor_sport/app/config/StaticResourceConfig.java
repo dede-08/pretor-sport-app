@@ -15,11 +15,23 @@ public class StaticResourceConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //la ruta del directorio de subidas de forma absoluta
-        String sourcePath = Paths.get(uploadDir).toAbsolutePath().toString() + "/";
-
-        //mapela la url publica a la carpeta fisica
-        // /images/** -> file:/ruta/absoluta/a/tu/proyecto/uploads/images/
-        registry.addResourceHandler("/images/**").addResourceLocations(sourcePath);
+        try {
+            //la ruta del directorio de subidas de forma absoluta
+            String absolutePath = Paths.get(uploadDir).toAbsolutePath().toString();
+            
+            // Verificar que el directorio existe
+            java.io.File uploadDirectory = new java.io.File(absolutePath);
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdirs();
+            }
+            
+            //mapear la url publica a la carpeta fisica
+            // /images/** -> file:/ruta/absoluta/a/tu/proyecto/uploads/
+            registry.addResourceHandler("/images/**")
+                    .addResourceLocations("file:" + absolutePath + "/");
+        } catch (Exception e) {
+            // Log error but don't break startup
+            System.err.println("Error configuring resource handlers: " + e.getMessage());
+        }
     }
 }

@@ -16,13 +16,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
 @RequiredArgsConstructor
+@Component
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
+
 
     @Override
     protected void doFilterInternal(
@@ -97,15 +98,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         System.out.println("SERVLET PATH = " + path);
         
         //lista de endpoints que no necesitan autenticación
-        return path.startsWith("/auth/register") ||
-                path.startsWith("/auth/login") ||
-                path.startsWith("/auth/refresh") ||
-                path.startsWith("/auth/verify-email") ||
-                path.startsWith("/auth/health") ||
-                path.startsWith("/health") ||
-                path.startsWith("/public/") ||
-                path.startsWith("/v1/api-docs") ||
-                path.startsWith("/swagger-ui") ||
-                path.startsWith("/v3/api-docs");
+        return path.startsWith("/api/auth/register") ||
+                path.startsWith("/api/auth/login") ||
+                path.startsWith("/api/auth/refresh") ||
+                path.startsWith("/api/auth/verify-email") ||
+                path.startsWith("/api/auth/health") ||
+                path.startsWith("/api/health") ||
+                path.startsWith("/api/public") ||
+                path.startsWith("/api/swagger-ui") ||
+                path.startsWith("/api/v3/api-docs");
     }
 }

@@ -81,21 +81,22 @@ app:
       out-of-stock-threshold: 0
   images:
     base-url: http://localhost:8080/images
-    upload-dir: uploads/images
+    upload-dir: uploads
     allowed-extensions: jpg,jpeg,png,gif,webp
     max-size: 5MB
 
 #configuración de logging
 logging:
   level:
-    com.pretor_sport.app: INFO
+    com.pretor_sport.app: DEBUG
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
     org.springframework.boot.context.config: DEBUG
+    root: INFO
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
   file:
     name: logs/pretor-sport.log
