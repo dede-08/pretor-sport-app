@@ -8,40 +8,10 @@ import { Subject, takeUntil } from 'rxjs';
   selector: 'app-notification-container',
   standalone: true,
   imports: [CommonModule, NotificationComponent],
-  template: `
-    <div class="notification-container">
-      <app-notification 
-        *ngFor="let notification of notifications; trackBy: trackByNotification"
-        [notification]="notification"
-        (close)="onNotificationClose(notification)">
-      </app-notification>
-    </div>
-  `,
-  styles: [`
-    .notification-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      pointer-events: none;
-    }
-
-    .notification-container > * {
-      pointer-events: auto;
-    }
-
-    @media (max-width: 768px) {
-      .notification-container {
-        top: 10px;
-        right: 10px;
-        left: 10px;
-      }
-    }
-  `]
+  templateUrl: './notification-container.component.html',
+  styleUrl: './notification-container.component.css'
 })
+
 export class NotificationContainerComponent implements OnInit, OnDestroy {
   notifications: NotificationData[] = [];
   private destroy$ = new Subject<void>();

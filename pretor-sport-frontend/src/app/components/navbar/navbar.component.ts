@@ -12,6 +12,7 @@ import { Observable, Subject, takeUntil } from 'rxjs';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
+
 export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated$!: Observable<boolean>;
   currentUser$!: Observable<any>;

@@ -1,0 +1,5 @@
+<div class="notification-container">
+    <app-notification *ngFor="let notification of notifications; trackBy: trackByNotification"
+        [notification]="notification" (close)="onNotificationClose(notification)">
+    </app-notification>
+</div>

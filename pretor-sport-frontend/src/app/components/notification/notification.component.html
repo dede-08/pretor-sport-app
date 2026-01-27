@@ -1,0 +1,9 @@
+<div class="notification" [ngClass]="'notification-' + notification.type" *ngIf="show">
+    <div class="notification-content">
+        <i class="fas" [ngClass]="getIconClass()"></i>
+        <span class="notification-message">{{ notification.message }}</span>
+        <button class="btn-close" (click)="close()" aria-label="Cerrar">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+</div>
