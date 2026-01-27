@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
     this.currentUser$ = this.authService.currentUser$;
     
-    // Suscribirse a cambios en el carrito
+    //suscribirse a cambios en el carrito
     this.cartService.cartSummary$
       .pipe(takeUntil(this.destroy$))
       .subscribe(summary => {
@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error en logout:', error);
-        // Incluso si hay error, navegar al home
+        //incluso si hay error, navegar al home
         this.router.navigate(['/']);
       }
     });

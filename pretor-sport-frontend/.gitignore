@@ -43,3 +43,8 @@ Thumbs.db
 
 #env local
 environment.ts
+
+#environment files
+/src/environments/environment.ts
+
+CARRITO_README.md
