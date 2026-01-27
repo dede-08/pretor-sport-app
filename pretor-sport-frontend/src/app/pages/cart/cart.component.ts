@@ -105,10 +105,10 @@ export class CartComponent implements OnInit, OnDestroy {
       cantidad: newQuantity
     }).subscribe({
       next: () => this.error = null,
-    error: (error) => {
-      this.error = 'Error al actualizar la cantidad';
-      console.error('Error updating cart item:', error);
-    }
+      error: (error) => {
+        this.error = 'Error al actualizar la cantidad';
+        console.error('Error updating cart item:', error);
+      }
     });
   }
 
