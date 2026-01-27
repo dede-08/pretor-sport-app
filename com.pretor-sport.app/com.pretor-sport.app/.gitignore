@@ -35,3 +35,13 @@ build/
 ### Variables de entorno ###
 .env
 .env.properties
+
+#logs del sistema
+/logs/pretor-sport.log
+logs
+/logs
+
+#scripts base de datos
+/src/resources/static/
+pretor_sport_db.sql
+data-test.sql
