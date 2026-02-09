@@ -1,6 +1,7 @@
 {
   "name": "pretor-sport-frontend",
   "version": "0.0.0",
+  "description": "Frontend Angular application for Pretor Sport e-commerce platform",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

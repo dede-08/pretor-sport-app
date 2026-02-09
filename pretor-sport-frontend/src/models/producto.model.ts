@@ -18,8 +18,9 @@ export interface Producto {
   fechaActualizacion?: Date;
   categoria?: CategoriaSimple;
   proveedor?: ProveedorSimple;
+  proveedorId?: number;
   
-  // Campos calculados
+  //campos calculados
   disponible?: boolean;
   estadoStock?: 'SIN_STOCK' | 'STOCK_BAJO' | 'STOCK_MEDIO' | 'STOCK_ALTO';
   precioConDescuento?: number;

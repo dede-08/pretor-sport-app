@@ -13,6 +13,7 @@ import { Cart, CartItem, CartSummary } from '../../../models/cart.model';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+
 export class CartComponent implements OnInit, OnDestroy {
   cart: Cart | null = null;
   cartSummary: CartSummary = {

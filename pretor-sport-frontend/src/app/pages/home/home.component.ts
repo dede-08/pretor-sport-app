@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     this.error = false;
     this.errorMessage = '';
 
-    // Cargar productos generales
+    //cargar productos generales
     this.productoService.getProductos({ tamanoPagina: 12, pagina: 0 }).subscribe({
       next: (response) => {
         this.productos = response.content;
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    // Cargar productos destacados
+    //cargar productos destacados
     this.productoService.getProductosPopulares(8).subscribe({
       next: (productos) => {
         this.productosDestacados = productos;
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    // Cargar productos en oferta
+    //cargar productos en oferta
     this.productoService.getProductosEnOferta(8).subscribe({
       next: (productos) => {
         this.productosOferta = productos;
@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // Método para formatear precio
+  //metodo para formatear precio
   formatearPrecio(precio: number): string {
     return new Intl.NumberFormat('es-MX', {
       style: 'currency',
@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
     }).format(precio);
   }
 
-  // Método para calcular precio con descuento
+  //metodo para calcular precio con descuento
   calcularPrecioConDescuento(precio: number, descuentoPorcentaje?: number): number {
     if (!descuentoPorcentaje || descuentoPorcentaje <= 0) {
       return precio;
@@ -89,17 +89,17 @@ export class HomeComponent implements OnInit {
     return precio * (1 - descuentoPorcentaje / 100);
   }
 
-  // Método para obtener imagen del producto usando el servicio de configuración
+  //metodo para obtener imagen del producto usando el servicio de configuración
   obtenerImagenProducto(producto: Producto): string {
     return this.configService.getImageUrl(producto.imagenUrl);
   }
 
-  // Método para verificar si hay stock
+  //metodo para verificar si hay stock
   tieneStock(producto: Producto): boolean {
     return producto.stock > 0;
   }
 
-  // Método para obtener el estado del stock
+  //metodo para obtener el estado del stock
   obtenerEstadoStock(producto: Producto): string {
     if (producto.stock === 0) return 'Agotado';
     if (producto.stock <= 5) return 'Últimas unidades';
@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
     return 'Disponible';
   }
 
-  // Método para obtener la clase CSS del estado del stock
+  //metodo para obtener la clase CSS del estado del stock
   obtenerClaseEstadoStock(producto: Producto): string {
     if (producto.stock === 0) return 'badge-danger';
     if (producto.stock <= 5) return 'badge-warning';
@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit {
     return 'badge-success';
   }
 
-  // Método para agregar producto al carrito
+  //metodo para agregar producto al carrito
   agregarAlCarrito(producto: Producto): void {
     if (!this.tieneStock(producto)) {
       this.notificationService.showWarning('Este producto no está disponible');
@@ -124,7 +124,7 @@ export class HomeComponent implements OnInit {
 
     this.cartService.addToCartLocal(producto, 1);
     
-    // Mostrar notificación de éxito
+    //mostrar notificación de éxito
     this.notificationService.showSuccess(`"${producto.nombre}" agregado al carrito`);
   }
 }

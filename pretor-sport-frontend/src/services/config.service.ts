@@ -5,23 +5,20 @@ import { Injectable } from '@angular/core';
 })
 export class ConfigService {
   // URL base del backend
-  private readonly backendUrl = 'http://localhost:8080/uploads';
+  private readonly backendUrl = 'http://localhost:8080';
   
   // URL base para las imágenes
-  private readonly imagesBaseUrl = `${this.backendUrl}/images`;
+  private readonly imagesBaseUrl = 'http://localhost:8080/images';
 
   constructor() { }
 
-  /**
-   * Obtiene la URL base del backend
-   */
+  //obtiene la URL base del backend
   getBackendUrl(): string {
     return this.backendUrl;
   }
 
-  /**
-   * Obtiene la URL base para las imágenes
-   */
+  
+  //obtiene la URL base para las imagenes
   getImagesBaseUrl(): string {
     return this.imagesBaseUrl;
   }
