@@ -26,11 +26,11 @@ export class CartService {
   public cartSummary$ = this.cartSummarySubject.asObservable();
 
   constructor(private http: HttpClient) {
-    // Sincronizar carrito local con el servidor si hay usuario autenticado
+    //sincronizar carrito local con el servidor si hay usuario autenticado
     this.syncCartWithServer();
   }
 
-  // Obtener el carrito actual
+  //obtener el carrito actual
   getCart(): Observable<Cart> {
     return this.http.get<Cart>(this.API_URL)
       .pipe(
@@ -43,7 +43,7 @@ export class CartService {
       );
   }
 
-  // Agregar producto al carrito
+  //agregar producto al carrito
   addToCart(request: AddToCartRequest): Observable<Cart> {
     return this.http.post<Cart>(`${this.API_URL}/add`, request)
       .pipe(
@@ -56,7 +56,7 @@ export class CartService {
       );
   }
 
-  // Actualizar cantidad de un item
+  //actualizar cantidad de un item
   updateCartItem(request: UpdateCartItemRequest): Observable<Cart> {
     return this.http.put<Cart>(`${this.API_URL}/update`, request)
       .pipe(
@@ -69,7 +69,7 @@ export class CartService {
       );
   }
 
-  // Eliminar item del carrito
+  //eliminar item del carrito
   removeFromCart(itemId: string): Observable<Cart> {
     return this.http.delete<Cart>(`${this.API_URL}/remove/${itemId}`)
       .pipe(
@@ -82,7 +82,7 @@ export class CartService {
       );
   }
 
-  // Limpiar carrito
+  //limpiar carrito
   clearCart(): Observable<void> {
     return this.http.delete<void>(this.API_URL)
       .pipe(
@@ -95,7 +95,7 @@ export class CartService {
       );
   }
 
-  // Aplicar cupón de descuento
+  //aplicar cupón de descuento
   applyCoupon(codigo: string): Observable<Cart> {
     return this.http.post<Cart>(`${this.API_URL}/coupon`, { codigo })
       .pipe(
@@ -108,7 +108,7 @@ export class CartService {
       );
   }
 
-  // Remover cupón de descuento
+  //remover cupón de descuento
   removeCoupon(): Observable<Cart> {
     return this.http.delete<Cart>(`${this.API_URL}/coupon`)
       .pipe(
@@ -121,7 +121,7 @@ export class CartService {
       );
   }
 
-  // Procesar checkout
+  //procesar checkout
   checkout(request: CartCheckoutRequest): Observable<any> {
     return this.http.post(`${this.API_URL}/checkout`, request)
       .pipe(
@@ -134,7 +134,7 @@ export class CartService {
       );
   }
 
-  // Métodos locales para carrito offline
+  //metodos locales para carrito offline
   addToCartLocal(producto: Producto, cantidad: number = 1, variantes?: any): void {
     const cart = this.getCartFromStorage() || this.createEmptyCart();
     const existingItem = this.findCartItem(cart, producto.id!, variantes);
@@ -205,24 +205,24 @@ export class CartService {
     this.updateSummary();
   }
 
-  // Obtener resumen del carrito
+  //obtener resumen del carrito
   getCartSummary(): CartSummary {
     return this.calculateSummary();
   }
 
-  // Verificar si el carrito está vacío
+  //verificar si el carrito está vacío
   isEmpty(): boolean {
     const cart = this.cartSubject.value;
     return !cart || cart.items.length === 0;
   }
 
-  // Obtener cantidad total de items
+  //obtener cantidad total de items
   getTotalItems(): number {
     const cart = this.cartSubject.value;
     return cart ? cart.items.reduce((total, item) => total + item.cantidad, 0) : 0;
   }
 
-  // Métodos privados
+  //metodos privados
   private createEmptyCart(): Cart {
     return {
       items: [],
@@ -265,10 +265,10 @@ export class CartService {
   }
 
   private calculateShipping(subtotal: number): number {
-    // Lógica de cálculo de envío
-    if (subtotal >= 500) return 0; // Envío gratis
-    if (subtotal >= 200) return 50; // Envío estándar
-    return 100; // Envío express
+    //logica de cálculo de envío
+    if (subtotal >= 500) return 0; //envio gratis
+    if (subtotal >= 200) return 50; //envio estandar
+    return 100; //envio express
   }
 
   private calculateSummary(): CartSummary {

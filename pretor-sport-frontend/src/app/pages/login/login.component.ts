@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
   private redirectBasedOnRole(userRole: string): void {
     console.log('Iniciando redirección basada en rol:', userRole);
     
-    // Usar setTimeout para asegurar que el estado de autenticación se haya actualizado
+    //usar setTimeout para asegurar que el estado de autenticación se haya actualizado
     setTimeout(() => {
       switch (userRole) {
         case 'ROLE_ADMIN':
@@ -90,12 +90,12 @@ export class LoginComponent implements OnInit {
               console.log('Redirección exitosa a /admin');
             } else {
               console.error('Error en redirección a /admin, intentando con window.location');
-              // Fallback usando window.location si router.navigate falla
+              //fallback usando window.location si router.navigate falla
               window.location.href = '/admin';
             }
           }).catch(error => {
             console.error('Error en redirección a /admin:', error);
-            // Fallback: redirigir al home
+            //fallback: redirigir al home
             this.router.navigate(['/']);
           });
           break;
@@ -112,7 +112,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
           break;
       }
-    }, 100); // Pequeño delay para asegurar que el estado se actualice
+    }, 100); //pequeño delay para asegurar que el estado se actualice
   }
 
   //getters

@@ -89,7 +89,7 @@ export class AuthService {
           this.currentUserSubject.next(response.usuario);
           this.isAuthenticatedSubject.next(true);
           
-          // Verificar que todo se guardó correctamente
+          //verificar que todo se guardó correctamente
           console.log('AuthService login: Verificación post-login');
           console.log('AuthService login: Token guardado:', !!this.getAccessToken());
           console.log('AuthService login: Usuario guardado:', this.getCurrentUserSync());
@@ -300,10 +300,10 @@ export class AuthService {
     let errorMessage = 'Ha ocurrido un error inesperado';
 
     if (error.error instanceof ErrorEvent) {
-      // Error del lado del cliente
+      //error del lado del cliente
       errorMessage = error.error.message;
     } else {
-      // Error del servidor
+      //error del servidor
       if (error.status === 401) {
         errorMessage = 'Credenciales inválidas';
       } else if (error.status === 403) {

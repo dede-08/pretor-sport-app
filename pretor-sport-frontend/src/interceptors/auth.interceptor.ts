@@ -12,7 +12,7 @@ export const AuthInterceptor: HttpInterceptorFn = (
 ): Observable<HttpEvent<any>> => {
   const authService = inject(AuthService);
 
-  // URLs que no requieren autenticación
+  //URLs que no requieren autenticación
   const skipUrls = [
     '/auth/login',
     '/auth/register',
@@ -23,20 +23,20 @@ export const AuthInterceptor: HttpInterceptorFn = (
     '/public/'
   ];
 
-  // Verificar si la URL debe ser omitida del interceptor
+  //verificar si la URL debe ser omitida del interceptor
   const shouldSkip = skipUrls.some(url => {
-    // Extraer la ruta de la URL completa
+    //extraer la ruta de la URL completa
     const urlPath = new URL(req.url).pathname;
     return urlPath.includes(url);
   });
 
-  // Si debe omitirse, enviar la petición sin modificar
+  //si debe omitirse, enviar la petición sin modificar
   if (shouldSkip) {
     console.log('Skipping auth interceptor for:', req.url);
     return next(req);
   }
 
-  // Para URLs que requieren autenticación, agregar el token
+  //para URLs que requieren autenticación, agregar el token
   const token = authService.getAccessToken();
   let authReq = req;
 
