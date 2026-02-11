@@ -35,6 +35,14 @@ build/
 ### Variables de entorno ###
 .env
 .env.properties
+.env.local
+.env.production
+
+### Configuración sensible ###
+application*.yml
+application*.yaml
+application-production.yml
+application-prod.yml
 
 #logs del sistema
 /logs/pretor-sport.log

@@ -19,7 +19,7 @@ import java.util.function.Function;
 @Slf4j
 public class JwtUtil {
 
-    @Value("${app.jwt.secret:pretorSportSecretKeyForJWTTokenGenerationThatShouldBeLongEnough}")
+    @Value("${JWT_SECRET:pretorSportSecretKeyForJWTTokenGenerationThatShouldBeLongEnoughForHS512Algorithm}")
     private String secret;
 
     @Value("${app.jwt.expiration:86400}") // 24 horas por defecto
