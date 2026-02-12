@@ -19,7 +19,7 @@ public class StaticResourceConfig implements WebMvcConfigurer {
             //la ruta del directorio de subidas de forma absoluta
             String absolutePath = Paths.get(uploadDir).toAbsolutePath().toString();
             
-            // Verificar que el directorio existe
+            //verificar que el directorio existe
             java.io.File uploadDirectory = new java.io.File(absolutePath);
             if (!uploadDirectory.exists()) {
                 uploadDirectory.mkdirs();
@@ -30,7 +30,7 @@ public class StaticResourceConfig implements WebMvcConfigurer {
             registry.addResourceHandler("/images/**")
                     .addResourceLocations("file:" + absolutePath + "/");
         } catch (Exception e) {
-            // Log error but don't break startup
+            //loggea un error pero no interrumpe el inicio
             System.err.println("Error configuring resource handlers: " + e.getMessage());
         }
     }
