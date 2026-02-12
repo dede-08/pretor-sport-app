@@ -2,38 +2,32 @@ import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { map, take } from 'rxjs';
 
 export const adminGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-
+  
   console.log('AdminGuard: Verificando acceso a:', state.url);
   
-  // Obtener el usuario actual directamente del localStorage para evitar problemas de timing
-  const userData = localStorage.getItem('user_data');
-  const user = userData ? JSON.parse(userData) : null;
-  
-  console.log('AdminGuard: Usuario del localStorage:', user);
-  console.log('AdminGuard: Usuario autenticado (service):', authService.isLoggedIn());
-  console.log('AdminGuard: Es admin (service):', authService.isAdmin());
-  console.log('AdminGuard: Token válido:', !!authService.getAccessToken());
-
-  // Verificar si hay token válido
-  const token = authService.getAccessToken();
-  if (!token) {
-    console.log('AdminGuard: No hay token, redirigiendo a login');
-    router.navigate(['/login']);
-    return false;
-  }
-
-  // Verificar si el usuario tiene rol de administrador (usando datos directos del localStorage)
-  if (!user || user.rol !== 'ROLE_ADMIN') {
-    console.log('AdminGuard: Usuario no es admin, acceso denegado');
-    alert('Acceso denegado. Solo los administradores pueden acceder a esta sección.');
-    router.navigate(['/']);
-    return false;
-  }
-
-  console.log('AdminGuard: Acceso permitido');
-  return true;
+  //solo usar AuthService para verificar autenticacion
+  return authService.currentUser$.pipe(
+    take(1),
+    map(user => {
+      if (!user || !authService.isLoggedIn()) {
+        console.log('AdminGuard: Usuario no autenticado, redirigiendo a login');
+        router.navigate(['/login']);
+        return false;
+      }
+      
+      if (!authService.isAdmin()) {
+        console.log('AdminGuard: Usuario sin rol de admin, acceso denegado');
+        authService.redirectToUnauthorized();
+        return false;
+      }
+      
+      console.log('AdminGuard: Acceso permitido para admin:', user.email);
+      return true;
+    })
+  );
 };

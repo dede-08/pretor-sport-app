@@ -16,11 +16,14 @@ export const AuthInterceptor: HttpInterceptorFn = (
   const skipUrls = [
     '/auth/login',
     '/auth/register',
+    '/',
     '/auth/refresh',
     '/auth/verify-email',
     '/auth/health',
     '/auth/roles',
-    '/public/'
+    '/public/',
+    '/productos',
+    '/categorias'
   ];
 
   //verificar si la URL debe ser omitida del interceptor

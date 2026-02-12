@@ -155,7 +155,7 @@ export class AuthService {
       );
   }
 
-  //obtener información del usuario actual
+  //obtener info del usuario actual
   getCurrentUser(): Observable<User> {
     return this.http.get<User>(`${this.API_URL}/me`)
       .pipe(
@@ -294,6 +294,11 @@ export class AuthService {
 
   canViewReports(): boolean {
     return this.hasAnyRole(['ROLE_ADMIN', 'ROLE_EMPLEADO']);
+  }
+
+  redirectToUnauthorized(): void {
+    console.log('AuthService: Acceso rechazado - redirigiendo a home');
+    this.router.navigate(['/']);
   }
 
   private handleError(error: HttpErrorResponse) {

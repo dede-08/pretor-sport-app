@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           console.log('Usuario no autenticado, redirigiendo a login');
           this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
         } else {
-          // Verificar roles si están especificados en la ruta
+          //verificar roles si estan especificados en la ruta
           const requiredRoles = route.data?.['roles'] as string[];
           if (requiredRoles && requiredRoles.length > 0) {
             const hasRequiredRole = this.authService.hasAnyRole(requiredRoles);
