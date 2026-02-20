@@ -62,23 +62,18 @@ export class ProductsComponent implements OnInit {
     this.cargarProductos(categoriaId ?? undefined);
   }
 
-  /**
-   * Obtiene la URL de la imagen del producto
-   */
+  //obtiene la UTL de la imagen del producto
   obtenerImagenProducto(producto: Producto): string {
     return this.configService.getImageUrl(producto.imagenUrl);
   }
 
-  /**
-   * Verifica si el producto tiene stock
-   */
+  //verifica si el producto tiene stock disponible
   tieneStock(producto: Producto): boolean {
     return producto.stock > 0;
   }
 
-  /**
-   * Agrega un producto al carrito
-   */
+  
+  //agrega un producto al carrito
   agregarAlCarrito(producto: Producto): void {
     if (!this.tieneStock(producto)) {
       this.notificationService.showWarning('Este producto no está disponible');
@@ -87,7 +82,7 @@ export class ProductsComponent implements OnInit {
 
     this.cartService.addToCartLocal(producto, 1);
     
-    // Mostrar notificación de éxito
+    //mostrar notificación de exito al agregar al carrito
     this.notificationService.showSuccess(`"${producto.nombre}" agregado al carrito`);
   }
 }

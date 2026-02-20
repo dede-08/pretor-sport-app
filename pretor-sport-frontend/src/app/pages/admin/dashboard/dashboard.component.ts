@@ -39,7 +39,7 @@ export class DashboardComponent {
   }
 
   updateProduct(product: any) {
-    // Implement navigation to update form or open modal
+    //implementar navegación al formulario de actualización o abrir modal
     console.log('Update product:', product);
   }
 
@@ -47,7 +47,7 @@ export class DashboardComponent {
     if (confirm('Are you sure you want to delete this product?')) {
       this.productoService.deleteProduct(id).subscribe({
         next: () => {
-          this.cargarProductos(); // Reload the list after deletion
+          this.cargarProductos(); //recargar la lista despues del delete
         },
         error: (error) => {
           console.error('Error deleting product:', error);
@@ -56,9 +56,7 @@ export class DashboardComponent {
     }
   }
 
-  /**
-   * Obtiene la URL de la imagen del producto
-   */
+  //obtiene la URL de la imagen del producto
   obtenerImagenProducto(producto: Producto): string {
     return this.configService.getImageUrl(producto.imagenUrl);
   }

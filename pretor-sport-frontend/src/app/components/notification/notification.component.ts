@@ -51,9 +51,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   close(): void {
     this.show = false;
-    // Esperar a que termine la animación antes de destruir el componente
+    //esperar a que termine la animación antes de destruir el componente
     setTimeout(() => {
-      // El componente se destruirá automáticamente
+      //el componente se destruirá automáticamente al desaparecer del DOM, no es necesario hacer nada aquí
     }, 300);
   }
 }

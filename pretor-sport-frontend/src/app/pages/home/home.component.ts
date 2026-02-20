@@ -89,7 +89,7 @@ export class HomeComponent implements OnInit {
     return precio * (1 - descuentoPorcentaje / 100);
   }
 
-  //metodo para obtener imagen del producto usando el servicio de configuración
+  //metodo para obtener imagen del producto usando el servicio de configuracion
   obtenerImagenProducto(producto: Producto): string {
     return this.configService.getImageUrl(producto.imagenUrl);
   }
@@ -124,7 +124,7 @@ export class HomeComponent implements OnInit {
 
     this.cartService.addToCartLocal(producto, 1);
     
-    //mostrar notificación de éxito
+    //mostrar notificacion de exito al agregar al carrito
     this.notificationService.showSuccess(`"${producto.nombre}" agregado al carrito`);
   }
 }

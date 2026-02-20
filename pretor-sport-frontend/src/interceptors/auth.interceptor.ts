@@ -33,13 +33,13 @@ export const AuthInterceptor: HttpInterceptorFn = (
     return urlPath.includes(url);
   });
 
-  //si debe omitirse, enviar la petición sin modificar
+  //si debe omitirse, enviar la peticion sin modificar
   if (shouldSkip) {
     console.log('Skipping auth interceptor for:', req.url);
     return next(req);
   }
 
-  //para URLs que requieren autenticación, agregar el token
+  //para URLs que requieren autenticacion, agregar el token
   const token = authService.getAccessToken();
   let authReq = req;
 
