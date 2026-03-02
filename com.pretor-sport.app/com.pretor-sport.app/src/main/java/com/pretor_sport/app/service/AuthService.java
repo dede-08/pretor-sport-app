@@ -27,6 +27,7 @@ import java.util.UUID;
 @Slf4j
 public class AuthService {
 
+    private final UsuarioService usuarioService;
     private final AuthenticationManager authenticationManager;
     private final UsuarioRepository usuarioRepository;
     private final JwtUtil jwtUtil;
@@ -88,33 +89,20 @@ public class AuthService {
 
     @Transactional
     public AuthResponseDTO register(UsuarioRequestDTO registroRequest) {
-        if (usuarioRepository.existsByEmail(registroRequest.getEmail())) {
-            throw new IllegalArgumentException("Ya existe un usuario con este email");
-        }
+        // Centralizamos la creación en UsuarioService
+        Usuario usuarioGuardado = usuarioService.crearUsuario(registroRequest);
 
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setNombre(registroRequest.getNombre());
-        nuevoUsuario.setApellidos(registroRequest.getApellidos());
-        nuevoUsuario.setEmail(registroRequest.getEmail());
-        nuevoUsuario.setPassword(passwordEncoder.encode(registroRequest.getPassword()));
-        nuevoUsuario.setDireccion(registroRequest.getDireccion());
-        nuevoUsuario.setTelefono(registroRequest.getTelefono());
-        nuevoUsuario.setRol(Usuario.Rol.ROLE_CLIENTE);
-        nuevoUsuario.setActivo(true);
-        nuevoUsuario.setEmailVerificado(false);
-        nuevoUsuario.setTokenVerificacion(UUID.randomUUID().toString());
-
-        Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
-
-        usuarioGuardado.setEmailVerificado(true);
-        usuarioGuardado.setTokenVerificacion(null);
-        usuarioGuardado = usuarioRepository.save(usuarioGuardado);
-
+        // Ya no verificamos el email automáticamente aquí para permitir el flujo real de verificación
+        // Si quieres que el usuario se loguee inmediatamente DESPUÉS de verificar, 
+        // aquí solo retornaríamos una respuesta de "usuario creado, revisa tu email".
+        // Pero para no romper el frontend que espera tokens:
+        
         UserDetails userDetails = userDetailsService.loadUserByUsername(usuarioGuardado.getEmail());
         String accessToken = jwtUtil.generateToken(userDetails, usuarioGuardado.getId(), usuarioGuardado.getRol().name());
         String refreshToken = jwtUtil.generateRefreshToken(userDetails, usuarioGuardado.getId(), usuarioGuardado.getRol().name());
 
-        log.info("Nuevo usuario registrado: {} con rol: {}", usuarioGuardado.getEmail(), usuarioGuardado.getRol());
+        log.info("Nuevo usuario registrado (pendiente de verificación): {} con rol: {}", 
+            usuarioGuardado.getEmail(), usuarioGuardado.getRol());
 
         return AuthResponseDTO.of(
             accessToken,
