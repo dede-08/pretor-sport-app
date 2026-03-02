@@ -24,7 +24,7 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class ProductoService {
-  private readonly baseUrl = 'http://localhost:8080/productos';
+  private readonly baseUrl = 'http://localhost:8080/api/productos';
   private productosSubject = new BehaviorSubject<Producto[]>([]);
   public productos$ = this.productosSubject.asObservable();
 

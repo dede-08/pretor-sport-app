@@ -16,7 +16,7 @@ import { Producto } from '../models/producto.model';
   providedIn: 'root'
 })
 export class CartService {
-  private readonly API_URL = 'http://localhost:8080/cart';
+  private readonly API_URL = 'http://localhost:8080/api/cart';
   private readonly CART_STORAGE_KEY = 'pretor_sport_cart';
   
   private cartSubject = new BehaviorSubject<Cart | null>(this.getCartFromStorage());

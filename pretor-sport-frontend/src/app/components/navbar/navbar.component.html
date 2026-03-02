@@ -32,7 +32,7 @@
 
       <!--formulario de busqueda en el navbar-->
       <form class="d-flex me-3" role="search" (submit)="onSearch($event)">
-        <input class="form-control me-2 search-text" type="search" placeholder="Buscar productos..." aria-label="Search" />
+        <input #searchInput class="form-control me-2 search-text" type="search" placeholder="Buscar productos..." aria-label="Search" />
         <button class="btn btn-outline-secondary icon-color button-search" type="submit">
           <span class="material-symbols-outlined button-icon">search</span>
         </button>

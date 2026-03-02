@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductoService } from '../../../services/producto.service';
 import { CartService } from '../../../services/cart.service';
 import { NotificationService } from '../../../services/notification.service';
@@ -19,16 +20,30 @@ export class ProductsComponent implements OnInit {
   categorias: CategoriaSimple[] = [];
   selectedCategoriaId: number | null = null;
   selectedCategoriaNombre: string | null = null;
+  searchTerm: string | null = null;
 
   constructor(
     private productoService: ProductoService,
     private cartService: CartService,
     private notificationService: NotificationService,
-    public configService: ConfigService
+    public configService: ConfigService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.cargarProductos();
+    // escuchar parámetros de consulta para búsquedas
+    this.route.queryParams.subscribe(params => {
+      const termino = params['q'];
+      if (termino) {
+        this.searchTerm = termino;
+        this.buscarProductos(termino);
+      } else {
+        this.searchTerm = null;
+        this.cargarProductos();
+      }
+    });
+
     this.cargarCategorias();
   }
 
@@ -52,6 +67,11 @@ export class ProductsComponent implements OnInit {
   }
 
   selectCategoria(categoriaId: number | null): void {
+    // al cambiar de categoría limpiamos cualquier búsqueda previa
+    this.searchTerm = null;
+    // eliminar el parámetro de consulta si existe
+    this.router.navigate([], { queryParams: { q: null }, queryParamsHandling: 'merge' });
+
     this.selectedCategoriaId = categoriaId;
     if (categoriaId === null) {
       this.selectedCategoriaNombre = null;
@@ -60,6 +80,16 @@ export class ProductsComponent implements OnInit {
       this.selectedCategoriaNombre = categoria ? categoria.nombre : null;
     }
     this.cargarProductos(categoriaId ?? undefined);
+  }
+
+  private buscarProductos(termino: string): void {
+    this.productoService.buscarProductos(termino).subscribe(response => {
+      this.productos = response.content;
+      // reiniciar filtros de categoría si existían
+      this.selectedCategoriaId = null;
+      this.selectedCategoriaNombre = null;
+      this.searchTerm = termino;
+    });
   }
 
   //obtiene la UTL de la imagen del producto

@@ -30,8 +30,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 text-center mb-4">
-                    <h3 *ngIf="selectedCategoriaId === null">Todos los productos</h3>
-                    <h3 *ngIf="selectedCategoriaId !== null">{{ selectedCategoriaNombre }}</h3>
+                    <h3 *ngIf="searchTerm">Resultados para "{{ searchTerm }}"</h3>
+                    <h3 *ngIf="!searchTerm && selectedCategoriaId === null">Todos los productos</h3>
+                    <h3 *ngIf="!searchTerm && selectedCategoriaId !== null">{{ selectedCategoriaNombre }}</h3>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">

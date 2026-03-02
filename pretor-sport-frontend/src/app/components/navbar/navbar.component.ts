@@ -59,7 +59,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   onSearch(event: Event): void {
     event.preventDefault();
-    // TODO: Implementar lógica de búsqueda
-    console.log('Funcionalidad de búsqueda pendiente');
+    const form = event.target as HTMLFormElement;
+    const input = form.querySelector('input') as HTMLInputElement | null;
+    const termino = input?.value.trim() || '';
+    if (termino) {
+      // Navegar a la página de productos con el término de búsqueda en query params
+      this.router.navigate(['/productos'], { queryParams: { q: termino } });
+      // opcional: limpiar campo de búsqueda
+      if (input) {
+        input.value = '';
+      }
+    }
   }
 }
