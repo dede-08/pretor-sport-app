@@ -1,8 +1,8 @@
-# 🏪 Pretor Sport App
+# Pretor Sport App
 
 Plataforma de e-commerce para artículos deportivos con Spring Boot 3.5.4 + Angular 19.2.18 + PostgreSQL
 
-## 📋 Información del Proyecto
+## Información del Proyecto
 
 - **Backend**: Spring Boot 3.5.4 + Java 17
 - **Frontend**: Angular 19.2.18 + TypeScript 5.5.0
@@ -10,7 +10,7 @@ Plataforma de e-commerce para artículos deportivos con Spring Boot 3.5.4 + Angu
 - **Autenticación**: JWT (JSON Web Tokens)
 - **Arquitectura**: REST API + SPA
 
-## 🏗️ Estructura
+## Estructura
 
 ```
 pretor-sport-app/
@@ -33,7 +33,7 @@ pretor-sport-app/
 └── README.md                   # Este archivo
 ```
 
-## 🚀 Instalación y Ejecución
+## Instalación y Ejecución
 
 ### Prerrequisitos
 - Java 17+
@@ -89,7 +89,7 @@ CREATE DATABASE pretor_sport_db;
 # Ver archivo: pretor_sport_db.sql para datos iniciales
 ```
 
-## 🔧 Configuración
+## Configuración
 
 ### Variables de Entorno (.env.properties)
 
@@ -116,7 +116,7 @@ FRONTEND_URL=http://localhost:4200
 - **Imágenes**: Sirve desde `/uploads/images/`
 - **CORS**: Configurado para `http://localhost:4200`
 
-## 🛡️ Seguridad
+## Seguridad
 
 ### Autenticación JWT
 - Access Token: 24 horas
@@ -134,7 +134,7 @@ FRONTEND_URL=http://localhost:4200
 - Métodos: GET, POST, PUT, DELETE, PATCH, OPTIONS
 - Headers: Authorization, Content-Type, etc.
 
-## 📡️ Endpoints Principales
+## Endpoints Principales
 
 ### Autenticación
 - `POST /auth/login` - Login de usuarios
@@ -157,7 +157,7 @@ FRONTEND_URL=http://localhost:4200
 - `GET /images/{filename}` - Servir imágenes estáticas
 - Upload: `POST /productos/{id}/image` - Subir imagen de producto
 
-## 🔍 Tests
+## Tests
 
 ### Backend Tests
 ```bash
@@ -186,24 +186,8 @@ npm test
 - `genero`: HOMBRE, MUJER, NIÑO, NIÑA, UNISEX
 - `material`, `peso`, `características` (List<String>)
 
-## 🚨 Solución de Problemas Comunes
 
-### Error: "Cannot read image.png"
-✅ **Corregido**: URLs de imágenes actualizadas en `config.service.ts`
-
-### Error: JWT Secret hardcoded
-✅ **Corregido**: Ahora usa variable de entorno `JWT_SECRET`
-
-### Error: Conexión base de datos
-1. Verificar que PostgreSQL esté corriendo
-2. Confirmar credenciales en `.env.properties`
-3. Crear base de datos `pretor_sport_db`
-
-### Error: CORS bloqueando peticiones
-1. Verificar configuración en `CorsConfig.java`
-2. Confirmar URL del frontend permitida
-
-## 🔄 Despliegue
+## Despliegue
 
 ### Variables de Entorno Producción
 ```bash
@@ -224,18 +208,6 @@ export FRONTEND_URL=https://tu-dominio.com
 cd ../pretor-sport-frontend
 npm run build
 ```
-
-## 📞 Soporte
-
-### Logs Importantes
-- **Backend**: `logs/pretor-sport.log`
-- **Consola**: Configurado con DEBUG level para desarrollo
-
-### Problemas Conocidos
-1. **Imágenes**: Verificar URLs en `config.service.ts`
-2. **JWT**: Confirmar variable `JWT_SECRET` está configurada
-3. **Base de Datos**: Validar conexión PostgreSQL
-4. **CORS**: Revisar configuración de orígenes permitidos
 
 ---
 **Versión**: 0.0.1-SNAPSHOT  
