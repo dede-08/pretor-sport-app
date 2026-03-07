@@ -171,7 +171,7 @@ cd pretor-sport-frontend
 npm test
 ```
 
-## 📊 Modelo de Datos
+## Modelo de Datos
 
 ### Entidades Principales
 - **Producto**: Artículos deportivos con especificaciones técnicas
