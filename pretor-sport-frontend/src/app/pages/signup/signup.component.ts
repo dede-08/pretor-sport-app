@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, RegisterRequest } from '../../../services/auth.service';
+import { LoggerService } from '../../../services/logger.service';
 
 @Component({
   selector: 'app-signup',
@@ -20,7 +21,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private logger: LoggerService
   ) {}
 
   ngOnInit(): void {
@@ -126,14 +128,14 @@ export class SignupComponent implements OnInit {
 
       this.authService.register(registerData).subscribe({
         next: (response) => {
-          console.log('Registro exitoso:', response);
-          this.successMessage = 'Cuenta creada exitosamente. Redirigiendo...';
+          this.logger.info('Registro exitoso:', response);
+          this.successMessage = 'Cuenta creada. Revisa tu correo y verifica tu cuenta antes de iniciar sesión.';
           setTimeout(() => {
-            this.router.navigate(['']);
+            this.router.navigate(['/login'], { queryParams: { verifyPending: '1' } });
           }, 2000);
         },
         error: (error) => {
-          console.error('Error en registro:', error);
+          this.logger.error('Error en registro:', error);
           //mejor manejo del mensaje de error:
           this.errorMessage = error?.error?.message || error?.message || 'Error al crear la cuenta';
           this.isLoading = false;

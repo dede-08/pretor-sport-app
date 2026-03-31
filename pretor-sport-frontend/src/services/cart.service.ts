@@ -11,6 +11,7 @@ import {
   CartCheckoutRequest 
 } from '../models/cart.model';
 import { Producto } from '../models/producto.model';
+import { LoggerService } from './logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,10 @@ export class CartService {
   private cartSummarySubject = new BehaviorSubject<CartSummary>(this.calculateSummary());
   public cartSummary$ = this.cartSummarySubject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private logger: LoggerService
+  ) {
     //sincronizar carrito local con el servidor si hay usuario autenticado
     this.syncCartWithServer();
   }
@@ -319,7 +323,7 @@ export class CartService {
   }
 
   private handleError(error: any): Observable<never> {
-    console.error('Error en CartService:', error);
+    this.logger.error('Error en CartService:', error);
     return throwError(() => error);
   }
 }

@@ -1,41 +1,52 @@
 import { HttpInterceptorFn, HttpRequest, HttpEvent, HttpHandlerFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { LoggerService } from '../services/logger.service';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 
 let isRefreshing = false;
+const PUBLIC_EXACT_PATHS = new Set([
+  '/auth/login',
+  '/auth/register',
+  '/auth/refresh',
+  '/auth/verify-email',
+  '/auth/resend-verification',
+  '/auth/health',
+  '/auth/roles',
+  '/productos',
+  '/categorias'
+]);
+
+const PUBLIC_PREFIX_PATHS = ['/public/'];
+
+const normalizePath = (path: string): string => {
+  if (path.startsWith('/api/')) {
+    return path.substring(4);
+  }
+  if (path === '/api') {
+    return '/';
+  }
+  return path;
+};
 
 export const AuthInterceptor: HttpInterceptorFn = (
   req: HttpRequest<any>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<any>> => {
   const authService = inject(AuthService);
+  const logger = inject(LoggerService);
 
   //URLs que no requieren autenticación
-  const skipUrls = [
-    '/auth/login',
-    '/auth/register',
-    '/',
-    '/auth/refresh',
-    '/auth/verify-email',
-    '/auth/health',
-    '/auth/roles',
-    '/public/',
-    '/productos',
-    '/categorias'
-  ];
-
-  //verificar si la URL debe ser omitida del interceptor
-  const shouldSkip = skipUrls.some(url => {
-    //extraer la ruta de la URL completa
-    const urlPath = new URL(req.url).pathname;
-    return urlPath.includes(url);
-  });
+  const rawPath = new URL(req.url, window.location.origin).pathname;
+  const urlPath = normalizePath(rawPath);
+  const shouldSkip =
+    PUBLIC_EXACT_PATHS.has(urlPath) ||
+    PUBLIC_PREFIX_PATHS.some(prefix => urlPath.startsWith(prefix));
 
   //si debe omitirse, enviar la peticion sin modificar
   if (shouldSkip) {
-    console.log('Skipping auth interceptor for:', req.url);
+    logger.debug('Skipping auth interceptor for:', req.url);
     return next(req);
   }
 
@@ -45,9 +56,9 @@ export const AuthInterceptor: HttpInterceptorFn = (
 
   if (token) {
     authReq = addTokenToRequest(req, token);
-    console.log('Adding auth token to request:', req.url);
+    logger.debug('Adding auth token to request:', req.url);
   } else {
-    console.warn('No auth token available for protected endpoint:', req.url);
+    logger.warn('No auth token available for protected endpoint:', req.url);
   }
 
   return next(authReq).pipe(
@@ -56,7 +67,7 @@ export const AuthInterceptor: HttpInterceptorFn = (
         return handleTokenExpired(authReq, next, authService);
       }
       if (error.status === 403) {
-        console.error('Acceso denegado: permisos insuficientes');
+        logger.error('Acceso denegado: permisos insuficientes');
       }
       return throwError(() => error as HttpErrorResponse);
     })
@@ -77,6 +88,7 @@ const handleTokenExpired = (
   next: HttpHandlerFn,
   authService: AuthService
 ): Observable<HttpEvent<any>> => {
+  const logger = inject(LoggerService);
   isRefreshing = true;
 
   return authService.refreshToken().pipe(
@@ -92,8 +104,8 @@ const handleTokenExpired = (
     }),
     catchError((error) => {
       isRefreshing = false;
-      console.error('Error al renovar token, cerrando sesión');
-      authService.logout();
+      logger.error('Error al renovar token, cerrando sesión');
+      authService.forceLogoutLocal();
       return throwError(() => error as HttpErrorResponse);
     })
   );

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { CartService } from '../../../services/cart.service';
+import { LoggerService } from '../../../services/logger.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
@@ -23,7 +24,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private logger: LoggerService
   ) {}
 
   ngOnInit(): void {
@@ -46,11 +48,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        console.log('Logout exitoso');
+        this.logger.info('Logout exitoso');
         this.router.navigate(['/']);
       },
       error: (error) => {
-        console.error('Error en logout:', error);
+        this.logger.error('Error en logout:', error);
         //incluso si hay error, navegar al home
         this.router.navigate(['/']);
       }

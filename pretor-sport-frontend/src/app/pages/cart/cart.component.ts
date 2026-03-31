@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { CartService } from '../../../services/cart.service';
+import { LoggerService } from '../../../services/logger.service';
 import { Cart, CartItem, CartSummary } from '../../../models/cart.model';
 
 @Component({
@@ -32,7 +33,8 @@ export class CartComponent implements OnInit, OnDestroy {
 
   constructor(
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private logger: LoggerService
   ) { }
 
   ngOnInit(): void {
@@ -59,7 +61,7 @@ export class CartComponent implements OnInit, OnDestroy {
         error: (error) => {
           this.error = 'Error al cargar el carrito';
           this.loading = false;
-          console.error('Error loading cart:', error);
+          this.logger.error('Error loading cart:', error);
         }
       });
   }
@@ -108,7 +110,7 @@ export class CartComponent implements OnInit, OnDestroy {
       next: () => this.error = null,
       error: (error) => {
         this.error = 'Error al actualizar la cantidad';
-        console.error('Error updating cart item:', error);
+        this.logger.error('Error updating cart item:', error);
       }
     });
   }
@@ -120,7 +122,7 @@ export class CartComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         this.error = 'Error al eliminar el producto';
-        console.error('Error removing cart item:', error);
+        this.logger.error('Error removing cart item:', error);
       }
     });
   }
@@ -133,7 +135,7 @@ export class CartComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           this.error = 'Error al vaciar el carrito';
-          console.error('Error clearing cart:', error);
+          this.logger.error('Error clearing cart:', error);
         }
       });
     }
@@ -167,7 +169,7 @@ export class CartComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         this.error = 'Error al remover el cupón';
-        console.error('Error removing coupon:', error);
+        this.logger.error('Error removing coupon:', error);
       }
     });
   }

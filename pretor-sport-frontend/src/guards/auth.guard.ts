@@ -3,6 +3,7 @@ import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterSt
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
+import { LoggerService } from '../services/logger.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private logger: LoggerService
   ) {}
 
   canActivate(
@@ -32,7 +34,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     return this.authService.isAuthenticated$.pipe(
       tap(isAuthenticated => {
         if (!isAuthenticated) {
-          console.log('Usuario no autenticado, redirigiendo a login');
+          this.logger.warn('Usuario no autenticado, redirigiendo a login');
           this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
         } else {
           //verificar roles si estan especificados en la ruta
@@ -40,7 +42,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
           if (requiredRoles && requiredRoles.length > 0) {
             const hasRequiredRole = this.authService.hasAnyRole(requiredRoles);
             if (!hasRequiredRole) {
-              console.log('Usuario sin permisos suficientes');
+              this.logger.warn('Usuario sin permisos suficientes');
               this.router.navigate(['/unauthorized']);
             }
           }

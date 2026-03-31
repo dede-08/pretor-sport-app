@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, LoginRequest } from '../../../services/auth.service';
+import { LoggerService } from '../../../services/logger.service';
 
 @Component({
   selector: 'app-login',
@@ -15,16 +16,22 @@ import { AuthService, LoginRequest } from '../../../services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading = false;
+  isResendingVerification = false;
   errorMessage = '';
+  infoMessage = '';
+  verificationUrl: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
+    private logger: LoggerService
   ) {}
 
   ngOnInit(): void {
     this.initializeForm();
+    this.showVerificationHintIfNeeded();
   }
 
   private initializeForm(): void {
@@ -42,6 +49,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  private showVerificationHintIfNeeded(): void {
+    const verifyPending = this.route.snapshot.queryParamMap.get('verifyPending');
+    if (verifyPending === '1') {
+      this.infoMessage = 'Tu cuenta fue creada. Verifica tu correo antes de iniciar sesión.';
+    }
+  }
+
   onSubmit(): void {
     if (this.loginForm.valid && !this.isLoading) {
       this.isLoading = true;
@@ -51,13 +65,13 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(loginData).subscribe({
         next: (response) => {
-          console.log('Login exitoso:', response);
-          console.log('Usuario recibido:', response.usuario);
-          console.log('Rol del usuario:', response.usuario.rol);
+          this.logger.debug('Login exitoso:', response);
+          this.logger.debug('Usuario recibido:', response.usuario);
+          this.logger.debug('Rol del usuario:', response.usuario.rol);
           this.redirectBasedOnRole(response.usuario.rol);
         },
         error: (error) => {
-          console.error('Error en login:', error);
+          this.logger.error('Error en login:', error);
           this.errorMessage = error || 'Error de autenticación';
           this.isLoading = false;
         },
@@ -70,6 +84,31 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  resendVerification(): void {
+    const email = this.email?.value?.trim();
+    if (!email) {
+      this.errorMessage = 'Ingresa tu email para reenviar la verificación.';
+      return;
+    }
+
+    this.isResendingVerification = true;
+    this.errorMessage = '';
+    this.infoMessage = '';
+    this.verificationUrl = null;
+
+    this.authService.resendVerificationEmail(email).subscribe({
+      next: (response) => {
+        this.infoMessage = response.message || 'Se reenvió la verificación.';
+        this.verificationUrl = response.verificationUrl || null;
+        this.isResendingVerification = false;
+      },
+      error: (error) => {
+        this.errorMessage = error || 'No se pudo reenviar la verificación.';
+        this.isResendingVerification = false;
+      }
+    });
+  }
+
   private markFormGroupTouched(): void {
     Object.keys(this.loginForm.controls).forEach(key => {
       const control = this.loginForm.get(key);
@@ -78,37 +117,37 @@ export class LoginComponent implements OnInit {
   }
 
   private redirectBasedOnRole(userRole: string): void {
-    console.log('Iniciando redirección basada en rol:', userRole);
+    this.logger.debug('Iniciando redirección basada en rol:', userRole);
     
     //usar setTimeout para asegurar que el estado de autenticación se haya actualizado
     setTimeout(() => {
       switch (userRole) {
         case 'ROLE_ADMIN':
-          console.log('Detectado rol ADMIN - Redirigiendo al dashboard de administrador');
+          this.logger.info('Detectado rol ADMIN - Redirigiendo al dashboard de administrador');
           this.router.navigateByUrl('/admin').then(success => {
             if (success) {
-              console.log('Redirección exitosa a /admin');
+              this.logger.info('Redirección exitosa a /admin');
             } else {
-              console.error('Error en redirección a /admin, intentando con window.location');
+              this.logger.error('Error en redirección a /admin, intentando con window.location');
               //fallback usando window.location si router.navigate falla
               window.location.href = '/admin';
             }
           }).catch(error => {
-            console.error('Error en redirección a /admin:', error);
+            this.logger.error('Error en redirección a /admin:', error);
             //fallback: redirigir al home
             this.router.navigate(['/']);
           });
           break;
         case 'ROLE_EMPLEADO':
-          console.log('Detectado rol EMPLEADO - Redirigiendo al home');
+          this.logger.info('Detectado rol EMPLEADO - Redirigiendo al home');
           this.router.navigate(['/']);
           break;
         case 'ROLE_CLIENTE':
-          console.log('Detectado rol CLIENTE - Redirigiendo al home');
+          this.logger.info('Detectado rol CLIENTE - Redirigiendo al home');
           this.router.navigate(['/']);
           break;
         default:
-          console.warn('Rol no reconocido:', userRole, '- Redirigiendo al home por defecto');
+          this.logger.warn('Rol no reconocido:', userRole, '- Redirigiendo al home por defecto');
           this.router.navigate(['/']);
           break;
       }

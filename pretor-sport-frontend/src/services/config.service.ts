@@ -23,11 +23,7 @@ export class ConfigService {
     return this.imagesBaseUrl;
   }
 
-  /**
-   * Construye la URL completa de una imagen
-   * @param imagenUrl URL de la imagen (puede ser relativa o absoluta)
-   * @returns URL completa de la imagen
-   */
+  //construye la URL completa para una imagen
   getImageUrl(imagenUrl?: string): string {
     if (!imagenUrl) {
       return this.getDefaultImageUrl();

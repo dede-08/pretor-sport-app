@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LoggerService } from './logger.service';
+import { environment } from '../environments/environment';
 
 export interface LoginRequest {
   email: string;
@@ -21,8 +23,8 @@ export interface RegisterRequest {
 }
 
 export interface AuthResponse {
-  accessToken: string;
-  refreshToken: string;
+  accessToken: string | null;
+  refreshToken: string | null;
   tokenType: string;
   expiresIn: number;
   issuedAt: string;
@@ -59,7 +61,7 @@ export interface User {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:8080/auth';
+  private readonly API_URL = `${environment.apiUrl}/auth`;
   private readonly ACCESS_TOKEN_KEY = 'access_token';
   private readonly REFRESH_TOKEN_KEY = 'refresh_token';
   private readonly USER_KEY = 'user_data';
@@ -72,7 +74,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private logger: LoggerService
   ) {
     //verificar token al inicializar
     this.checkTokenValidity();
@@ -83,17 +86,20 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials)
       .pipe(
         tap(response => {
-          console.log('AuthService login: Guardando tokens y usuario');
+          if (!response.accessToken || !response.refreshToken) {
+            throw new Error('La respuesta de login no contiene tokens válidos');
+          }
+          this.logger.debug('AuthService login: Guardando tokens y usuario');
           this.setTokens(response.accessToken, response.refreshToken);
           this.setUser(response.usuario);
           this.currentUserSubject.next(response.usuario);
           this.isAuthenticatedSubject.next(true);
           
           //verificar que todo se guardó correctamente
-          console.log('AuthService login: Verificación post-login');
-          console.log('AuthService login: Token guardado:', !!this.getAccessToken());
-          console.log('AuthService login: Usuario guardado:', this.getCurrentUserSync());
-          console.log('AuthService login: Estado autenticado:', this.isAuthenticatedSubject.value);
+          this.logger.debug('AuthService login: Verificación post-login');
+          this.logger.debug('AuthService login: Token guardado:', !!this.getAccessToken());
+          this.logger.debug('AuthService login: Usuario guardado:', this.getCurrentUserSync());
+          this.logger.debug('AuthService login: Estado autenticado:', this.isAuthenticatedSubject.value);
         }),
         catchError(this.handleError)
       );
@@ -104,10 +110,14 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/register`, userData)
       .pipe(
         tap(response => {
-          this.setTokens(response.accessToken, response.refreshToken);
-          this.setUser(response.usuario);
-          this.currentUserSubject.next(response.usuario);
-          this.isAuthenticatedSubject.next(true);
+          if (response.accessToken && response.refreshToken) {
+            this.setTokens(response.accessToken, response.refreshToken);
+            this.setUser(response.usuario);
+            this.currentUserSubject.next(response.usuario);
+            this.isAuthenticatedSubject.next(true);
+          } else {
+            this.forceLogoutLocal(false);
+          }
         }),
         catchError(this.handleError)
       );
@@ -117,18 +127,10 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.post(`${this.API_URL}/logout`, {})
       .pipe(
-        tap(() => {
-          this.clearTokens();
-          this.currentUserSubject.next(null);
-          this.isAuthenticatedSubject.next(false);
-          this.router.navigate(['/login']);
-        }),
+        tap(() => this.forceLogoutLocal()),
         catchError(() => {
           //incluso si falla la petición al servidor, limpiar localmente
-          this.clearTokens();
-          this.currentUserSubject.next(null);
-          this.isAuthenticatedSubject.next(false);
-          this.router.navigate(['/login']);
+          this.forceLogoutLocal();
           return throwError(() => 'Error al cerrar sesión');
         })
       );
@@ -145,11 +147,14 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/refresh`, { refreshToken })
       .pipe(
         tap(response => {
+          if (!response.accessToken || !response.refreshToken) {
+            throw new Error('No se recibieron tokens válidos al renovar sesión');
+          }
           this.setTokens(response.accessToken, response.refreshToken);
           this.setUser(response.usuario);
         }),
         catchError(error => {
-          this.logout();
+          this.forceLogoutLocal();
           return throwError(() => error);
         })
       );
@@ -173,7 +178,7 @@ export class AuthService {
       .pipe(
         map((response: any) => response.valid),
         catchError(() => {
-          this.logout();
+          this.forceLogoutLocal(false);
           return throwError(() => 'Token inválido');
         })
       );
@@ -183,7 +188,7 @@ export class AuthService {
     const isAuth = this.isAuthenticatedSubject.value;
     const hasToken = this.hasValidToken();
     const result = isAuth && hasToken;
-    console.log('AuthService isLoggedIn:', { isAuth, hasToken, result });
+    this.logger.debug('AuthService isLoggedIn:', { isAuth, hasToken, result });
     return result;
   }
 
@@ -191,6 +196,13 @@ export class AuthService {
   verifyEmail(token: string): Observable<any> {
     return this.http.get(`${this.API_URL}/verify-email?token=${token}`)
       .pipe(catchError(this.handleError));
+  }
+
+  resendVerificationEmail(email: string): Observable<{ message: string; verificationUrl?: string }> {
+    return this.http.post<{ message: string; verificationUrl?: string }>(
+      `${this.API_URL}/resend-verification`,
+      { email }
+    ).pipe(catchError(this.handleError));
   }
 
   //metodos de utilidad para tokens
@@ -205,6 +217,15 @@ export class AuthService {
   private setTokens(accessToken: string, refreshToken: string): void {
     localStorage.setItem(this.ACCESS_TOKEN_KEY, accessToken);
     localStorage.setItem(this.REFRESH_TOKEN_KEY, refreshToken);
+  }
+
+  forceLogoutLocal(redirectToLogin = true): void {
+    this.clearTokens();
+    this.currentUserSubject.next(null);
+    this.isAuthenticatedSubject.next(false);
+    if (redirectToLogin) {
+      this.router.navigate(['/login']);
+    }
   }
 
   private clearTokens(): void {
@@ -261,7 +282,7 @@ export class AuthService {
   //metodos de utilidad para roles
   hasRole(role: string): boolean {
     const user = this.currentUserSubject.value || this.getUserFromStorage();
-    console.log('AuthService hasRole:', { role, user, userRole: user?.rol });
+    this.logger.debug('AuthService hasRole:', { role, user, userRole: user?.rol });
     return user ? user.rol === role : false;
   }
 
@@ -272,7 +293,7 @@ export class AuthService {
 
   isAdmin(): boolean {
     const result = this.hasRole('ROLE_ADMIN');
-    console.log('AuthService isAdmin:', result);
+    this.logger.debug('AuthService isAdmin:', result);
     return result;
   }
 
@@ -297,7 +318,7 @@ export class AuthService {
   }
 
   redirectToUnauthorized(): void {
-    console.log('AuthService: Acceso rechazado - redirigiendo a home');
+    this.logger.warn('AuthService: Acceso rechazado - redirigiendo a home');
     this.router.navigate(['/']);
   }
 
@@ -310,7 +331,7 @@ export class AuthService {
     } else {
       //error del servidor
       if (error.status === 401) {
-        errorMessage = 'Credenciales inválidas';
+        errorMessage = error.error?.message || 'Credenciales inválidas';
       } else if (error.status === 403) {
         errorMessage = 'No tienes permisos para realizar esta acción';
       } else if (error.status === 409) {

@@ -7,6 +7,9 @@ import { CategorysComponent } from './pages/categorys/categorys.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { adminGuard } from '../guards/admin.guard';
 
 export const routes: Routes = [
@@ -43,6 +46,21 @@ export const routes: Routes = [
     {
         path : 'carrito',
         component : CartComponent,
+        pathMatch : 'full'
+    },
+    {
+        path : 'checkout',
+        component : CheckoutComponent,
+        pathMatch : 'full'
+    },
+    {
+        path : 'unauthorized',
+        component : UnauthorizedComponent,
+        pathMatch : 'full'
+    },
+    {
+        path : 'verify-email',
+        component : VerifyEmailComponent,
         pathMatch : 'full'
     },
     {

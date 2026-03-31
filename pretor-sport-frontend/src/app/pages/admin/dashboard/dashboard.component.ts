@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CategoriaSimple, Producto } from '../../../../models/producto.model';
 import { ProductoService } from '../../../../services/producto.service';
 import { ConfigService } from '../../../../services/config.service';
+import { LoggerService } from '../../../../services/logger.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,8 @@ export class DashboardComponent {
 
   constructor(
     private productoService: ProductoService,
-    public configService: ConfigService
+    public configService: ConfigService,
+    private logger: LoggerService
   ) { }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class DashboardComponent {
 
   updateProduct(product: any) {
     //implementar navegación al formulario de actualización o abrir modal
-    console.log('Update product:', product);
+    this.logger.debug('Update product:', product);
   }
 
   deleteProduct(id: number) {
@@ -50,7 +52,7 @@ export class DashboardComponent {
           this.cargarProductos(); //recargar la lista despues del delete
         },
         error: (error) => {
-          console.error('Error deleting product:', error);
+          this.logger.error('Error deleting product:', error);
         }
       });
     }

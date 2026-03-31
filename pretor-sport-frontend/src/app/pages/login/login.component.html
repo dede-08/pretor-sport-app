@@ -7,6 +7,13 @@
       <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
         {{ errorMessage }}
       </div>
+      <div *ngIf="infoMessage" class="alert alert-info" role="alert">
+        {{ infoMessage }}
+        <a routerLink="/verify-email" class="ms-1">Verificar ahora</a>
+        <div *ngIf="verificationUrl" class="mt-2">
+          <a [href]="verificationUrl">Abrir enlace de verificación</a>
+        </div>
+      </div>
 
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
         <!-- Campo Email -->
@@ -63,11 +70,21 @@
             {{ isLoading ? 'Iniciando...' : 'Ingresar' }}
           </button>
         </div>
+        <div class="d-grid mt-2">
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            [disabled]="isResendingVerification"
+            (click)="resendVerification()">
+            {{ isResendingVerification ? 'Reenviando...' : 'Reenviar verificación' }}
+          </button>
+        </div>
       </form>
 
       <!-- Enlaces adicionales -->
       <div class="mt-3 text-center">
-        <p>¿No tienes una cuenta? <a routerLink="/registro" class="text-decoration-none">Regístrate aquí</a></p>
+        <p>¿No tienes una cuenta? <a routerLink="/signup" class="text-decoration-none">Regístrate aquí</a></p>
+        <p><a routerLink="/verify-email" class="text-decoration-none small">¿Tienes un token de verificación?</a></p>
         <p><a routerLink="/forgot-password" class="text-decoration-none small">¿Olvidaste tu contraseña?</a></p>
       </div>
     </div>

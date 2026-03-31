@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProductoService } from '../../../services/producto.service';
 import { CartService } from '../../../services/cart.service';
 import { NotificationService } from '../../../services/notification.service';
+import { LoggerService } from '../../../services/logger.service';
 import { Producto } from '../../../models/producto.model';
 import { ConfigService } from '../../../services/config.service';
 
@@ -26,7 +27,8 @@ export class HomeComponent implements OnInit {
     private productoService: ProductoService,
     private cartService: CartService,
     private notificationService: NotificationService,
-    public configService: ConfigService
+    public configService: ConfigService,
+    private logger: LoggerService
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class HomeComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error al cargar productos:', error);
+        this.logger.error('Error al cargar productos:', error);
         this.error = true;
         this.errorMessage = 'Error al cargar los productos. Por favor, inténtalo de nuevo.';
         this.loading = false;
@@ -58,7 +60,7 @@ export class HomeComponent implements OnInit {
         this.productosDestacados = productos;
       },
       error: (error) => {
-        console.error('Error al cargar productos destacados:', error);
+        this.logger.error('Error al cargar productos destacados:', error);
       }
     });
 
@@ -68,7 +70,7 @@ export class HomeComponent implements OnInit {
         this.productosOferta = productos;
       },
       error: (error) => {
-        console.error('Error al cargar productos en oferta:', error);
+        this.logger.error('Error al cargar productos en oferta:', error);
       }
     });
   }
