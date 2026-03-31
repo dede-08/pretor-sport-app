@@ -102,7 +102,10 @@ public class JwtUtil {
     public Boolean validateToken(String token, UserDetails userDetails) {
         try {
             final String username = extractUsername(token);
-            return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+            return username.equals(userDetails.getUsername())
+                    && !isTokenExpired(token)
+                    && userDetails.isEnabled()
+                    && userDetails.isAccountNonLocked();
         } catch (JwtException e) {
             log.error("Token JWT inválido: {}", e.getMessage());
             return false;

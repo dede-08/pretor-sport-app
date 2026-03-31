@@ -60,6 +60,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     
                     //verifica que no sea un refresh token
                     if (!jwtUtil.isRefreshToken(jwt)) {
+                        if (!userDetails.isEnabled() || !userDetails.isAccountNonLocked()) {
+                            log.warn("Usuario no habilitado para autenticación JWT: {}", userEmail);
+                            filterChain.doFilter(request, response);
+                            return;
+                        }
+
                         //crea el token de autenticacion
                         UsernamePasswordAuthenticationToken authToken = 
                             new UsernamePasswordAuthenticationToken(
@@ -101,6 +107,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 path.startsWith("/auth/login") ||
                 path.startsWith("/auth/refresh") ||
                 path.startsWith("/auth/verify-email") ||
+                path.startsWith("/auth/resend-verification") ||
                 path.startsWith("/auth/health") ||
                 path.startsWith("/health") ||
                 path.startsWith("/public") ||

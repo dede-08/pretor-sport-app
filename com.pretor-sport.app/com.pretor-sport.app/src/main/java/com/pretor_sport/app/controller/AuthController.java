@@ -113,6 +113,30 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/resend-verification")
+    public ResponseEntity<?> resendVerification(@RequestBody Map<String, String> payload) {
+        try {
+            String email = payload.get("email");
+            if (email == null || email.isBlank()) {
+                return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Datos inválidos", "message", "El email es obligatorio"));
+            }
+
+            String verificationUrl = authService.resendVerificationEmail(email.trim());
+            return ResponseEntity.ok(Map.of(
+                "message", "Se generó un nuevo enlace de verificación",
+                "verificationUrl", verificationUrl
+            ));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest()
+                .body(Map.of("error", "No se pudo reenviar verificación", "message", e.getMessage()));
+        } catch (Exception e) {
+            log.error("Error al reenviar verificación: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Error interno", "message", "Error al reenviar verificación"));
+        }
+    }
+
     //endpoint para obtener info del usuario actual
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")

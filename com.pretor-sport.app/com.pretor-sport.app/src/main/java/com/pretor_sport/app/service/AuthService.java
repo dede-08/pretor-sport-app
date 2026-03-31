@@ -15,7 +15,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,11 +30,13 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final UsuarioRepository usuarioRepository;
     private final JwtUtil jwtUtil;
-    private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
 
     @Value("${app.jwt.expiration:86400}")
     private Long jwtExpiration;
+
+    @Value("${app.frontend.url:http://localhost:4200}")
+    private String frontendUrl;
 
     @Transactional
     public AuthResponseDTO login(LoginRequestDTO loginRequest) {
@@ -89,25 +90,15 @@ public class AuthService {
 
     @Transactional
     public AuthResponseDTO register(UsuarioRequestDTO registroRequest) {
-        // Centralizamos la creación en UsuarioService
         Usuario usuarioGuardado = usuarioService.crearUsuario(registroRequest);
-
-        // Ya no verificamos el email automáticamente aquí para permitir el flujo real de verificación
-        // Si quieres que el usuario se loguee inmediatamente DESPUÉS de verificar, 
-        // aquí solo retornaríamos una respuesta de "usuario creado, revisa tu email".
-        // Pero para no romper el frontend que espera tokens:
-        
-        UserDetails userDetails = userDetailsService.loadUserByUsername(usuarioGuardado.getEmail());
-        String accessToken = jwtUtil.generateToken(userDetails, usuarioGuardado.getId(), usuarioGuardado.getRol().name());
-        String refreshToken = jwtUtil.generateRefreshToken(userDetails, usuarioGuardado.getId(), usuarioGuardado.getRol().name());
 
         log.info("Nuevo usuario registrado (pendiente de verificación): {} con rol: {}", 
             usuarioGuardado.getEmail(), usuarioGuardado.getRol());
 
         return AuthResponseDTO.of(
-            accessToken,
-            refreshToken,
-            jwtExpiration,
+            null,
+            null,
+            0L,
             usuarioGuardado.getId(),
             usuarioGuardado.getNombre(),
             usuarioGuardado.getApellidos(),
@@ -125,11 +116,13 @@ public class AuthService {
             }
 
             String username = jwtUtil.extractUsername(refreshToken);
-            Long userId = jwtUtil.extractUserId(refreshToken);
-            String rol = jwtUtil.extractRole(refreshToken);
 
             Usuario usuario = usuarioRepository.findByEmailAndActivo(username, true)
                 .orElseThrow(() -> new BadCredentialsException("Usuario no encontrado o inactivo"));
+
+            if (!usuario.getEmailVerificado()) {
+                throw new DisabledException("Cuenta no verificada. Verifica tu email para renovar sesión.");
+            }
 
             String newAccessToken = jwtUtil.refreshAccessToken(refreshToken);
 
@@ -168,6 +161,25 @@ public class AuthService {
     public Usuario getCurrentUser(String email) {
         return usuarioRepository.findByEmailAndActivo(email, true)
             .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+    }
+
+    @Transactional
+    public String resendVerificationEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmailAndActivo(email, true)
+            .orElseThrow(() -> new IllegalArgumentException("No existe una cuenta activa con ese email"));
+
+        if (Boolean.TRUE.equals(usuario.getEmailVerificado())) {
+            throw new IllegalArgumentException("La cuenta ya está verificada");
+        }
+
+        String newToken = UUID.randomUUID().toString();
+        usuario.setTokenVerificacion(newToken);
+        usuarioRepository.save(usuario);
+
+        String verificationUrl = frontendUrl + "/verify-email?token=" + newToken;
+        log.info("Nuevo enlace de verificación generado para {}: {}", email, verificationUrl);
+
+        return verificationUrl;
     }
 
     public void logout(String accessToken) {

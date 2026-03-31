@@ -1,7 +1,6 @@
 package com.pretor_sport.app.config;
 
 import com.pretor_sport.app.security.JwtAuthenticationFilter;
-import com.pretor_sport.app.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +42,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/login").permitAll()
                 .requestMatchers("/auth/refresh").permitAll()
                 .requestMatchers("/auth/verify-email").permitAll()
+                .requestMatchers("/auth/resend-verification").permitAll()
                 .requestMatchers("/auth/health").permitAll()
                 .requestMatchers("/health").permitAll()
                 .requestMatchers("/public/**").permitAll()
