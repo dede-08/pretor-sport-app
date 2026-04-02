@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
@@ -18,6 +18,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isAuthenticated$!: Observable<boolean>;
   currentUser$!: Observable<any>;
   cartItemCount = 0;
+  isUserDropdownOpen = false;
+  isNavbarCollapsed = true;
   
   private destroy$ = new Subject<void>();
 
@@ -25,7 +27,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private cartService: CartService,
     private router: Router,
-    private logger: LoggerService
+    private logger: LoggerService,
+    private eRef: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -45,14 +48,38 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    if (!this.eRef.nativeElement.contains(event.target)) {
+      this.closeUserDropdown();
+      this.isNavbarCollapsed = true;
+    }
+  }
+
+  toggleUserDropdown(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+  }
+
+  closeUserDropdown(): void {
+    this.isUserDropdownOpen = false;
+  }
+
+  toggleNavbar(): void {
+    this.isNavbarCollapsed = !this.isNavbarCollapsed;
+  }
+
   onLogout(): void {
     this.authService.logout().subscribe({
       next: () => {
         this.logger.info('Logout exitoso');
+        this.isUserDropdownOpen = false;
         this.router.navigate(['/']);
       },
       error: (error) => {
         this.logger.error('Error en logout:', error);
+        this.isUserDropdownOpen = false;
         //incluso si hay error, navegar al home
         this.router.navigate(['/']);
       }

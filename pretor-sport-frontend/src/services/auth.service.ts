@@ -23,8 +23,8 @@ export interface RegisterRequest {
 }
 
 export interface AuthResponse {
-  accessToken: string | null;
-  refreshToken: string | null;
+  access_token: string | null;
+  refresh_token: string | null;
   tokenType: string;
   expiresIn: number;
   issuedAt: string;
@@ -81,16 +81,29 @@ export class AuthService {
     this.checkTokenValidity();
   }
 
-  //iniciar sesion
+  //login
   login(credentials: LoginRequest): Observable<AuthResponse> {
+    this.logger.debug('AuthService login: Iniciando petición a', `${this.API_URL}/login`);
     return this.http.post<AuthResponse>(`${this.API_URL}/login`, credentials)
       .pipe(
         tap(response => {
-          if (!response.accessToken || !response.refreshToken) {
+          this.logger.debug('AuthService login: Respuesta recibida:', response);
+          if (!response) {
+            throw new Error('No se recibió respuesta del servidor');
+          }
+          if (!response.access_token || !response.refresh_token) {
+            this.logger.error('AuthService login: Faltan tokens en la respuesta', {
+              hasAccessToken: !!response.access_token,
+              hasRefreshToken: !!response.refresh_token
+            });
             throw new Error('La respuesta de login no contiene tokens válidos');
           }
+          if (!response.usuario) {
+            this.logger.error('AuthService login: Falta el objeto usuario en la respuesta');
+            throw new Error('La respuesta de login no contiene información del usuario');
+          }
           this.logger.debug('AuthService login: Guardando tokens y usuario');
-          this.setTokens(response.accessToken, response.refreshToken);
+          this.setTokens(response.access_token, response.refresh_token);
           this.setUser(response.usuario);
           this.currentUserSubject.next(response.usuario);
           this.isAuthenticatedSubject.next(true);
@@ -110,8 +123,8 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/register`, userData)
       .pipe(
         tap(response => {
-          if (response.accessToken && response.refreshToken) {
-            this.setTokens(response.accessToken, response.refreshToken);
+          if (response.access_token && response.refresh_token) {
+            this.setTokens(response.access_token, response.refresh_token);
             this.setUser(response.usuario);
             this.currentUserSubject.next(response.usuario);
             this.isAuthenticatedSubject.next(true);
@@ -147,10 +160,10 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/refresh`, { refreshToken })
       .pipe(
         tap(response => {
-          if (!response.accessToken || !response.refreshToken) {
+          if (!response.access_token || !response.refresh_token) {
             throw new Error('No se recibieron tokens válidos al renovar sesión');
           }
-          this.setTokens(response.accessToken, response.refreshToken);
+          this.setTokens(response.access_token, response.refresh_token);
           this.setUser(response.usuario);
         }),
         catchError(error => {
@@ -322,25 +335,36 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  private handleError(error: HttpErrorResponse) {
+  private handleError = (error: any) => {
+    this.logger.error('AuthService handleError capturó:', error);
     let errorMessage = 'Ha ocurrido un error inesperado';
 
-    if (error.error instanceof ErrorEvent) {
-      //error del lado del cliente
-      errorMessage = error.error.message;
-    } else {
-      //error del servidor
-      if (error.status === 401) {
-        errorMessage = error.error?.message || 'Credenciales inválidas';
-      } else if (error.status === 403) {
-        errorMessage = 'No tienes permisos para realizar esta acción';
-      } else if (error.status === 409) {
-        errorMessage = 'El email ya está registrado';
-      } else if (error.error?.message) {
+    if (error instanceof HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        //error del lado del cliente
         errorMessage = error.error.message;
+      } else {
+        //error del servidor
+        if (error.status === 401) {
+          errorMessage = error.error?.message || 'Credenciales inválidas';
+        } else if (error.status === 403) {
+          errorMessage = 'No tienes permisos para realizar esta acción';
+        } else if (error.status === 409) {
+          errorMessage = 'El email ya está registrado';
+        } else if (error.error?.message) {
+          errorMessage = error.error.message;
+        } else if (typeof error.error === 'string') {
+          errorMessage = error.error;
+        }
       }
+    } else if (error instanceof Error) {
+      // Error lanzado manualmente (ej: en el tap)
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
     }
 
+    this.logger.error('Mensaje de error final:', errorMessage);
     return throwError(() => errorMessage);
   }
 }
