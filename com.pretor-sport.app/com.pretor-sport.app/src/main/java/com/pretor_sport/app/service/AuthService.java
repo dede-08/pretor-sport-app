@@ -40,6 +40,7 @@ public class AuthService {
 
     @Transactional
     public AuthResponseDTO login(LoginRequestDTO loginRequest) {
+        log.debug("Iniciando proceso de login para: {}", loginRequest.getEmail());
         try {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -52,6 +53,7 @@ public class AuthService {
                 .orElseThrow(() -> new BadCredentialsException("Usuario no encontrado o inactivo"));
 
             if (!usuario.getEmailVerificado()) {
+                log.warn("Login rechazado: Email no verificado para {}", loginRequest.getEmail());
                 throw new DisabledException("Email no verificado. Por favor, verifica tu email antes de continuar.");
             }
 
@@ -62,8 +64,11 @@ public class AuthService {
             String refreshToken = jwtUtil.generateRefreshToken(userDetails, usuario.getId(), usuario.getRol().name());
 
             log.info("Usuario autenticado exitosamente: {} con rol: {}", usuario.getEmail(), usuario.getRol());
+            log.debug("Tokens generados: access={}..., refresh={}...", 
+                accessToken != null ? accessToken.substring(0, 10) : "null", 
+                refreshToken != null ? refreshToken.substring(0, 10) : "null");
 
-            return AuthResponseDTO.of(
+            AuthResponseDTO response = AuthResponseDTO.of(
                 accessToken,
                 refreshToken,
                 jwtExpiration,
@@ -75,16 +80,18 @@ public class AuthService {
                 usuario.getEmailVerificado(),
                 LocalDateTime.now()
             );
+            
+            log.debug("Respuesta DTO construida: {}", response);
+            return response;
 
         } catch (BadCredentialsException e) {
             log.warn("Intento de login fallido para email: {}", loginRequest.getEmail());
             throw new BadCredentialsException("Credenciales inválidas");
         } catch (DisabledException e) {
-            log.warn("Intento de login con cuenta deshabilitada: {}", loginRequest.getEmail());
             throw e;
         } catch (Exception e) {
-            log.error("Error durante la autenticación para email: {}", loginRequest.getEmail(), e);
-            throw new RuntimeException("Error interno durante la autenticación");
+            log.error("Error crítico durante la autenticación para email: {}", loginRequest.getEmail(), e);
+            throw new RuntimeException("Error interno durante la autenticación: " + e.getMessage());
         }
     }
 

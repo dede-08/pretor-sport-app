@@ -1,5 +1,6 @@
 package com.pretor_sport.app.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,14 +14,26 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AuthResponseDTO {
     
+    @JsonProperty("accessToken")
     private String accessToken;
+    
+    @JsonProperty("refreshToken")
     private String refreshToken;
+    
+    @JsonProperty("tokenType")
     private String tokenType = "Bearer";
+    
+    @JsonProperty("expiresIn")
     private Long expiresIn; //en segundos
+    
+    @JsonProperty("issuedAt")
     private LocalDateTime issuedAt;
+    
+    @JsonProperty("expiresAt")
     private LocalDateTime expiresAt;
     
     //info del usuario autenticado
+    @JsonProperty("usuario")
     private UsuarioInfo usuario;
     
     @Data
@@ -28,14 +41,31 @@ public class AuthResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class UsuarioInfo {
+        @JsonProperty("id")
         private Long id;
+        
+        @JsonProperty("nombre")
         private String nombre;
+        
+        @JsonProperty("apellidos")
         private String apellidos;
+        
+        @JsonProperty("email")
         private String email;
+        
+        @JsonProperty("rol")
         private String rol;
+        
+        @JsonProperty("nombreCompleto")
         private String nombreCompleto;
+        
+        @JsonProperty("iniciales")
         private String iniciales;
+        
+        @JsonProperty("emailVerificado")
         private Boolean emailVerificado;
+        
+        @JsonProperty("ultimoAcceso")
         private LocalDateTime ultimoAcceso;
     }
     
