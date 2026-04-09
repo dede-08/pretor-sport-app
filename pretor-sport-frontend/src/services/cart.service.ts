@@ -2,27 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
-import { 
-  Cart, 
-  CartItem, 
-  CartSummary, 
-  AddToCartRequest, 
+import {
+  Cart,
+  CartItem,
+  CartSummary,
+  AddToCartRequest,
   UpdateCartItemRequest,
-  CartCheckoutRequest 
+  CartCheckoutRequest
 } from '../models/cart.model';
 import { Producto } from '../models/producto.model';
 import { LoggerService } from './logger.service';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private readonly API_URL = 'http://localhost:8080/api/cart';
+  private readonly API_URL = `${environment.apiUrl}/cart`;
   private readonly CART_STORAGE_KEY = 'pretor_sport_cart';
-  
+
   private cartSubject = new BehaviorSubject<Cart | null>(this.getCartFromStorage());
   public cart$ = this.cartSubject.asObservable();
-  
+
   private cartSummarySubject = new BehaviorSubject<CartSummary>(this.calculateSummary());
   public cartSummary$ = this.cartSummarySubject.asObservable();
 
@@ -99,7 +100,7 @@ export class CartService {
       );
   }
 
-  //aplicar cupón de descuento
+  //aplicar cupon de descuento
   applyCoupon(codigo: string): Observable<Cart> {
     return this.http.post<Cart>(`${this.API_URL}/coupon`, { codigo })
       .pipe(
@@ -112,7 +113,7 @@ export class CartService {
       );
   }
 
-  //remover cupón de descuento
+  //remover cupon de descuento
   removeCoupon(): Observable<Cart> {
     return this.http.delete<Cart>(`${this.API_URL}/coupon`)
       .pipe(
@@ -142,7 +143,7 @@ export class CartService {
   addToCartLocal(producto: Producto, cantidad: number = 1, variantes?: any): void {
     const cart = this.getCartFromStorage() || this.createEmptyCart();
     const existingItem = this.findCartItem(cart, producto.id!, variantes);
-    
+
     if (existingItem) {
       existingItem.cantidad += cantidad;
       existingItem.precioTotal = existingItem.cantidad * existingItem.precioUnitario;
@@ -165,7 +166,7 @@ export class CartService {
       };
       cart.items.push(newItem);
     }
-    
+
     this.updateCartTotals(cart);
     this.saveCartToStorage(cart);
     this.cartSubject.next(cart);
@@ -175,14 +176,14 @@ export class CartService {
   updateCartItemLocal(itemId: string, cantidad: number): void {
     const cart = this.getCartFromStorage();
     if (!cart) return;
-    
+
     const item = cart.items.find(i => i.id === itemId);
     if (item) {
       if (cantidad <= 0) {
         this.removeFromCartLocal(itemId);
         return;
       }
-      
+
       item.cantidad = cantidad;
       item.precioTotal = item.cantidad * item.precioUnitario;
       this.updateCartTotals(cart);
@@ -195,7 +196,7 @@ export class CartService {
   removeFromCartLocal(itemId: string): void {
     const cart = this.getCartFromStorage();
     if (!cart) return;
-    
+
     cart.items = cart.items.filter(item => item.id !== itemId);
     this.updateCartTotals(cart);
     this.saveCartToStorage(cart);
@@ -214,7 +215,7 @@ export class CartService {
     return this.calculateSummary();
   }
 
-  //verificar si el carrito está vacío
+  //verificar si el carrito esta vacio
   isEmpty(): boolean {
     const cart = this.cartSubject.value;
     return !cart || cart.items.length === 0;
@@ -240,8 +241,8 @@ export class CartService {
   }
 
   private findCartItem(cart: Cart, productoId: number, variantes?: any): CartItem | undefined {
-    return cart.items.find(item => 
-      item.producto.id === productoId && 
+    return cart.items.find(item =>
+      item.producto.id === productoId &&
       this.compareVariantes(item.variantes, variantes)
     );
   }
@@ -249,7 +250,7 @@ export class CartService {
   private compareVariantes(v1?: any, v2?: any): boolean {
     if (!v1 && !v2) return true;
     if (!v1 || !v2) return false;
-    
+
     return (
       (v1.talla || '') === (v2.talla || '') &&
       (v1.color || '') === (v2.color || '') &&
@@ -269,7 +270,7 @@ export class CartService {
   }
 
   private calculateShipping(subtotal: number): number {
-    //logica de cálculo de envío
+    //logica de calculo de envio
     if (subtotal >= 500) return 0; //envio gratis
     if (subtotal >= 200) return 50; //envio estandar
     return 100; //envio express

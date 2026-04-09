@@ -8,43 +8,7 @@ import { AuthService } from '../../../services/auth.service';
   selector: 'app-verify-email',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  template: `
-    <div class="container py-5" style="max-width: 720px;">
-      <div class="card shadow-sm">
-        <div class="card-body p-4 p-md-5">
-          <h2 class="mb-3">Verificación de correo</h2>
-          <p class="text-muted mb-4">
-            Ingresa tu token o abre este enlace con <code>?token=...</code>.
-          </p>
-
-          <div *ngIf="message" class="alert alert-success mb-3">{{ message }}</div>
-          <div *ngIf="errorMessage" class="alert alert-danger mb-3">{{ errorMessage }}</div>
-
-          <form (ngSubmit)="verifyByInput()" novalidate>
-            <div class="mb-3">
-              <label for="token" class="form-label">Token de verificación</label>
-              <input
-                id="token"
-                class="form-control"
-                type="text"
-                [(ngModel)]="tokenInput"
-                name="tokenInput"
-                placeholder="Pega aquí tu token">
-            </div>
-
-            <div class="d-flex gap-2">
-              <button class="btn btn-primary" type="submit" [disabled]="loading">
-                {{ loading ? 'Verificando...' : 'Verificar correo' }}
-              </button>
-              <button class="btn btn-outline-secondary" type="button" (click)="goToLogin()">
-                Ir al login
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  `
+  templateUrl: './verify-email.component.html',
 })
 export class VerifyEmailComponent implements OnInit {
   tokenInput = '';
@@ -56,7 +20,7 @@ export class VerifyEmailComponent implements OnInit {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const token = this.route.snapshot.queryParamMap.get('token');

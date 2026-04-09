@@ -23,7 +23,7 @@ export class SignupComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private logger: LoggerService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -89,7 +89,7 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  //validador para teléfono
+  //validador para telefono
   private phoneValidator(control: AbstractControl): ValidationErrors | null {
     if (!control.value) {
       return null; //telefono es opcional
@@ -203,7 +203,7 @@ export class SignupComponent implements OnInit {
     if (!requirements.hasUpperCase) missing.push('una letra mayúscula');
     if (!requirements.hasNumber) missing.push('un número');
     if (!requirements.hasSpecialChar) missing.push('un carácter especial (@$!%*?&)');
-    
+
     return `La contraseña debe contener al menos: ${missing.join(', ')}`;
   }
 

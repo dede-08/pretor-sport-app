@@ -6,12 +6,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-checkout',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  template: `
-    <div class="container py-5">
-      <h2>Checkout</h2>
-      <p class="text-muted mb-3">Estamos preparando esta funcionalidad.</p>
-      <a routerLink="/carrito" class="btn btn-primary">Volver al carrito</a>
-    </div>
-  `
+  templateUrl: './checkout.component.html'
 })
-export class CheckoutComponent {}
+export class CheckoutComponent { }

@@ -48,13 +48,13 @@ export class LoggerService {
       timestamp: new Date().toISOString()
     };
 
-    // En modo desarrollo siempre mostramos en consola
+    //en modo desarrollo siempre mostramos en consola
     if (this.enabled) {
       const logger = console[level.toLowerCase() as 'log' | 'warn' | 'error' | 'info'] ?? console.log;
       logger(`[${level}]${context ? ` [${context}]` : ''} ${message}`, data ?? '');
     }
 
-    // En producción intentamos enviar al backend (si está disponible)
+    //en produccion intentamos enviar al backend (si esta disponible)
     if (!environment.production) {
       return;
     }

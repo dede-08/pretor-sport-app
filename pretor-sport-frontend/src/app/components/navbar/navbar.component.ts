@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   cartItemCount = 0;
   isUserDropdownOpen = false;
   isNavbarCollapsed = true;
-  
+
   private destroy$ = new Subject<void>();
 
   constructor(
@@ -29,12 +29,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private logger: LoggerService,
     private eRef: ElementRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
     this.currentUser$ = this.authService.currentUser$;
-    
+
     //suscribirse a cambios en el carrito
     this.cartService.cartSummary$
       .pipe(takeUntil(this.destroy$))
@@ -92,9 +92,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const input = form.querySelector('input') as HTMLInputElement | null;
     const termino = input?.value.trim() || '';
     if (termino) {
-      // Navegar a la página de productos con el término de búsqueda en query params
+      //navegar a la página de productos con el término de búsqueda en query params
       this.router.navigate(['/productos'], { queryParams: { q: termino } });
-      // opcional: limpiar campo de búsqueda
+      //opcional: limpiar campo de búsqueda
       if (input) {
         input.value = '';
       }

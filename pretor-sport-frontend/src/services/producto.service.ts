@@ -7,6 +7,7 @@ import {
   ProductoRequest,
   ProductoFilter
 } from '../models/producto.model';
+import { environment } from '../environments/environment';
 
 export interface ApiResponse<T> {
   content: T[];
@@ -24,7 +25,7 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class ProductoService {
-  private readonly baseUrl = 'http://localhost:8080/api/productos';
+  private readonly baseUrl = `${environment.apiUrl}/productos`;
   private productosSubject = new BehaviorSubject<Producto[]>([]);
   public productos$ = this.productosSubject.asObservable();
 

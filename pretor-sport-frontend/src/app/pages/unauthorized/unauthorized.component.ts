@@ -6,12 +6,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-unauthorized',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  template: `
-    <div class="container py-5">
-      <h2>Acceso denegado</h2>
-      <p class="text-muted mb-3">No tienes permisos para acceder a esta sección.</p>
-      <a routerLink="/" class="btn btn-primary">Ir al inicio</a>
-    </div>
-  `
+  templateUrl: './unauthorized.component.html'
 })
-export class UnauthorizedComponent {}
+export class UnauthorizedComponent { }
