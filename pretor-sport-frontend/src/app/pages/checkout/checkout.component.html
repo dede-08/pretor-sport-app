@@ -1,5 +1,163 @@
-<div class="container py-5">
-    <h2>Checkout</h2>
-    <p class="text-muted mb-3">Estamos preparando esta funcionalidad.</p>
-    <a routerLink="/carrito" class="btn btn-primary">Volver al carrito</a>
+<div class="checkout-wrapper py-5 bg-light-theme">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Columna Izquierda: Formulario -->
+      <div class="col-md-7 col-lg-8">
+        <h2 class="mb-4">Finaliza tu compra</h2>
+        <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()" class="needs-validation">
+          
+          <!-- Dirección de Envío -->
+          <div class="checkout-card mb-4" formGroupName="direccionEnvio">
+            <h4 class="mb-3">1. Datos de Envío</h4>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form-control" formControlName="nombre" [class.is-invalid]="direccionForm.get('nombre')?.invalid && direccionForm.get('nombre')?.touched">
+                @if (direccionForm.get('nombre')?.invalid && direccionForm.get('nombre')?.touched) {
+                  <div class="invalid-feedback">Nombre requerido.</div>
+                }
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Apellidos</label>
+                <input type="text" class="form-control" formControlName="apellidos" [class.is-invalid]="direccionForm.get('apellidos')?.invalid && direccionForm.get('apellidos')?.touched">
+                @if (direccionForm.get('apellidos')?.invalid && direccionForm.get('apellidos')?.touched) {
+                  <div class="invalid-feedback">Apellidos requeridos.</div>
+                }
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" formControlName="email" placeholder="tu@email.com" [class.is-invalid]="direccionForm.get('email')?.invalid && direccionForm.get('email')?.touched">
+                 @if (direccionForm.get('email')?.invalid && direccionForm.get('email')?.touched) {
+                    <div class="invalid-feedback">Introduce un correo válido.</div>
+                 }
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" formControlName="telefono" [class.is-invalid]="direccionForm.get('telefono')?.invalid && direccionForm.get('telefono')?.touched">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control" formControlName="direccion" placeholder="Calle, número, piso..." [class.is-invalid]="direccionForm.get('direccion')?.invalid && direccionForm.get('direccion')?.touched">
+              </div>
+              <div class="col-md-8">
+                <label class="form-label">Ciudad</label>
+                <input type="text" class="form-control" formControlName="ciudad" [class.is-invalid]="direccionForm.get('ciudad')?.invalid && direccionForm.get('ciudad')?.touched">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Código Postal</label>
+                <input type="text" class="form-control" formControlName="codigoPostal" [class.is-invalid]="direccionForm.get('codigoPostal')?.invalid && direccionForm.get('codigoPostal')?.touched">
+              </div>
+            </div>
+          </div>
+
+          <!-- Método de Envío -->
+          <div class="checkout-card mb-4" formGroupName="metodoEnvio">
+             <h4 class="mb-3">2. Método de Envío</h4>
+             <div class="d-flex flex-wrap gap-3 payment-methods">
+                <div class="method-box flex-fill text-center" [class.active]="checkoutForm.get('metodoEnvio.tipo')?.value === 'ESTANDAR'" (click)="onEnvioChange('ESTANDAR', 50)">
+                   <div class="fs-5 mb-1"><i class="fas fa-truck text-secondary"></i> Estándar</div>
+                   <div class="text-muted small">3-5 días hábiles</div>
+                   <div class="fw-bold mt-2">$50.00</div>
+                </div>
+                <div class="method-box flex-fill text-center" [class.active]="checkoutForm.get('metodoEnvio.tipo')?.value === 'EXPRESS'" (click)="onEnvioChange('EXPRESS', 100)">
+                   <div class="fs-5 mb-1"><i class="fas fa-shipping-fast text-secondary"></i> Express</div>
+                   <div class="text-muted small">1-2 días hábiles</div>
+                   <div class="fw-bold mt-2">$100.00</div>
+                </div>
+             </div>
+          </div>
+
+          <!-- Método de Pago -->
+          <div class="checkout-card mb-4" formGroupName="metodoPago">
+             <h4 class="mb-3">3. Información de Pago</h4>
+             <div class="row g-3">
+                 <div class="col-12 text-center mb-2 mt-0">
+                   <div class="form-check form-check-inline mx-3 custom-radio">
+                     <input class="form-check-input" type="radio" formControlName="tipo" value="TARJETA" id="pagoTarjeta">
+                     <label class="form-check-label" for="pagoTarjeta"><i class="far fa-credit-card me-1 text-primary"></i> Tarjeta</label>
+                   </div>
+                   <div class="form-check form-check-inline mx-3 custom-radio">
+                     <input class="form-check-input" type="radio" formControlName="tipo" value="PAYPAL" id="pagoPaypal">
+                     <label class="form-check-label" for="pagoPaypal"><i class="fab fa-paypal me-1" style="color: #00457C"></i> PayPal</label>
+                   </div>
+                 </div>
+
+                 @if (checkoutForm.get('metodoPago.tipo')?.value === 'TARJETA') {
+                    <div class="col-12 mt-3">
+                      <label class="form-label">Número de Tarjeta</label>
+                      <input type="text" class="form-control" formControlName="numeroTarjeta" [class.is-invalid]="pagoForm.get('numeroTarjeta')?.invalid && pagoForm.get('numeroTarjeta')?.touched">
+                      @if (pagoForm.get('numeroTarjeta')?.invalid && pagoForm.get('numeroTarjeta')?.touched) {
+                        <div class="invalid-feedback">Número de 16 dígitos obligatorio.</div>
+                      }
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Expiración (MM/YY)</label>
+                      <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/YY" [class.is-invalid]="pagoForm.get('fechaExpiracion')?.invalid && pagoForm.get('fechaExpiracion')?.touched">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">CVV</label>
+                      <input type="text" class="form-control" formControlName="cvv" placeholder="123" [class.is-invalid]="pagoForm.get('cvv')?.invalid && pagoForm.get('cvv')?.touched">
+                    </div>
+                 } @else {
+                    <div class="col-12 alert alert-info py-3 text-center mt-3 border-0 bg-opacity-10">
+                       <i class="fab fa-paypal fs-4 d-block mb-2"></i>
+                       Serás redirigido a PayPal de forma segura para completar tu pago tras hacer clic en procesar.
+                    </div>
+                 }
+             </div>
+          </div>
+          
+          <div class="checkout-card mb-4">
+             <h4 class="mb-3">Notas Adicionales</h4>
+             <textarea class="form-control bg-light" formControlName="notas" rows="2" placeholder="Instrucciones para el repartidor..."></textarea>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Columna Derecha: Resumen de Carrito -->
+      <div class="col-md-5 col-lg-4 order-md-last position-relative">
+        <div class="sticky-top" style="top: 20px; z-index: 1;">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-primary fw-bold">Resumen de Compra</span>
+            <span class="badge bg-primary rounded-pill">{{ cartSummary().totalItems }} items</span>
+          </h4>
+          <div class="card checkout-summary-card shadow-sm border-0">
+             <ul class="list-group list-group-flush mb-3 p-4">
+               <li class="list-group-item d-flex justify-content-between bg-transparent border-0 px-0 pb-2">
+                 <span class="text-muted">Subtotal</span>
+                 <strong>${{ cartSummary().subtotal | number:'1.2-2' }}</strong>
+               </li>
+               <li class="list-group-item d-flex justify-content-between bg-transparent border-0 px-0 pb-2 text-danger">
+                 <span>Descuento</span>
+                 <strong>-${{ cartSummary().descuento | number:'1.2-2' }}</strong>
+               </li>
+               <li class="list-group-item d-flex justify-content-between bg-transparent border-0 px-0 pb-2">
+                 <span class="text-muted">Envío</span>
+                 <strong>${{ checkoutForm.get('metodoEnvio.costo')?.value | number:'1.2-2' }}</strong>
+               </li>
+               <li class="list-group-item d-flex justify-content-between border-top mt-2 px-0 pt-3 border-opacity-25">
+                 <span class="fw-bold">Total a pagar</span>
+                 <strong class="fs-4 text-primary">${{ (cartSummary().subtotal - cartSummary().descuento + checkoutForm.get('metodoEnvio.costo')?.value) | number:'1.2-2' }}</strong>
+               </li>
+             </ul>
+          </div>
+          
+          <button type="button" class="btn btn-primary w-100 btn-lg mt-4 shadow" (click)="onSubmit()" [disabled]="isProcessing">
+             @if(isProcessing) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Procesando...
+             } @else {
+                <i class="fas fa-lock me-2"></i> Pagar con seguridad
+             }
+          </button>
+
+          <div class="text-center mt-3 text-muted small px-3">
+             <i class="fas fa-shield-alt text-success me-1"></i> Transacción 100% segura y encriptada mediante protocolo SSL de grado bancario.
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
 </div>

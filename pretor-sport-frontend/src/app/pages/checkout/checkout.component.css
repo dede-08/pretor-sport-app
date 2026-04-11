@@ -1,0 +1,79 @@
+.bg-light-theme {
+  background-color: #f8f9fc;
+  min-height: 100vh;
+}
+
+.checkout-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.checkout-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+.checkout-summary-card {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.form-control {
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  background-color: #fcfcfd;
+}
+
+.form-control:focus {
+  background-color: #fff;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.15);
+}
+
+.method-box {
+  border: 2px solid #e9ecef;
+  border-radius: 0.75rem;
+  padding: 1.25rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+
+.method-box:hover {
+  border-color: #adb5bd;
+  background-color: #f8f9fa;
+}
+
+.method-box.active {
+  border-color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.04);
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+}
+
+.method-box.active i {
+  color: #0d6efd !important;
+}
+
+/* Custom Radio Buttons for Payment */
+.custom-radio {
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  cursor: pointer;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.custom-radio:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.custom-radio:has(input:checked) {
+  border-color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.04);
+}
