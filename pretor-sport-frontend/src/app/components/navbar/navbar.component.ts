@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { CartService } from '../../../services/cart.service';
 import { LoggerService } from '../../../services/logger.service';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -14,14 +14,11 @@ import { Observable, Subject, takeUntil } from 'rxjs';
   styleUrl: './navbar.component.css'
 })
 
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NavbarComponent implements OnInit {
   isAuthenticated$!: Observable<boolean>;
   currentUser$!: Observable<any>;
-  cartItemCount = 0;
   isUserDropdownOpen = false;
   isNavbarCollapsed = true;
-
-  private destroy$ = new Subject<void>();
 
   constructor(
     private authService: AuthService,
@@ -34,18 +31,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isAuthenticated$ = this.authService.isAuthenticated$;
     this.currentUser$ = this.authService.currentUser$;
-
-    //suscribirse a cambios en el carrito
-    this.cartService.cartSummary$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(summary => {
-        this.cartItemCount = summary.totalItems;
-      });
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  get cartItemCount(): number {
+    return this.cartService.cartSummary().totalItems;
   }
 
   @HostListener('document:click', ['$event'])

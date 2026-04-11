@@ -1,11 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
 import { CartService } from '../../../services/cart.service';
 import { LoggerService } from '../../../services/logger.service';
-import { Cart, CartItem, CartSummary } from '../../../models/cart.model';
+import { CartItem } from '../../../models/cart.model';
 
 @Component({
   selector: 'app-cart',
@@ -14,22 +13,15 @@ import { Cart, CartItem, CartSummary } from '../../../models/cart.model';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+export class CartComponent implements OnInit {
+  // signals directos desde el servicio
+  cart = this.cartService.cart;
+  cartSummary = this.cartService.cartSummary;
 
-export class CartComponent implements OnInit, OnDestroy {
-  cart: Cart | null = null;
-  cartSummary: CartSummary = {
-    totalItems: 0,
-    subtotal: 0,
-    descuento: 0,
-    envio: 0,
-    total: 0
-  };
   loading = false;
   error: string | null = null;
   cuponCodigo = '';
   aplicandoCupon = false;
-
-  private destroy$ = new Subject<void>();
 
   constructor(
     private cartService: CartService,
@@ -39,45 +31,22 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadCart();
-    this.subscribeToCartChanges();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   private loadCart(): void {
     this.loading = true;
     this.error = null;
 
-    this.cartService.getCart()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (cart) => {
-          this.cart = cart;
-          this.loading = false;
-        },
-        error: (error) => {
-          this.error = 'Error al cargar el carrito';
-          this.loading = false;
-          this.logger.error('Error loading cart:', error);
-        }
-      });
-  }
-
-  private subscribeToCartChanges(): void {
-    this.cartService.cart$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(cart => {
-        this.cart = cart;
-      });
-
-    this.cartService.cartSummary$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(summary => {
-        this.cartSummary = summary;
-      });
+    this.cartService.getCart().subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: (error) => {
+        this.error = 'Error al cargar el carrito';
+        this.loading = false;
+        this.logger.error('Error loading cart:', error);
+      }
+    });
   }
 
   onQuantityChange(item: CartItem, value: string): void {
@@ -175,7 +144,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   proceedToCheckout(): void {
-    if (this.cart?.items.length === 0) {
+    if (this.isCartEmpty()) {
       this.error = 'El carrito está vacío';
       return;
     }
@@ -204,24 +173,27 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   isCartEmpty(): boolean {
-    return !this.cart || this.cart.items.length === 0;
+    const currentCart = this.cart();
+    return !currentCart || currentCart.items.length === 0;
   }
 
   getShippingMessage(): string {
-    if (this.cartSummary.subtotal >= 500) {
+    const summary = this.cartSummary();
+    if (summary.subtotal >= 500) {
       return '¡Envío gratis!';
     }
-    if (this.cartSummary.subtotal >= 200) {
-      return 'Agrega S/. ' + (500 - this.cartSummary.subtotal).toFixed(2) + ' más para envío gratis';
+    if (summary.subtotal >= 200) {
+      return 'Agrega S/. ' + (500 - summary.subtotal).toFixed(2) + ' más para envío gratis';
     }
-    return 'Envío estándar: S/. ' + this.cartSummary.envio.toFixed(2);
+    return 'Envío estándar: S/. ' + summary.envio.toFixed(2);
   }
 
   getShippingMessageClass(): string {
-    if (this.cartSummary.subtotal >= 500) {
+    const summary = this.cartSummary();
+    if (summary.subtotal >= 500) {
       return 'text-success';
     }
-    if (this.cartSummary.subtotal >= 200) {
+    if (summary.subtotal >= 200) {
       return 'text-info';
     }
     return 'text-muted';

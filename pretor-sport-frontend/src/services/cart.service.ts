@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 import {
   Cart,
   CartItem,
@@ -21,11 +21,28 @@ export class CartService {
   private readonly API_URL = `${environment.apiUrl}/cart`;
   private readonly CART_STORAGE_KEY = 'pretor_sport_cart';
 
-  private cartSubject = new BehaviorSubject<Cart | null>(this.getCartFromStorage());
-  public cart$ = this.cartSubject.asObservable();
+  public cart = signal<Cart | null>(this.getCartFromStorage());
 
-  private cartSummarySubject = new BehaviorSubject<CartSummary>(this.calculateSummary());
-  public cartSummary$ = this.cartSummarySubject.asObservable();
+  public cartSummary = computed<CartSummary>(() => {
+    const currentCart = this.cart();
+    if (!currentCart) {
+      return {
+        totalItems: 0,
+        subtotal: 0,
+        descuento: 0,
+        envio: 0,
+        total: 0
+      };
+    }
+
+    return {
+      totalItems: currentCart.items.reduce((total, item) => total + item.cantidad, 0),
+      subtotal: currentCart.subtotal,
+      descuento: currentCart.descuento,
+      envio: currentCart.envio,
+      total: currentCart.total
+    };
+  });
 
   constructor(
     private http: HttpClient,
@@ -41,10 +58,9 @@ export class CartService {
       .pipe(
         tap(cart => {
           this.saveCartToStorage(cart);
-          this.cartSubject.next(cart);
-          this.updateSummary();
+          this.cart.set(cart);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
@@ -54,10 +70,9 @@ export class CartService {
       .pipe(
         tap(cart => {
           this.saveCartToStorage(cart);
-          this.cartSubject.next(cart);
-          this.updateSummary();
+          this.cart.set(cart);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
@@ -67,10 +82,9 @@ export class CartService {
       .pipe(
         tap(cart => {
           this.saveCartToStorage(cart);
-          this.cartSubject.next(cart);
-          this.updateSummary();
+          this.cart.set(cart);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
@@ -80,10 +94,9 @@ export class CartService {
       .pipe(
         tap(cart => {
           this.saveCartToStorage(cart);
-          this.cartSubject.next(cart);
-          this.updateSummary();
+          this.cart.set(cart);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
@@ -93,10 +106,9 @@ export class CartService {
       .pipe(
         tap(() => {
           this.clearLocalCart();
-          this.cartSubject.next(null);
-          this.updateSummary();
+          this.cart.set(null);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
@@ -106,10 +118,9 @@ export class CartService {
       .pipe(
         tap(cart => {
           this.saveCartToStorage(cart);
-          this.cartSubject.next(cart);
-          this.updateSummary();
+          this.cart.set(cart);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
@@ -119,10 +130,9 @@ export class CartService {
       .pipe(
         tap(cart => {
           this.saveCartToStorage(cart);
-          this.cartSubject.next(cart);
-          this.updateSummary();
+          this.cart.set(cart);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
@@ -132,17 +142,16 @@ export class CartService {
       .pipe(
         tap(() => {
           this.clearLocalCart();
-          this.cartSubject.next(null);
-          this.updateSummary();
+          this.cart.set(null);
         }),
-        catchError(this.handleError)
+        catchError(err => this.handleError(err))
       );
   }
 
   //metodos locales para carrito offline
   addToCartLocal(producto: Producto, cantidad: number = 1, variantes?: any): void {
-    const cart = this.getCartFromStorage() || this.createEmptyCart();
-    const existingItem = this.findCartItem(cart, producto.id!, variantes);
+    const currentCart = this.getCartFromStorage() || this.createEmptyCart();
+    const existingItem = this.findCartItem(currentCart, producto.id!, variantes);
 
     if (existingItem) {
       existingItem.cantidad += cantidad;
@@ -164,20 +173,19 @@ export class CartService {
         fechaAgregado: new Date(),
         variantes
       };
-      cart.items.push(newItem);
+      currentCart.items.push(newItem);
     }
 
-    this.updateCartTotals(cart);
-    this.saveCartToStorage(cart);
-    this.cartSubject.next(cart);
-    this.updateSummary();
+    this.updateCartTotals(currentCart);
+    this.saveCartToStorage(currentCart);
+    this.cart.set(currentCart);
   }
 
   updateCartItemLocal(itemId: string, cantidad: number): void {
-    const cart = this.getCartFromStorage();
-    if (!cart) return;
+    const currentCart = this.getCartFromStorage();
+    if (!currentCart) return;
 
-    const item = cart.items.find(i => i.id === itemId);
+    const item = currentCart.items.find(i => i.id === itemId);
     if (item) {
       if (cantidad <= 0) {
         this.removeFromCartLocal(itemId);
@@ -186,45 +194,42 @@ export class CartService {
 
       item.cantidad = cantidad;
       item.precioTotal = item.cantidad * item.precioUnitario;
-      this.updateCartTotals(cart);
-      this.saveCartToStorage(cart);
-      this.cartSubject.next(cart);
-      this.updateSummary();
+      this.updateCartTotals(currentCart);
+      this.saveCartToStorage(currentCart);
+      this.cart.set(currentCart);
     }
   }
 
   removeFromCartLocal(itemId: string): void {
-    const cart = this.getCartFromStorage();
-    if (!cart) return;
+    const currentCart = this.getCartFromStorage();
+    if (!currentCart) return;
 
-    cart.items = cart.items.filter(item => item.id !== itemId);
-    this.updateCartTotals(cart);
-    this.saveCartToStorage(cart);
-    this.cartSubject.next(cart);
-    this.updateSummary();
+    currentCart.items = currentCart.items.filter(item => item.id !== itemId);
+    this.updateCartTotals(currentCart);
+    this.saveCartToStorage(currentCart);
+    this.cart.set(currentCart);
   }
 
   clearCartLocal(): void {
     this.clearLocalCart();
-    this.cartSubject.next(null);
-    this.updateSummary();
+    this.cart.set(null);
   }
 
-  //obtener resumen del carrito
+  //obtener resumen del carrito (mantenido por retrocompatibilidad momentanea, aunque los componentes deberian usar this.cartSummary())
   getCartSummary(): CartSummary {
-    return this.calculateSummary();
+    return this.cartSummary();
   }
 
   //verificar si el carrito esta vacio
   isEmpty(): boolean {
-    const cart = this.cartSubject.value;
-    return !cart || cart.items.length === 0;
+    const currentCart = this.cart();
+    return !currentCart || currentCart.items.length === 0;
   }
 
   //obtener cantidad total de items
   getTotalItems(): number {
-    const cart = this.cartSubject.value;
-    return cart ? cart.items.reduce((total, item) => total + item.cantidad, 0) : 0;
+    const currentCart = this.cart();
+    return currentCart ? currentCart.items.reduce((total, item) => total + item.cantidad, 0) : 0;
   }
 
   //metodos privados
@@ -274,31 +279,6 @@ export class CartService {
     if (subtotal >= 500) return 0; //envio gratis
     if (subtotal >= 200) return 50; //envio estandar
     return 100; //envio express
-  }
-
-  private calculateSummary(): CartSummary {
-    const cart = this.cartSubject.value;
-    if (!cart) {
-      return {
-        totalItems: 0,
-        subtotal: 0,
-        descuento: 0,
-        envio: 0,
-        total: 0
-      };
-    }
-
-    return {
-      totalItems: cart.items.reduce((total, item) => total + item.cantidad, 0),
-      subtotal: cart.subtotal,
-      descuento: cart.descuento,
-      envio: cart.envio,
-      total: cart.total
-    };
-  }
-
-  private updateSummary(): void {
-    this.cartSummarySubject.next(this.calculateSummary());
   }
 
   private getCartFromStorage(): Cart | null {
