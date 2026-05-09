@@ -31,6 +31,7 @@ public class AuthService {
     private final UsuarioRepository usuarioRepository;
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
+    private final EmailService emailService;
 
     @Value("${app.jwt.expiration:86400}")
     private Long jwtExpiration;
@@ -40,7 +41,6 @@ public class AuthService {
 
     @Transactional
     public AuthResponseDTO login(LoginRequestDTO loginRequest) {
-        log.debug("Iniciando proceso de login para: {}", loginRequest.getEmail());
         try {
             authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -53,7 +53,6 @@ public class AuthService {
                 .orElseThrow(() -> new BadCredentialsException("Usuario no encontrado o inactivo"));
 
             if (!usuario.getEmailVerificado()) {
-                log.warn("Login rechazado: Email no verificado para {}", loginRequest.getEmail());
                 throw new DisabledException("Email no verificado. Por favor, verifica tu email antes de continuar.");
             }
 
@@ -64,11 +63,8 @@ public class AuthService {
             String refreshToken = jwtUtil.generateRefreshToken(userDetails, usuario.getId(), usuario.getRol().name());
 
             log.info("Usuario autenticado exitosamente: {} con rol: {}", usuario.getEmail(), usuario.getRol());
-            log.debug("Tokens generados: access={}..., refresh={}...", 
-                accessToken != null ? accessToken.substring(0, 10) : "null", 
-                refreshToken != null ? refreshToken.substring(0, 10) : "null");
 
-            AuthResponseDTO response = AuthResponseDTO.of(
+            return AuthResponseDTO.of(
                 accessToken,
                 refreshToken,
                 jwtExpiration,
@@ -80,24 +76,33 @@ public class AuthService {
                 usuario.getEmailVerificado(),
                 LocalDateTime.now()
             );
-            
-            log.debug("Respuesta DTO construida: {}", response);
-            return response;
 
         } catch (BadCredentialsException e) {
             log.warn("Intento de login fallido para email: {}", loginRequest.getEmail());
             throw new BadCredentialsException("Credenciales inválidas");
         } catch (DisabledException e) {
+            log.warn("Intento de login con cuenta deshabilitada: {}", loginRequest.getEmail());
             throw e;
         } catch (Exception e) {
-            log.error("Error crítico durante la autenticación para email: {}", loginRequest.getEmail(), e);
-            throw new RuntimeException("Error interno durante la autenticación: " + e.getMessage());
+            log.error("Error durante la autenticación para email: {}", loginRequest.getEmail(), e);
+            throw new RuntimeException("Error interno durante la autenticación");
         }
     }
 
     @Transactional
     public AuthResponseDTO register(UsuarioRequestDTO registroRequest) {
         Usuario usuarioGuardado = usuarioService.crearUsuario(registroRequest);
+
+        try {
+            emailService.sendVerificationEmail(
+                usuarioGuardado.getEmail(), 
+                usuarioGuardado.getNombre(), 
+                usuarioGuardado.getTokenVerificacion()
+            );
+            log.info("Correo de verificación enviado a: {}", usuarioGuardado.getEmail());
+        } catch (Exception e) {
+            log.error("Error al enviar correo de verificación a {}: {}", usuarioGuardado.getEmail(), e.getMessage());
+        }
 
         log.info("Nuevo usuario registrado (pendiente de verificación): {} con rol: {}", 
             usuarioGuardado.getEmail(), usuarioGuardado.getRol());
@@ -182,6 +187,13 @@ public class AuthService {
         String newToken = UUID.randomUUID().toString();
         usuario.setTokenVerificacion(newToken);
         usuarioRepository.save(usuario);
+
+        try {
+            emailService.sendVerificationEmail(usuario.getEmail(), usuario.getNombre(), newToken);
+        } catch (Exception e) {
+            log.error("Error al reenviar correo de verificación: {}", e.getMessage());
+            throw new RuntimeException("No se pudo enviar el correo. Por favor, inténtalo de nuevo más tarde.");
+        }
 
         String verificationUrl = frontendUrl + "/verify-email?token=" + newToken;
         log.info("Nuevo enlace de verificación generado para {}: {}", email, verificationUrl);

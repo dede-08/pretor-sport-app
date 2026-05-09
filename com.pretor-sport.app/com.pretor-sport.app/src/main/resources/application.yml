@@ -11,6 +11,17 @@ spring:
     import: optional:file:.env.properties
   application:
     name: ${APP_NAME:pretor-sport-backend}
+  mail:
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH:true}
+          starttls:
+            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE:true}
 
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/pretor_sport_db}

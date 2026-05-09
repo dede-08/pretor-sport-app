@@ -255,34 +255,59 @@ public class ProductoService {
 
 
     public String saveProductImage(Long productoId, MultipartFile file) throws IOException {
-        // 1. Validar que el producto exista
-        Producto producto = productoRepository.findById(productoId)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
+        // 1. Validar que el archivo no esté vacío
+        if (file.isEmpty()) {
+            throw new IllegalArgumentException("El archivo no puede estar vacío");
+        }
 
-        // 2. Generar un nombre de archivo único para evitar colisiones
+        // 2. Validar tamaño del archivo (ej. máximo 2MB)
+        long maxSize = 2 * 1024 * 1024; // 2MB en bytes
+        if (file.getSize() > maxSize) {
+            throw new IllegalArgumentException("El archivo excede el tamaño máximo permitido (2MB)");
+        }
+
+        // 3. Validar tipo de contenido (MIME Type) - Solo imágenes
+        String contentType = file.getContentType();
+        List<String> allowedTypes = List.of("image/jpeg", "image/png", "image/webp", "image/gif");
+        if (contentType == null || !allowedTypes.contains(contentType)) {
+            throw new IllegalArgumentException("Solo se permiten archivos de imagen (JPEG, PNG, WEBP, GIF)");
+        }
+
+        // 4. Validar que el producto exista
+        Producto producto = productoRepository.findById(productoId)
+                .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + productoId));
+
+        // 5. Generar un nombre de archivo único para evitar colisiones y Path Traversal
         String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
         String fileExtension = "";
         int lastIndex = originalFileName.lastIndexOf(".");
         if (lastIndex >= 0) {
             fileExtension = originalFileName.substring(lastIndex);
         }
+        
+        // Forzar extensión basada en el tipo si no tiene una válida
+        if (fileExtension.isEmpty()) {
+            fileExtension = "." + contentType.split("/")[1];
+        }
+
         String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
 
-        // 3. Definir la ruta de guardado
+        // 6. Definir la ruta de guardado
         Path uploadPath = Paths.get(uploadDir);
         if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath); // Crea el directorio si no existe
+            Files.createDirectories(uploadPath);
         }
         Path filePath = uploadPath.resolve(uniqueFileName);
 
-        // 4. Guardar el archivo en el servidor
+        // 7. Guardar el archivo en el servidor
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
-        // 5. Construir la URL pública y actualizar el producto
+        // 8. Construir la URL pública y actualizar el producto
         String imageUrl = baseUrl + "/" + uniqueFileName;
         producto.setImagenUrl(imageUrl);
         productoRepository.save(producto);
 
+        log.info("Imagen guardada exitosamente para el producto {}: {}", productoId, uniqueFileName);
         return imageUrl;
     }
 

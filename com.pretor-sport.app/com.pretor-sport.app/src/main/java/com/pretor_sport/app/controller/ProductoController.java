@@ -250,17 +250,29 @@ public class ProductoController {
     }
 
     @PostMapping("/{id}/image")
-    public ResponseEntity<Map<String, String>> uploadProductImage(
+    @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
+    public ResponseEntity<?> uploadProductImage(
             @PathVariable Long id,
             @RequestParam("file") MultipartFile file) {
         try {
+            log.info("Subiendo imagen para producto ID: {}", id);
             String imageUrl = productoService.saveProductImage(id, file);
-            Map<String, String> response = new HashMap<>();
-            response.put("imagenUrl", imageUrl);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of(
+                "message", "Imagen subida exitosamente",
+                "imagenUrl", imageUrl
+            ));
+        } catch (IllegalArgumentException e) {
+            log.warn("Error de validación al subir imagen: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("error", "Error de validación", "message", e.getMessage()));
         } catch (IOException e) {
-            // Considera un manejo de errores más robusto
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            log.error("Error de E/S al guardar la imagen: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Error de almacenamiento", "message", "No se pudo guardar la imagen en el servidor"));
+        } catch (Exception e) {
+            log.error("Error inesperado al subir imagen: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("error", "Error interno", "message", "Ocurrió un error inesperado al procesar la imagen"));
         }
     }
 
