@@ -10,26 +10,18 @@ import com.pretor_sport.app.repository.CategoriaRepository;
 import com.pretor_sport.app.repository.ProductoRepository;
 import com.pretor_sport.app.repository.ProveedorRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,22 +29,17 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProductoService {
 
-    @Value("${app.images.upload-dir}")
-    private String uploadDir;
-
-    @Value("${app.images.base-url}")
-    private String baseUrl;
-
     private final ProductoRepository productoRepository;
-
     private final CategoriaRepository categoriaRepository;
     private final ProveedorRepository proveedorRepository;
+    private final FileStorageService fileStorageService;
+    private final com.pretor_sport.app.mapper.ProductoMapper productoMapper;
 
     //LISTA TODOS LOS PRODUCTOS CON PAGINACION Y FILTROS
     @Transactional(readOnly = true)
     public Page<ProductoResponseDTO> listarProductos(ProductoFilterDTO filtros) {
         log.debug("Listando productos con filtros: {}", filtros);
-        
+
         //validar y crear objeto de paginación
         String ordenarPor = filtros.getOrdenarPor();
         List<String> camposValidos = List.of("nombre", "precio", "marca", "modelo", "fechaCreacion", "stock", "genero", "peso");
@@ -65,14 +52,14 @@ public class ProductoService {
                 Sort.Direction.DESC : Sort.Direction.ASC,
             ordenarPor
         );
-        
+
         Pageable pageable = PageRequest.of(
             filtros.getPagina(), 
             filtros.getTamanoPagina(), 
             sort
         );
-        
-        // Preparar parámetros para LIKE
+
+        //preparar parametros para LIKE
         String busquedaLike = null;
         if (filtros.getBusqueda() != null && !filtros.getBusqueda().isEmpty()) {
             busquedaLike = "%" + filtros.getBusqueda() + "%";
@@ -109,34 +96,36 @@ public class ProductoService {
             filtros.getPesoMax(),
             pageable
         );
-        
-        return productos.map(this::convertirADTO);
+
+        return productos.map(productoMapper::toResponseDTO);
     }
 
     //OBTIENE PRODUCTO POR ID
     @Transactional(readOnly = true)
+    @org.springframework.cache.annotation.Cacheable(value = "productos", key = "#id")
     public Optional<ProductoResponseDTO> obtenerProductoPorId(Long id) {
         log.debug("Obteniendo producto con ID: {}", id);
         return productoRepository.findById(id)
-            .map(this::convertirADTO);
+            .map(productoMapper::toResponseDTO);
     }
 
     //CREAR UN NUEVO PRODUCTO
     @Transactional
+    @org.springframework.cache.annotation.CacheEvict(value = "productos", allEntries = true)
     public ProductoResponseDTO crearProducto(ProductoRequestDTO request) {
         log.info("Creando nuevo producto: {}", request.getNombre());
-        
+
         //validar que la categoría existe
         Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
             .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada con ID: " + request.getCategoriaId()));
-        
+
         //validar que el proveedor existe (si se proporciona)
         Proveedor proveedor = null;
         if (request.getProveedorId() != null) {
             proveedor = proveedorRepository.findById(request.getProveedorId())
                 .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID: " + request.getProveedorId()));
         }
-        
+
         //crear el producto
         Producto producto = new Producto();
         producto.setNombre(request.getNombre());
@@ -156,32 +145,33 @@ public class ProductoService {
         producto.setPeso(request.getPeso());
         producto.setCaracteristicas(request.getCaracteristicas());
         producto.setActivo(true);
-        
+
         Producto productoGuardado = productoRepository.save(producto);
         log.info("Producto creado exitosamente con ID: {}", productoGuardado.getId());
-        
-        return convertirADTO(productoGuardado);
+
+        return productoMapper.toResponseDTO(productoGuardado);
     }
 
     //ACTUALIZA UN PRODUCTO EXISTENTE
     @Transactional
+    @org.springframework.cache.annotation.CacheEvict(value = "productos", allEntries = true)
     public ProductoResponseDTO actualizarProducto(Long id, ProductoRequestDTO request) {
         log.info("Actualizando producto con ID: {}", id);
-        
+
         Producto producto = productoRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + id));
-        
+
         //validar que la categoría existe
         Categoria categoria = categoriaRepository.findById(request.getCategoriaId())
             .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada con ID: " + request.getCategoriaId()));
-        
+
         //validar que el proveedor existe (si se proporciona)
         Proveedor proveedor = null;
         if (request.getProveedorId() != null) {
             proveedor = proveedorRepository.findById(request.getProveedorId())
                 .orElseThrow(() -> new IllegalArgumentException("Proveedor no encontrado con ID: " + request.getProveedorId()));
         }
-        
+
         //actualizar campos
         producto.setNombre(request.getNombre());
         producto.setDescripcion(request.getDescripcion());
@@ -199,24 +189,25 @@ public class ProductoService {
         producto.setMaterial(request.getMaterial());
         producto.setPeso(request.getPeso());
         producto.setCaracteristicas(request.getCaracteristicas());
-        
+
         Producto productoActualizado = productoRepository.save(producto);
         log.info("Producto actualizado exitosamente con ID: {}", productoActualizado.getId());
-        
-        return convertirADTO(productoActualizado);
+
+        return productoMapper.toResponseDTO(productoActualizado);
     }
 
     //ELIMINA UN PRODUCTO
     @Transactional
+    @org.springframework.cache.annotation.CacheEvict(value = "productos", allEntries = true)
     public void eliminarProducto(Long id) {
         log.info("Eliminando producto con ID: {}", id);
-        
+
         Producto producto = productoRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + id));
-        
+
         producto.setActivo(false);
         productoRepository.save(producto);
-        
+
         log.info("Producto eliminado exitosamente con ID: {}", id);
     }
 
@@ -224,22 +215,23 @@ public class ProductoService {
     @Transactional(readOnly = true)
     public List<ProductoResponseDTO> obtenerProductosPorCategoria(Long categoriaId) {
         log.debug("Obteniendo productos para categoría ID: {}", categoriaId);
-        
+
         return productoRepository.findByCategoriaIdAndActivoTrue(categoriaId)
             .stream()
-            .map(this::convertirADTO)
+            .map(productoMapper::toResponseDTO)
             .collect(Collectors.toList());
     }
 
 
     //OBTIENE PRODUCTOS DESTACADOS
     @Transactional(readOnly = true)
+    @org.springframework.cache.annotation.Cacheable(value = "productos", key = "'destacados_' + #limite")
     public List<ProductoResponseDTO> obtenerProductosDestacados(int limite) {
         log.debug("Obteniendo {} productos destacados", limite);
-        
+
         return productoRepository.findProductosDestacados(limite)
             .stream()
-            .map(this::convertirADTO)
+            .map(productoMapper::toResponseDTO)
             .collect(Collectors.toList());
     }
 
@@ -247,110 +239,22 @@ public class ProductoService {
     @Transactional(readOnly = true)
     public Page<ProductoResponseDTO> buscarProductos(String termino, Pageable pageable) {
         log.debug("Buscando productos con término: {}", termino);
-        
+
         Page<Producto> productos = productoRepository.findByNombreContainingIgnoreCaseAndActivoTrue(termino, pageable);
-        return productos.map(this::convertirADTO);
+        return productos.map(productoMapper::toResponseDTO);
     }
 
-
-
+    @Transactional
     public String saveProductImage(Long productoId, MultipartFile file) throws IOException {
-        // 1. Validar que el archivo no esté vacío
-        if (file.isEmpty()) {
-            throw new IllegalArgumentException("El archivo no puede estar vacío");
-        }
-
-        // 2. Validar tamaño del archivo (ej. máximo 2MB)
-        long maxSize = 2 * 1024 * 1024; // 2MB en bytes
-        if (file.getSize() > maxSize) {
-            throw new IllegalArgumentException("El archivo excede el tamaño máximo permitido (2MB)");
-        }
-
-        // 3. Validar tipo de contenido (MIME Type) - Solo imágenes
-        String contentType = file.getContentType();
-        List<String> allowedTypes = List.of("image/jpeg", "image/png", "image/webp", "image/gif");
-        if (contentType == null || !allowedTypes.contains(contentType)) {
-            throw new IllegalArgumentException("Solo se permiten archivos de imagen (JPEG, PNG, WEBP, GIF)");
-        }
-
-        // 4. Validar que el producto exista
         Producto producto = productoRepository.findById(productoId)
                 .orElseThrow(() -> new IllegalArgumentException("Producto no encontrado con ID: " + productoId));
 
-        // 5. Generar un nombre de archivo único para evitar colisiones y Path Traversal
-        String originalFileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String fileExtension = "";
-        int lastIndex = originalFileName.lastIndexOf(".");
-        if (lastIndex >= 0) {
-            fileExtension = originalFileName.substring(lastIndex);
-        }
-        
-        // Forzar extensión basada en el tipo si no tiene una válida
-        if (fileExtension.isEmpty()) {
-            fileExtension = "." + contentType.split("/")[1];
-        }
+        String imageUrl = fileStorageService.storeFile(file);
 
-        String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
-
-        // 6. Definir la ruta de guardado
-        Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-        Path filePath = uploadPath.resolve(uniqueFileName);
-
-        // 7. Guardar el archivo en el servidor
-        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-        // 8. Construir la URL pública y actualizar el producto
-        String imageUrl = baseUrl + "/" + uniqueFileName;
         producto.setImagenUrl(imageUrl);
         productoRepository.save(producto);
 
-        log.info("Imagen guardada exitosamente para el producto {}: {}", productoId, uniqueFileName);
+        log.info("Imagen guardada exitosamente para el producto {}: {}", productoId, imageUrl);
         return imageUrl;
     }
-
-
-    //CONVIERTE UN PRODUCTO A ProductoResponseDTO
-    private ProductoResponseDTO convertirADTO(Producto producto) {
-        ProductoResponseDTO dto = new ProductoResponseDTO();
-        dto.setId(producto.getId());
-        dto.setNombre(producto.getNombre());
-        dto.setDescripcion(producto.getDescripcion());
-        dto.setPrecio(producto.getPrecio());
-        dto.setStock(producto.getStock());
-        dto.setImagenUrl(producto.getImagenUrl());
-        dto.setMarca(producto.getMarca());
-        dto.setModelo(producto.getModelo());
-        dto.setTalla(producto.getTalla());
-        dto.setColor(producto.getColor());
-        dto.setGenero(producto.getGenero() != null ? producto.getGenero().name() : null);
-        dto.setMaterial(producto.getMaterial());
-        dto.setPeso(producto.getPeso());
-        dto.setCaracteristicas(producto.getCaracteristicas());
-        dto.setDisponible(producto.isDisponible());
-        dto.setEstadoStock(producto.getEstadoStock());
-        
-        //convertir categoría
-        if (producto.getCategoria() != null) {
-            ProductoResponseDTO.CategoriaSimpleDTO categoriaDTO = new ProductoResponseDTO.CategoriaSimpleDTO();
-            categoriaDTO.setId(producto.getCategoria().getId());
-            categoriaDTO.setNombre(producto.getCategoria().getNombre());
-            categoriaDTO.setTipo(producto.getCategoria().getTipo().name());
-            categoriaDTO.setIconoUrl(producto.getCategoria().getIconoUrl());
-            dto.setCategoria(categoriaDTO);
-        }
-        
-        //convertir proveedor
-        if (producto.getProveedor() != null) {
-            ProductoResponseDTO.ProveedorSimpleDTO proveedorDTO = new ProductoResponseDTO.ProveedorSimpleDTO();
-            proveedorDTO.setId(producto.getProveedor().getId());
-            proveedorDTO.setNombre(producto.getProveedor().getNombre());
-            proveedorDTO.setEmail(producto.getProveedor().getEmail());
-            dto.setProveedor(proveedorDTO);
-        }
-        
-        return dto;
     }
-}
