@@ -14,7 +14,7 @@ import { CartItem } from '../../../models/cart.model';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  // signals directos desde el servicio
+  //signals directos desde el servicio
   cart = this.cartService.cart;
   cartSummary = this.cartService.cartSummary;
 
