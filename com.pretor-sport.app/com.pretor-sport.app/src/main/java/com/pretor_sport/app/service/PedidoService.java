@@ -1,27 +1,117 @@
 package com.pretor_sport.app.service;
 
+import com.pretor_sport.app.dto.request.CarritoItemRequestDTO;
+import com.pretor_sport.app.dto.response.PedidoResponseDTO;
+import com.pretor_sport.app.mapper.PedidoMapper;
 import com.pretor_sport.app.model.*;
 import com.pretor_sport.app.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class PedidoService {
 
     private final PedidoRepository pedidoRepository;
     private final ProductoRepository productoRepository;
+    private final PedidoMapper pedidoMapper;
 
-    public PedidoService(PedidoRepository pedidoRepository, ProductoRepository productoRepository) {
-        this.pedidoRepository = pedidoRepository;
-        this.productoRepository = productoRepository;
+    @Transactional
+    public PedidoResponseDTO obtenerCarritoActual(Usuario usuario) {
+        Pedido carrito = getCarritoActivo(usuario);
+        return pedidoMapper.toResponseDTO(carrito);
     }
 
-
-    //obtiene el carrito de compras activo de un cliente. si no existe
     @Transactional
-    public Pedido getCarritoActivo(Usuario usuario) {
+    public PedidoResponseDTO agregarAlCarrito(Usuario usuario, CarritoItemRequestDTO request) {
+        Pedido carrito = getCarritoActivo(usuario);
+        Producto producto = productoRepository.findById(request.getProductoId())
+                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con ID: " + request.getProductoId()));
+
+        if (producto.getStock() < request.getCantidad()) {
+            throw new IllegalStateException("Stock insuficiente para el producto: " + producto.getNombre());
+        }
+
+        Optional<DetallePedido> detalleExistente = carrito.getDetalles().stream()
+                .filter(detalle -> detalle.getProducto().getId().equals(request.getProductoId()))
+                .findFirst();
+
+        if (detalleExistente.isPresent()) {
+            DetallePedido detalle = detalleExistente.get();
+            detalle.setCantidad(detalle.getCantidad() + request.getCantidad());
+        } else {
+            DetallePedido nuevoDetalle = new DetallePedido();
+            nuevoDetalle.setProducto(producto);
+            nuevoDetalle.setCantidad(request.getCantidad());
+            nuevoDetalle.setPrecioUnitario(producto.getPrecio());
+            nuevoDetalle.setPedido(carrito);
+            carrito.getDetalles().add(nuevoDetalle);
+        }
+
+        Pedido guardado = pedidoRepository.save(carrito);
+        return pedidoMapper.toResponseDTO(guardado);
+    }
+
+    @Transactional
+    public PedidoResponseDTO actualizarCantidad(Usuario usuario, Long productoId, int cantidad) {
+        Pedido carrito = getCarritoActivo(usuario);
+        DetallePedido detalle = carrito.getDetalles().stream()
+                .filter(d -> d.getProducto().getId().equals(productoId))
+                .findFirst()
+                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado en el carrito"));
+
+        if (cantidad <= 0) {
+            carrito.getDetalles().remove(detalle);
+        } else {
+            if (detalle.getProducto().getStock() < cantidad) {
+                throw new IllegalStateException("Stock insuficiente");
+            }
+            detalle.setCantidad(cantidad);
+        }
+
+        Pedido guardado = pedidoRepository.save(carrito);
+        return pedidoMapper.toResponseDTO(guardado);
+    }
+
+    @Transactional
+    public PedidoResponseDTO eliminarDelCarrito(Usuario usuario, Long productoId) {
+        Pedido carrito = getCarritoActivo(usuario);
+        carrito.getDetalles().removeIf(d -> d.getProducto().getId().equals(productoId));
+        Pedido guardado = pedidoRepository.save(carrito);
+        return pedidoMapper.toResponseDTO(guardado);
+    }
+
+    @Transactional
+    public void vaciarCarrito(Usuario usuario) {
+        Pedido carrito = getCarritoActivo(usuario);
+        carrito.getDetalles().clear();
+        pedidoRepository.save(carrito);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PedidoResponseDTO> listarMisPedidos(Usuario usuario) {
+        return pedidoRepository.findByUsuarioAndEstadoNot(usuario, "CARRITO")
+                .stream()
+                .map(pedidoMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PedidoResponseDTO> listarTodos() {
+        return pedidoRepository.findAll().stream()
+                .map(pedidoMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    private Pedido getCarritoActivo(Usuario usuario) {
         return pedidoRepository.findByUsuarioAndEstado(usuario, "CARRITO")
                 .orElseGet(() -> {
                     Pedido nuevoCarrito = new Pedido();
@@ -31,36 +121,11 @@ public class PedidoService {
                 });
     }
 
-    //agrega un producto al carrito del cliente, si el producto ya esta en el carrito se actualiza la cantidad
     @Transactional
-    public Pedido agregarProductoAlCarrito(Usuario usuario, Long productoId, int cantidad) {
-        Pedido carrito = getCarritoActivo(usuario);
-        Producto producto = productoRepository.findById(productoId)
-                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con id: " + productoId));
-
-        if (producto.getStock() < cantidad) {
-            throw new IllegalStateException("Stock insuficiente para el producto: " + producto.getNombre());
-        }
-
-        //busca si el producto ya está en el carrito
-        Optional<DetallePedido> detalleExistente = carrito.getDetalles().stream()
-                .filter(detalle -> detalle.getProducto().getId().equals(productoId))
-                .findFirst();
-
-        if (detalleExistente.isPresent()) {
-            //si ya existe, actualiza la cantidad
-            DetallePedido detalle = detalleExistente.get();
-            detalle.setCantidad(detalle.getCantidad() + cantidad);
-        } else {
-            //si no existe, crea un nuevo detalle
-            DetallePedido nuevoDetalle = new DetallePedido();
-            nuevoDetalle.setProducto(producto);
-            nuevoDetalle.setCantidad(cantidad);
-            nuevoDetalle.setPrecioUnitario(producto.getPrecio());
-            nuevoDetalle.setPedido(carrito);
-            carrito.getDetalles().add(nuevoDetalle);
-        }
-
-        return pedidoRepository.save(carrito);
+    public PedidoResponseDTO cambiarEstado(Long pedidoId, String nuevoEstado) {
+        Pedido pedido = pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado"));
+        pedido.setEstado(nuevoEstado);
+        return pedidoMapper.toResponseDTO(pedidoRepository.save(pedido));
     }
 }

@@ -1,86 +1,82 @@
 package com.pretor_sport.app.service;
 
+import com.pretor_sport.app.dto.response.VentaResponseDTO;
+import com.pretor_sport.app.mapper.VentaMapper;
 import com.pretor_sport.app.model.*;
 import com.pretor_sport.app.repository.*;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.math.BigDecimal;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class VentaService {
 
     private final VentaRepository ventaRepository;
     private final PedidoRepository pedidoRepository;
     private final ProductoRepository productoRepository;
     private final PagoRepository pagoRepository;
-    private final UsuarioRepository usuarioRepository; // Añadido para buscar el historial
+    private final VentaMapper ventaMapper;
 
-    public VentaService(VentaRepository ventaRepository, PedidoRepository pedidoRepository,
-                        ProductoRepository productoRepository, PagoRepository pagoRepository,
-                        UsuarioRepository usuarioRepository) {
-        this.ventaRepository = ventaRepository;
-        this.pedidoRepository = pedidoRepository;
-        this.productoRepository = productoRepository;
-        this.pagoRepository = pagoRepository;
-        this.usuarioRepository = usuarioRepository;
-    }
-
-
-    //PROCESA UN PEDIDO PARA GENERAR UNA VENTA
     @Transactional
-    public Venta procesarVenta(Long pedidoId, String metodoPago) {
-        // 1. Obtener el pedido y validar su estado
+    public VentaResponseDTO procesarVenta(Long pedidoId, String metodoPago) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
-                .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado con id: " + pedidoId));
+                .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado con ID: " + pedidoId));
 
-        if (!"CARRITO".equals(pedido.getEstado())) {
+        if (!"CARRITO".equals(pedido.getEstado()) && !"PENDIENTE".equals(pedido.getEstado())) {
             throw new IllegalStateException("El pedido ya ha sido procesado o está en un estado inválido.");
         }
-        if(pedido.getDetalles().isEmpty()) {
+        if (pedido.getDetalles().isEmpty()) {
             throw new IllegalStateException("No se puede procesar un pedido vacío.");
         }
 
-        // 2. Verificar y actualizar stock de cada producto en el pedido
         for (DetallePedido detalle : pedido.getDetalles()) {
             Producto producto = detalle.getProducto();
-            int cantidadSolicitada = detalle.getCantidad();
-
-            if (producto.getStock() < cantidadSolicitada) {
-                //si no hay stock suficiente, se lanza una excepción.
-                //gracias a @Transactional, todas las operaciones anteriores (si las hubiera) se revierten.
-                throw new IllegalStateException("Stock insuficiente para el producto: " + producto.getNombre());
+            if (producto.getStock() < detalle.getCantidad()) {
+                throw new IllegalStateException("Stock insuficiente para: " + producto.getNombre());
             }
-            producto.setStock(producto.getStock() - cantidadSolicitada);
+            producto.setStock(producto.getStock() - detalle.getCantidad());
             productoRepository.save(producto);
         }
 
-        // 3. Crear el registro de Pago (simulando un pago exitoso)
         Pago pago = new Pago();
         pago.setMonto(pedido.getSubtotal());
         pago.setMetodoPago(metodoPago);
         pago.setEstado("APROBADO");
-        pago.setIdTransaccion("TXN-" + System.currentTimeMillis()); // ID de transacción simulado
+        pago.setIdTransaccion("TXN-" + System.currentTimeMillis());
         Pago pagoGuardado = pagoRepository.save(pago);
 
-        // 4. Crear el registro de Venta, asociando el pedido y el pago
         Venta venta = new Venta();
         venta.setPedido(pedido);
         venta.setPago(pagoGuardado);
         venta.setTotalVenta(pedido.getSubtotal());
         Venta ventaGuardada = ventaRepository.save(venta);
 
-        // 5. Finalmente, actualizar el estado del Pedido a "COMPLETADO"
         pedido.setEstado("COMPLETADO");
         pedidoRepository.save(pedido);
 
-        // Se retorna la venta recién creada
-        return ventaGuardada;
+        return ventaMapper.toResponseDTO(ventaGuardada);
     }
 
-    //OBTIENE EL HISTORIAL DE COMPRAS DE UN CLIENTE ESPECIFICO
-    public List<Venta> obtenerHistorialDeCompras(Usuario usuario) {
-        return ventaRepository.findByPedido_Usuario(usuario);
+    @Transactional(readOnly = true)
+    public List<VentaResponseDTO> obtenerHistorialDeCompras(Usuario usuario) {
+        return ventaRepository.findByPedido_Usuario(usuario)
+                .stream()
+                .map(ventaMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<VentaResponseDTO> listarTodas() {
+        return ventaRepository.findAll()
+                .stream()
+                .map(ventaMapper::toResponseDTO)
+                .collect(Collectors.toList());
     }
 }

@@ -8,6 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
-    //busca un pedido de un cliente especifico que tenga un estado determinado
     Optional<Pedido> findByUsuarioAndEstado(Usuario usuario, String estado);
+    java.util.List<Pedido> findByUsuarioAndEstadoNot(Usuario usuario, String estado);
 }

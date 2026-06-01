@@ -1,63 +1,69 @@
 package com.pretor_sport.app.controller;
 
+import com.pretor_sport.app.dto.request.UsuarioRequestDTO;
+import com.pretor_sport.app.dto.response.UsuarioResponseDTO;
 import com.pretor_sport.app.model.Usuario;
 import com.pretor_sport.app.service.UsuarioService;
-import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.Map;
+
+@RestController
+@RequestMapping("/usuarios")
+@RequiredArgsConstructor
+@Slf4j
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final com.pretor_sport.app.mapper.UsuarioMapper usuarioMapper;
 
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
+    @GetMapping("/me")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'EMPLEADO', 'ADMIN')")
+    public ResponseEntity<UsuarioResponseDTO> obtenerMiPerfil(Authentication authentication) {
+        return usuarioService.buscarPorEmail(authentication.getName())
+                .map(usuarioMapper::toResponseDTO)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/registro")
-    public String registrarUsuario(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            return "auth/registro";
-        }
-        try {
-            usuarioService.registrarUsuario(usuario);
-            redirectAttributes.addFlashAttribute("registroExitoso", true);
-            return "redirect:/login?registroExitoso=true";
-        } catch (IllegalStateException e) {
-            result.rejectValue("email", "email.existente", e.getMessage());
-            return "auth/registro";
-        }
-    }
-
-    @GetMapping("/perfil")
-    public String mostrarPerfil(Authentication authentication, Model model) {
-        String email = authentication.getName();
-        Usuario usuario = usuarioService.buscarPorEmail(email)
+    @PutMapping("/me")
+    @PreAuthorize("hasAnyRole('CLIENTE', 'EMPLEADO', 'ADMIN')")
+    public ResponseEntity<UsuarioResponseDTO> actualizarMiPerfil(
+            Authentication authentication, 
+            @Valid @RequestBody UsuarioRequestDTO request) {
+        Usuario usuario = usuarioService.buscarPorEmail(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        model.addAttribute("usuario", usuario);
-        return "cliente/perfil";
+        return ResponseEntity.ok(usuarioService.actualizarPerfil(usuario.getId(), request));
     }
 
-    @PostMapping("/perfil/actualizar")
-    public String actualizarPerfil(Authentication authentication, @Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            return "cliente/perfil";
-        }
+    @GetMapping
+    @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
+    public ResponseEntity<Page<UsuarioResponseDTO>> listarUsuarios(
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "true") Boolean activo,
+            @RequestParam(defaultValue = "0") int pagina,
+            @RequestParam(defaultValue = "20") int tamano) {
+        return ResponseEntity.ok(usuarioService.listarUsuarios(search, activo, PageRequest.of(pagina, tamano)));
+    }
 
-        String email = authentication.getName();
-        Usuario usuarioActual = usuarioService.buscarPorEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
+    public ResponseEntity<UsuarioResponseDTO> obtenerUsuario(@PathVariable Long id) {
+        return ResponseEntity.ok(usuarioService.obtenerPorId(id));
+    }
 
-        usuarioService.actualizarPerfil(usuarioActual.getId(), usuario);
-        redirectAttributes.addFlashAttribute("perfilActualizado", "Tu perfil ha sido actualizado exitosamente.");
-        return "redirect:/perfil";
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Map<String, String>> eliminarUsuario(@PathVariable Long id) {
+        usuarioService.eliminarUsuario(id);
+        return ResponseEntity.ok(Map.of("message", "Usuario desactivado exitosamente"));
     }
 }

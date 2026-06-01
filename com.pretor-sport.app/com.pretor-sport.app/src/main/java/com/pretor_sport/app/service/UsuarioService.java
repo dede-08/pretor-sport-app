@@ -1,15 +1,21 @@
 package com.pretor_sport.app.service;
 
 import com.pretor_sport.app.dto.request.UsuarioRequestDTO;
+import com.pretor_sport.app.dto.response.UsuarioResponseDTO;
+import com.pretor_sport.app.mapper.UsuarioMapper;
 import com.pretor_sport.app.model.Usuario;
 import com.pretor_sport.app.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +23,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UsuarioMapper usuarioMapper;
 
     @Transactional
     public Usuario crearUsuario(UsuarioRequestDTO dto) {
@@ -33,7 +40,7 @@ public class UsuarioService {
         usuario.setTelefono(dto.getTelefono());
         usuario.setRol(Usuario.Rol.ROLE_CLIENTE);
         usuario.setActivo(true);
-        usuario.setEmailVerificado(false); // Por defecto falso para requerir verificación
+        usuario.setEmailVerificado(false);
         usuario.setTokenVerificacion(UUID.randomUUID().toString());
 
         return usuarioRepository.save(usuario);
@@ -50,16 +57,41 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario actualizarPerfil(Long id, Usuario datosActualizados) {
-        Usuario usuarioExistente = usuarioRepository.findById(id)
+    public UsuarioResponseDTO actualizarPerfil(Long id, UsuarioRequestDTO dto) {
+        Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado con id: " + id));
 
-        usuarioExistente.setNombre(datosActualizados.getNombre());
-        usuarioExistente.setApellidos(datosActualizados.getApellidos());
-        usuarioExistente.setDireccion(datosActualizados.getDireccion());
-        usuarioExistente.setTelefono(datosActualizados.getTelefono());
+        usuario.setNombre(dto.getNombre());
+        usuario.setApellidos(dto.getApellidos());
+        usuario.setDireccion(dto.getDireccion());
+        usuario.setTelefono(dto.getTelefono());
 
-        return usuarioRepository.save(usuarioExistente);
+        return usuarioMapper.toResponseDTO(usuarioRepository.save(usuario));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UsuarioResponseDTO> listarUsuarios(String search, Boolean activo, Pageable pageable) {
+        if (search != null && !search.isEmpty()) {
+            return usuarioRepository.findBySearchAndActivo(search, activo != null ? activo : true, pageable)
+                    .map(usuarioMapper::toResponseDTO);
+        }
+        return usuarioRepository.findByActivo(activo != null ? activo : true, pageable)
+                .map(usuarioMapper::toResponseDTO);
+    }
+
+    @Transactional(readOnly = true)
+    public UsuarioResponseDTO obtenerPorId(Long id) {
+        return usuarioRepository.findById(id)
+                .map(usuarioMapper::toResponseDTO)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+    }
+
+    @Transactional
+    public void eliminarUsuario(Long id) {
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
+        usuario.setActivo(false);
+        usuarioRepository.save(usuario);
     }
 
     public Optional<Usuario> buscarPorEmail(String email) {
