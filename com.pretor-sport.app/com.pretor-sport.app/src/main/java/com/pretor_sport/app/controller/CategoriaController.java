@@ -6,6 +6,8 @@ import com.pretor_sport.app.service.CategoriaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,8 +31,10 @@ public class CategoriaController {
 
     @GetMapping("/all")
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
-    public ResponseEntity<List<CategoriaResponseDTO>> listarTodas() {
-        return ResponseEntity.ok(categoriaService.listarTodas());
+    public ResponseEntity<Page<CategoriaResponseDTO>> listarTodas(
+            @RequestParam(defaultValue = "0") Integer pagina,
+            @RequestParam(defaultValue = "20") Integer tamanoPagina) {
+        return ResponseEntity.ok(categoriaService.listarTodas(PageRequest.of(pagina, Math.min(tamanoPagina, 100))));
     }
 
     @GetMapping("/{id}")

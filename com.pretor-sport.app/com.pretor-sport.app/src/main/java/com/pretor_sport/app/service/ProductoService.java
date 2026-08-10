@@ -70,7 +70,7 @@ public class ProductoService {
             marcaLike = "%" + filtros.getMarca() + "%";
         }
 
-        // Convertir genero a Enum
+        //convertir genero a Enum
         Producto.Genero generoEnum = null;
         if (filtros.getGenero() != null) {
             try {
@@ -257,4 +257,4 @@ public class ProductoService {
         log.info("Imagen guardada exitosamente para el producto {}: {}", productoId, imageUrl);
         return imageUrl;
     }
-    }
+}

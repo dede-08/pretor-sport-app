@@ -6,13 +6,12 @@ import com.pretor_sport.app.service.AuthService;
 import com.pretor_sport.app.service.PedidoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -25,15 +24,20 @@ public class PedidoController {
 
     @GetMapping("/mis-pedidos")
     @PreAuthorize("hasAnyRole('CLIENTE', 'EMPLEADO', 'ADMIN')")
-    public ResponseEntity<List<PedidoResponseDTO>> listarMisPedidos(Authentication authentication) {
+    public ResponseEntity<Page<PedidoResponseDTO>> listarMisPedidos(
+            Authentication authentication,
+            @RequestParam(defaultValue = "0") Integer pagina,
+            @RequestParam(defaultValue = "20") Integer tamanoPagina) {
         Usuario usuario = authService.getCurrentUser(authentication.getName());
-        return ResponseEntity.ok(pedidoService.listarMisPedidos(usuario));
+        return ResponseEntity.ok(pedidoService.listarMisPedidos(usuario, PageRequest.of(pagina, Math.min(tamanoPagina, 100))));
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
-    public ResponseEntity<List<PedidoResponseDTO>> listarTodos() {
-        return ResponseEntity.ok(pedidoService.listarTodos());
+    public ResponseEntity<Page<PedidoResponseDTO>> listarTodos(
+            @RequestParam(defaultValue = "0") Integer pagina,
+            @RequestParam(defaultValue = "20") Integer tamanoPagina) {
+        return ResponseEntity.ok(pedidoService.listarTodos(PageRequest.of(pagina, Math.min(tamanoPagina, 100))));
     }
 
     @PutMapping("/{id}/estado")

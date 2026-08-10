@@ -4,10 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "detalles_pedido")
+@BatchSize(size = 25)
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

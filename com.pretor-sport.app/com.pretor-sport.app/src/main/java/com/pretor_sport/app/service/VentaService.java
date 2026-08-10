@@ -7,6 +7,9 @@ import com.pretor_sport.app.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,18 +68,20 @@ public class VentaService {
     }
 
     @Transactional(readOnly = true)
-    public List<VentaResponseDTO> obtenerHistorialDeCompras(Usuario usuario) {
-        return ventaRepository.findByPedido_Usuario(usuario)
-                .stream()
+    public Page<VentaResponseDTO> obtenerHistorialDeCompras(Usuario usuario, Pageable pageable) {
+        Page<Venta> page = ventaRepository.findByPedido_Usuario(usuario, pageable);
+        List<VentaResponseDTO> dtos = page.getContent().stream()
                 .map(ventaMapper::toResponseDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
     }
 
     @Transactional(readOnly = true)
-    public List<VentaResponseDTO> listarTodas() {
-        return ventaRepository.findAll()
-                .stream()
+    public Page<VentaResponseDTO> listarTodas(Pageable pageable) {
+        Page<Venta> page = ventaRepository.findAll(pageable);
+        List<VentaResponseDTO> dtos = page.getContent().stream()
                 .map(ventaMapper::toResponseDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
     }
 }

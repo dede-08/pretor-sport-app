@@ -8,6 +8,9 @@ import com.pretor_sport.app.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -97,18 +100,21 @@ public class PedidoService {
     }
 
     @Transactional(readOnly = true)
-    public List<PedidoResponseDTO> listarMisPedidos(Usuario usuario) {
-        return pedidoRepository.findByUsuarioAndEstadoNot(usuario, "CARRITO")
-                .stream()
+    public Page<PedidoResponseDTO> listarMisPedidos(Usuario usuario, Pageable pageable) {
+        Page<Pedido> page = pedidoRepository.findByUsuarioAndEstadoNot(usuario, "CARRITO", pageable);
+        List<PedidoResponseDTO> dtos = page.getContent().stream()
                 .map(pedidoMapper::toResponseDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
     }
 
     @Transactional(readOnly = true)
-    public List<PedidoResponseDTO> listarTodos() {
-        return pedidoRepository.findAll().stream()
+    public Page<PedidoResponseDTO> listarTodos(Pageable pageable) {
+        Page<Pedido> page = pedidoRepository.findAll(pageable);
+        List<PedidoResponseDTO> dtos = page.getContent().stream()
                 .map(pedidoMapper::toResponseDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
     }
 
     private Pedido getCarritoActivo(Usuario usuario) {

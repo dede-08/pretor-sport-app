@@ -6,12 +6,13 @@ import com.pretor_sport.app.service.ProveedorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,8 +25,10 @@ public class ProveedorController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
-    public ResponseEntity<List<ProveedorResponseDTO>> listarTodos() {
-        return ResponseEntity.ok(proveedorService.listarTodos());
+    public ResponseEntity<Page<ProveedorResponseDTO>> listarTodos(
+            @RequestParam(defaultValue = "0") Integer pagina,
+            @RequestParam(defaultValue = "20") Integer tamanoPagina) {
+        return ResponseEntity.ok(proveedorService.listarTodos(PageRequest.of(pagina, Math.min(tamanoPagina, 100))));
     }
 
     @GetMapping("/{id}")

@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,18 +30,19 @@ public class CategoriaService {
     @Cacheable(value = "categorias", key = "'all_active'")
     public List<CategoriaResponseDTO> listarCategoriasActivas() {
         log.debug("Listando todas las categorías activas");
-        return categoriaRepository.findAll().stream()
-                .filter(Categoria::getActiva)
+        return categoriaRepository.findByActivaTrue().stream()
                 .map(categoriaMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<CategoriaResponseDTO> listarTodas() {
+    public Page<CategoriaResponseDTO> listarTodas(Pageable pageable) {
         log.debug("Listando todas las categorías");
-        return categoriaRepository.findAll().stream()
+        Page<Categoria> page = categoriaRepository.findAll(pageable);
+        List<CategoriaResponseDTO> dtos = page.getContent().stream()
                 .map(categoriaMapper::toResponseDTO)
                 .collect(Collectors.toList());
+        return new PageImpl<>(dtos, page.getPageable(), page.getTotalElements());
     }
 
     @Transactional(readOnly = true)

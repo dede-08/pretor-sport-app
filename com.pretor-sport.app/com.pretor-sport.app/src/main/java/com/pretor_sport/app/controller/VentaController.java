@@ -8,12 +8,12 @@ import com.pretor_sport.app.service.VentaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/ventas")
@@ -34,14 +34,19 @@ public class VentaController {
 
     @GetMapping("/historial")
     @PreAuthorize("hasAnyRole('CLIENTE', 'EMPLEADO', 'ADMIN')")
-    public ResponseEntity<List<VentaResponseDTO>> obtenerHistorial(Authentication authentication) {
+    public ResponseEntity<Page<VentaResponseDTO>> obtenerHistorial(
+            Authentication authentication,
+            @RequestParam(defaultValue = "0") Integer pagina,
+            @RequestParam(defaultValue = "20") Integer tamanoPagina) {
         Usuario usuario = authService.getCurrentUser(authentication.getName());
-        return ResponseEntity.ok(ventaService.obtenerHistorialDeCompras(usuario));
+        return ResponseEntity.ok(ventaService.obtenerHistorialDeCompras(usuario, PageRequest.of(pagina, Math.min(tamanoPagina, 100))));
     }
 
     @GetMapping
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
-    public ResponseEntity<List<VentaResponseDTO>> listarTodas() {
-        return ResponseEntity.ok(ventaService.listarTodas());
+    public ResponseEntity<Page<VentaResponseDTO>> listarTodas(
+            @RequestParam(defaultValue = "0") Integer pagina,
+            @RequestParam(defaultValue = "20") Integer tamanoPagina) {
+        return ResponseEntity.ok(ventaService.listarTodas(PageRequest.of(pagina, Math.min(tamanoPagina, 100))));
     }
 }

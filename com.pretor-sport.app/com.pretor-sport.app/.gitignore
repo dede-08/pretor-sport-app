@@ -50,6 +50,5 @@ logs
 /logs
 
 #scripts base de datos
-/src/resources/static/
 pretor_sport_db.sql
 data-test.sql
