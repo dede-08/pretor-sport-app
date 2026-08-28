@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService } from '../../../services/cart.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class CheckoutComponent {
   private fb = inject(FormBuilder);
   public cartService = inject(CartService);
   private router = inject(Router);
+  private destroyRef = inject(DestroyRef);
 
   checkoutForm: FormGroup;
   isProcessing = false;
@@ -33,10 +35,7 @@ export class CheckoutComponent {
         codigoPostal: ['', [Validators.required]]
       }),
       metodoPago: this.fb.group({
-        tipo: ['TARJETA', [Validators.required]],
-        numeroTarjeta: ['', [Validators.required, Validators.minLength(16), Validators.maxLength(19)]],
-        fechaExpiracion: ['', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/([0-9]{2})$')]],
-        cvv: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]]
+        tipo: ['TARJETA', [Validators.required]]
       }),
       metodoEnvio: this.fb.group({
         tipo: ['ESTANDAR', [Validators.required]],
@@ -48,10 +47,6 @@ export class CheckoutComponent {
 
   get direccionForm() {
     return this.checkoutForm.get('direccionEnvio') as FormGroup;
-  }
-
-  get pagoForm() {
-    return this.checkoutForm.get('metodoPago') as FormGroup;
   }
 
   onEnvioChange(tipo: string, costo: number) {
@@ -66,7 +61,6 @@ export class CheckoutComponent {
 
     this.isProcessing = true;
 
-    //preparar el request omitiendo datos sensibles de la tarjeta (en un flujo real estos se tokenizan)
     const formValue = this.checkoutForm.value;
     const request = {
       direccionEnvio: formValue.direccionEnvio,
@@ -75,15 +69,15 @@ export class CheckoutComponent {
       notas: formValue.notas
     };
 
-    this.cartService.checkout(request).subscribe({
+    this.cartService.checkout(request)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
       next: () => {
         this.isProcessing = false;
-        //navegar a los pedidos temporalmente como confirmación
-        this.router.navigate(['/pedidos']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         this.isProcessing = false;
-        console.error('Error al procesar el checkout', err);
       }
     });
   }

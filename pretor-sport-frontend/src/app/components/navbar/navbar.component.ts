@@ -1,6 +1,7 @@
-import { Component, OnInit, HostListener, ElementRef } from '@angular/core';
+import { Component, DestroyRef, HostListener, ElementRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../../services/auth.service';
 import { CartService } from '../../../services/cart.service';
 import { LoggerService } from '../../../services/logger.service';
@@ -19,6 +20,8 @@ export class NavbarComponent implements OnInit {
   currentUser$!: Observable<any>;
   isUserDropdownOpen = false;
   isNavbarCollapsed = true;
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private authService: AuthService,
@@ -60,19 +63,20 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.authService.logout().subscribe({
-      next: () => {
-        this.logger.info('Logout exitoso');
-        this.isUserDropdownOpen = false;
-        this.router.navigate(['/']);
-      },
-      error: (error) => {
-        this.logger.error('Error en logout:', error);
-        this.isUserDropdownOpen = false;
-        //incluso si hay error, navegar al home
-        this.router.navigate(['/']);
-      }
-    });
+    this.authService.logout()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.logger.info('Logout exitoso');
+          this.isUserDropdownOpen = false;
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          this.logger.error('Error en logout:', error);
+          this.isUserDropdownOpen = false;
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   onSearch(event: Event): void {
@@ -81,9 +85,7 @@ export class NavbarComponent implements OnInit {
     const input = form.querySelector('input') as HTMLInputElement | null;
     const termino = input?.value.trim() || '';
     if (termino) {
-      //navegar a la página de productos con el término de búsqueda en query params
       this.router.navigate(['/productos'], { queryParams: { q: termino } });
-      //opcional: limpiar campo de búsqueda
       if (input) {
         input.value = '';
       }

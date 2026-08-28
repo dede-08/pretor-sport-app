@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ProductoService } from '../../../services/producto.service';
 import { CartService } from '../../../services/cart.service';
 import { NotificationService } from '../../../services/notification.service';
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit {
   error = false;
   errorMessage = '';
 
+  private destroyRef = inject(DestroyRef);
+
   constructor(
     private productoService: ProductoService,
     private cartService: CartService,
@@ -40,39 +43,42 @@ export class HomeComponent implements OnInit {
     this.error = false;
     this.errorMessage = '';
 
-    //cargar productos generales
-    this.productoService.getProductos({ tamanoPagina: 12, pagina: 0 }).subscribe({
-      next: (response) => {
-        this.productos = response.content;
-        this.loading = false;
-      },
-      error: (error) => {
-        this.logger.error('Error al cargar productos:', error);
-        this.error = true;
-        this.errorMessage = 'Error al cargar los productos. Por favor, inténtalo de nuevo.';
-        this.loading = false;
-      }
-    });
+    this.productoService.getProductos({ tamanoPagina: 12, pagina: 0 })
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          this.productos = response.content;
+          this.loading = false;
+        },
+        error: (error) => {
+          this.logger.error('Error al cargar productos:', error);
+          this.error = true;
+          this.errorMessage = 'Error al cargar los productos. Por favor, inténtalo de nuevo.';
+          this.loading = false;
+        }
+      });
 
-    //cargar productos destacados
-    this.productoService.getProductosPopulares(8).subscribe({
-      next: (productos) => {
-        this.productosDestacados = productos;
-      },
-      error: (error) => {
-        this.logger.error('Error al cargar productos destacados:', error);
-      }
-    });
+    this.productoService.getProductosPopulares(8)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (productos) => {
+          this.productosDestacados = productos;
+        },
+        error: (error) => {
+          this.logger.error('Error al cargar productos destacados:', error);
+        }
+      });
 
-    //cargar productos en oferta
-    this.productoService.getProductosEnOferta(8).subscribe({
-      next: (productos) => {
-        this.productosOferta = productos;
-      },
-      error: (error) => {
-        this.logger.error('Error al cargar productos en oferta:', error);
-      }
-    });
+    this.productoService.getProductosEnOferta(8)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (productos) => {
+          this.productosOferta = productos;
+        },
+        error: (error) => {
+          this.logger.error('Error al cargar productos en oferta:', error);
+        }
+      });
   }
 
   //metodo para formatear precio

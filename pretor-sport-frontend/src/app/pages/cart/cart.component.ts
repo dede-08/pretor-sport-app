@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService } from '../../../services/cart.service';
 import { LoggerService } from '../../../services/logger.service';
 import { CartItem } from '../../../models/cart.model';
@@ -14,7 +15,6 @@ import { CartItem } from '../../../models/cart.model';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  //signals directos desde el servicio
   cart = this.cartService.cart;
   cartSummary = this.cartService.cartSummary;
 
@@ -22,6 +22,8 @@ export class CartComponent implements OnInit {
   error: string | null = null;
   cuponCodigo = '';
   aplicandoCupon = false;
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private cartService: CartService,
@@ -37,16 +39,18 @@ export class CartComponent implements OnInit {
     this.loading = true;
     this.error = null;
 
-    this.cartService.getCart().subscribe({
-      next: () => {
-        this.loading = false;
-      },
-      error: (error) => {
-        this.error = 'Error al cargar el carrito';
-        this.loading = false;
-        this.logger.error('Error loading cart:', error);
-      }
-    });
+    this.cartService.getCart()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.loading = false;
+        },
+        error: (error) => {
+          this.error = 'Error al cargar el carrito';
+          this.loading = false;
+          this.logger.error('Error loading cart:', error);
+        }
+      });
   }
 
   onQuantityChange(item: CartItem, value: string): void {
@@ -75,38 +79,43 @@ export class CartComponent implements OnInit {
     this.cartService.updateCartItem({
       itemId: item.id,
       cantidad: newQuantity
-    }).subscribe({
-      next: () => this.error = null,
-      error: (error) => {
-        this.error = 'Error al actualizar la cantidad';
-        this.logger.error('Error updating cart item:', error);
-      }
-    });
+    }).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => this.error = null,
+        error: (error) => {
+          this.error = 'Error al actualizar la cantidad';
+          this.logger.error('Error updating cart item:', error);
+        }
+      });
   }
 
   removeItem(itemId: string): void {
-    this.cartService.removeFromCart(itemId).subscribe({
-      next: () => {
-        this.error = null;
-      },
-      error: (error) => {
-        this.error = 'Error al eliminar el producto';
-        this.logger.error('Error removing cart item:', error);
-      }
-    });
-  }
-
-  clearCart(): void {
-    if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
-      this.cartService.clearCart().subscribe({
+    this.cartService.removeFromCart(itemId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
         next: () => {
           this.error = null;
         },
         error: (error) => {
-          this.error = 'Error al vaciar el carrito';
-          this.logger.error('Error clearing cart:', error);
+          this.error = 'Error al eliminar el producto';
+          this.logger.error('Error removing cart item:', error);
         }
       });
+  }
+
+  clearCart(): void {
+    if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
+      this.cartService.clearCart()
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
+          next: () => {
+            this.error = null;
+          },
+          error: (error) => {
+            this.error = 'Error al vaciar el carrito';
+            this.logger.error('Error clearing cart:', error);
+          }
+        });
     }
   }
 
@@ -119,28 +128,32 @@ export class CartComponent implements OnInit {
     this.aplicandoCupon = true;
     this.error = null;
 
-    this.cartService.applyCoupon(this.cuponCodigo.trim()).subscribe({
-      next: () => {
-        this.cuponCodigo = '';
-        this.aplicandoCupon = false;
-      },
-      error: (error) => {
-        this.error = error.error?.message || 'Código de cupón inválido';
-        this.aplicandoCupon = false;
-      }
-    });
+    this.cartService.applyCoupon(this.cuponCodigo.trim())
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.cuponCodigo = '';
+          this.aplicandoCupon = false;
+        },
+        error: (error) => {
+          this.error = error.error?.message || 'Código de cupón inválido';
+          this.aplicandoCupon = false;
+        }
+      });
   }
 
   removeCoupon(): void {
-    this.cartService.removeCoupon().subscribe({
-      next: () => {
-        this.error = null;
-      },
-      error: (error) => {
-        this.error = 'Error al remover el cupón';
-        this.logger.error('Error removing coupon:', error);
-      }
-    });
+    this.cartService.removeCoupon()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: () => {
+          this.error = null;
+        },
+        error: (error) => {
+          this.error = 'Error al remover el cupón';
+          this.logger.error('Error removing coupon:', error);
+        }
+      });
   }
 
   proceedToCheckout(): void {

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService, RegisterRequest } from '../../../services/auth.service';
 import { LoggerService } from '../../../services/logger.service';
 
@@ -17,6 +18,8 @@ export class SignupComponent implements OnInit {
   isLoading = false;
   errorMessage = '';
   successMessage = '';
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private fb: FormBuilder,
@@ -126,7 +129,9 @@ export class SignupComponent implements OnInit {
         rol: 'ROLE_CLIENTE' //por defecto
       };
 
-      this.authService.register(registerData).subscribe({
+      this.authService.register(registerData)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
         next: (response) => {
           this.logger.info('Registro exitoso:', response);
           this.successMessage = 'Cuenta creada. Revisa tu correo y verifica tu cuenta antes de iniciar sesión.';

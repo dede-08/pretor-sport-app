@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface NotificationData {
@@ -17,7 +17,8 @@ export interface NotificationData {
 
 export class NotificationComponent implements OnInit, OnDestroy {
   @Input() notification!: NotificationData;
-  
+  @Output() closed = new EventEmitter<void>();
+
   show = true;
   private timeoutId?: number;
 
@@ -51,9 +52,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   close(): void {
     this.show = false;
-    //esperar a que termine la animación antes de destruir el componente
     setTimeout(() => {
-      //el componente se destruirá automáticamente al desaparecer del DOM, no es necesario hacer nada aquí
+      this.closed.emit();
     }, 300);
   }
 }

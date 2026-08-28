@@ -84,26 +84,15 @@
                  </div>
 
                  @if (checkoutForm.get('metodoPago.tipo')?.value === 'TARJETA') {
-                    <div class="col-12 mt-3">
-                      <label class="form-label">Número de Tarjeta</label>
-                      <input type="text" class="form-control" formControlName="numeroTarjeta" [class.is-invalid]="pagoForm.get('numeroTarjeta')?.invalid && pagoForm.get('numeroTarjeta')?.touched">
-                      @if (pagoForm.get('numeroTarjeta')?.invalid && pagoForm.get('numeroTarjeta')?.touched) {
-                        <div class="invalid-feedback">Número de 16 dígitos obligatorio.</div>
-                      }
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">Expiración (MM/YY)</label>
-                      <input type="text" class="form-control" formControlName="fechaExpiracion" placeholder="MM/YY" [class.is-invalid]="pagoForm.get('fechaExpiracion')?.invalid && pagoForm.get('fechaExpiracion')?.touched">
-                    </div>
-                    <div class="col-md-6">
-                      <label class="form-label">CVV</label>
-                      <input type="text" class="form-control" formControlName="cvv" placeholder="123" [class.is-invalid]="pagoForm.get('cvv')?.invalid && pagoForm.get('cvv')?.touched">
-                    </div>
+                     <div class="col-12 alert alert-info py-3 text-center mt-3 border-0 bg-opacity-10">
+                        <i class="far fa-credit-card fs-4 d-block mb-2"></i>
+                        Serás redirigido al procesador de pagos de forma segura para completar tu pago tras hacer clic en procesar.
+                     </div>
                  } @else {
-                    <div class="col-12 alert alert-info py-3 text-center mt-3 border-0 bg-opacity-10">
-                       <i class="fab fa-paypal fs-4 d-block mb-2"></i>
-                       Serás redirigido a PayPal de forma segura para completar tu pago tras hacer clic en procesar.
-                    </div>
+                     <div class="col-12 alert alert-info py-3 text-center mt-3 border-0 bg-opacity-10">
+                        <i class="fab fa-paypal fs-4 d-block mb-2"></i>
+                        Serás redirigido a PayPal de forma segura para completar tu pago tras hacer clic en procesar.
+                     </div>
                  }
              </div>
           </div>

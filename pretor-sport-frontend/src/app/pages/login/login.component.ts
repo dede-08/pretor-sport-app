@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService, LoginRequest } from '../../../services/auth.service';
 import { LoggerService } from '../../../services/logger.service';
 
@@ -20,6 +21,8 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   infoMessage = '';
   verificationUrl: string | null = null;
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private fb: FormBuilder,
@@ -63,7 +66,9 @@ export class LoginComponent implements OnInit {
 
       const loginData: LoginRequest = this.loginForm.value;
 
-      this.authService.login(loginData).subscribe({
+      this.authService.login(loginData)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe({
         next: (response) => {
           this.logger.debug('Login exitoso:', response);
           this.logger.debug('Usuario recibido:', response.usuario);
@@ -96,7 +101,9 @@ export class LoginComponent implements OnInit {
     this.infoMessage = '';
     this.verificationUrl = null;
 
-    this.authService.resendVerificationEmail(email).subscribe({
+    this.authService.resendVerificationEmail(email)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
       next: (response) => {
         this.infoMessage = response.message || 'Se reenvió la verificación.';
         this.verificationUrl = response.verificationUrl || null;

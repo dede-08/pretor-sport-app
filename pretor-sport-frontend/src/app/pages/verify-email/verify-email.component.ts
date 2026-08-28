@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -15,6 +16,8 @@ export class VerifyEmailComponent implements OnInit {
   loading = false;
   message = '';
   errorMessage = '';
+
+  private destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -48,7 +51,9 @@ export class VerifyEmailComponent implements OnInit {
     this.message = '';
     this.errorMessage = '';
 
-    this.authService.verifyEmail(token).subscribe({
+    this.authService.verifyEmail(token)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
       next: () => {
         this.message = 'Correo verificado exitosamente. Ya puedes iniciar sesión.';
         this.loading = false;

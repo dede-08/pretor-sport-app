@@ -175,13 +175,4 @@ export class ProductoService {
   limpiarCache(): void {
     this.productosSubject.next([]);
   }
-
-  deleteProduct(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`)
-      .pipe(
-        tap(() => {
-          this.refrescarProductos();
-        })
-      );
-  }
 }
