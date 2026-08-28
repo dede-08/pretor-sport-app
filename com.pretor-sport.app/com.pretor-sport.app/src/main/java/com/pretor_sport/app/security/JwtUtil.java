@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
 import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -19,8 +20,18 @@ import java.util.function.Function;
 @Slf4j
 public class JwtUtil {
 
-    @Value("${JWT_SECRET:pretorSportSecretKeyForJWTTokenGenerationThatShouldBeLongEnoughForHS512Algorithm}")
+    @Value("${JWT_SECRET}")
     private String secret;
+
+    @PostConstruct
+    public void validateSecret() {
+        if (secret == null || secret.isBlank() || secret.getBytes().length < 64) {
+            throw new IllegalStateException(
+                "JWT_SECRET no está configurado o es demasiado corto (mín. 64 bytes). "
+                + "Configúralo en el entorno/base de datos de secretos. NO uses valores por defecto."
+            );
+        }
+    }
 
     @Value("${app.jwt.expiration:86400}") // 24 horas por defecto
     private Long jwtExpiration;

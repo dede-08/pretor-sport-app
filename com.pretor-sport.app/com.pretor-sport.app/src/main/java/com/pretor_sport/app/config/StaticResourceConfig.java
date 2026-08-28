@@ -5,9 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import lombok.extern.slf4j.Slf4j;
 import java.nio.file.Paths;
 
 @Configuration
+@Slf4j
 public class StaticResourceConfig implements WebMvcConfigurer {
 
     @Value("${app.images.upload-dir}")
@@ -31,7 +33,7 @@ public class StaticResourceConfig implements WebMvcConfigurer {
                     .addResourceLocations("file:" + absolutePath + "/");
         } catch (Exception e) {
             //loggea un error pero no interrumpe el inicio
-            System.err.println("Error configuring resource handlers: " + e.getMessage());
+            log.warn("Error configuring resource handlers: {}", e.getMessage());
         }
     }
 }

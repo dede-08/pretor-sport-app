@@ -8,6 +8,7 @@ import com.pretor_sport.app.service.PedidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -37,7 +38,8 @@ public class CarritoController {
             @Valid @RequestBody CarritoItemRequestDTO request, 
             Authentication authentication) {
         Usuario usuario = authService.getCurrentUser(authentication.getName());
-        return ResponseEntity.ok(pedidoService.agregarAlCarrito(usuario, request));
+        PedidoResponseDTO pedido = pedidoService.agregarAlCarrito(usuario, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pedido);
     }
 
     @PutMapping("/items/{productoId}")
