@@ -7,6 +7,7 @@ import com.pretor_sport.app.service.ProductoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class ProductoController {
+
+    @Value("${pagination.max-page-size:100}")
+    private int maxPageSize;
 
     private final ProductoService productoService;
 
@@ -55,15 +59,15 @@ public class ProductoController {
         filtros.setBusqueda(busqueda);
         filtros.setCategoriaIds(categoriaIds);
         filtros.setMarca(marca);
-        filtros.setPrecioMin(precioMin != null ? new java.math.BigDecimal(precioMin) : null);
-        filtros.setPrecioMax(precioMax != null ? new java.math.BigDecimal(precioMax) : null);
+        filtros.setPrecioMin(parseDecimal(precioMin, "precioMin"));
+        filtros.setPrecioMax(parseDecimal(precioMax, "precioMax"));
         filtros.setTallas(tallas);
         filtros.setColores(colores);
         filtros.setGenero(genero);
         filtros.setMateriales(materiales);
         filtros.setSoloDisponibles(soloDisponibles);
-        filtros.setPesoMin(pesoMin != null ? new java.math.BigDecimal(pesoMin) : null);
-        filtros.setPesoMax(pesoMax != null ? new java.math.BigDecimal(pesoMax) : null);
+        filtros.setPesoMin(parseDecimal(pesoMin, "pesoMin"));
+        filtros.setPesoMax(parseDecimal(pesoMax, "pesoMax"));
         filtros.setOrdenarPor(ordenarPor);
         filtros.setDireccion(direccion);
         filtros.setPagina(pagina);
@@ -130,7 +134,7 @@ public class ProductoController {
             @RequestParam(defaultValue = "0") Integer pagina,
             @RequestParam(defaultValue = "20") Integer tamanoPagina) {
         log.debug("Buscando productos con término: {}", termino);
-        return ResponseEntity.ok(productoService.buscarProductos(termino, PageRequest.of(pagina, tamanoPagina)));
+        return ResponseEntity.ok(productoService.buscarProductos(termino, PageRequest.of(pagina, Math.min(tamanoPagina, maxPageSize))));
     }
 
     //obtiene estadisticas de los productos (solo admins)
@@ -138,12 +142,7 @@ public class ProductoController {
     @PreAuthorize("hasAnyRole('EMPLEADO', 'ADMIN')")
     public ResponseEntity<Map<String, Object>> obtenerEstadisticas() {
         log.debug("Obteniendo estadísticas de productos");
-        return ResponseEntity.ok(Map.of(
-            "totalProductos", 0, 
-            "productosActivos", 0,
-            "productosConStockBajo", 0,
-            "categoriasConProductos", 0
-        ));
+        return ResponseEntity.ok(productoService.obtenerEstadisticas());
     }
 
     @PostMapping("/{id}/image")
@@ -169,5 +168,18 @@ public class ProductoController {
             "service", "producto-service",
             "timestamp", System.currentTimeMillis()
         ));
+    }
+
+    //parsea un valor decimal de un filtro; si no es numérico lanza 400 en vez de 500
+    private java.math.BigDecimal parseDecimal(String valor, String nombreParametro) {
+        if (valor == null || valor.isBlank()) {
+            return null;
+        }
+        try {
+            return new java.math.BigDecimal(valor.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(
+                "'" + valor + "' no es un número válido para el filtro '" + nombreParametro + "'");
+        }
     }
 }

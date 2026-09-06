@@ -60,4 +60,20 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     @Query(value = "SELECT * FROM productos WHERE activo = true ORDER BY fecha_creacion DESC LIMIT :limite", 
            nativeQuery = true)
     List<Producto> findProductosDestacados(@Param("limite") int limite);
+
+    long countByActivoTrue();
+
+    long countByActivoTrueAndStock(int stock);
+
+    @Query("SELECT COUNT(p) FROM Producto p WHERE p.activo = true AND p.stock > 0 AND p.stock <= :umbral")
+    long contarConStockBajo(@Param("umbral") int umbral);
+
+    @Query("SELECT COUNT(DISTINCT p.categoria.id) FROM Producto p WHERE p.activo = true")
+    long contarCategoriasConProductos();
+
+    @Query("SELECT COALESCE(SUM(p.stock), 0) FROM Producto p WHERE p.activo = true")
+    long sumarStockTotal();
+
+    @Query("SELECT COALESCE(SUM(p.precio * p.stock), 0) FROM Producto p WHERE p.activo = true")
+    BigDecimal sumarValorInventario();
 }

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +27,8 @@ public class PedidoService {
     private final PedidoRepository pedidoRepository;
     private final ProductoRepository productoRepository;
     private final PedidoMapper pedidoMapper;
+
+    private static final Set<String> ESTADOS_VALIDOS = Set.of("CARRITO", "PENDIENTE", "COMPLETADO");
 
     @Transactional
     public PedidoResponseDTO obtenerCarritoActual(Usuario usuario) {
@@ -131,7 +134,26 @@ public class PedidoService {
     public PedidoResponseDTO cambiarEstado(Long pedidoId, String nuevoEstado) {
         Pedido pedido = pedidoRepository.findById(pedidoId)
                 .orElseThrow(() -> new EntityNotFoundException("Pedido no encontrado"));
-        pedido.setEstado(nuevoEstado);
+
+        String destino = (nuevoEstado == null ? "" : nuevoEstado.trim().toUpperCase());
+        if (!ESTADOS_VALIDOS.contains(destino)) {
+            throw new IllegalArgumentException("Estado de pedido inválido: '" + nuevoEstado + "'");
+        }
+        if (!transicionValida(pedido.getEstado(), destino)) {
+            throw new IllegalStateException(
+                "No se puede cambiar el pedido del estado '" + pedido.getEstado() + "' a '" + destino + "'");
+        }
+
+        pedido.setEstado(destino);
         return pedidoMapper.toResponseDTO(pedidoRepository.save(pedido));
+    }
+
+    private boolean transicionValida(String origen, String destino) {
+        return switch (origen) {
+            case "CARRITO" -> destino.equals("PENDIENTE") || destino.equals("COMPLETADO");
+            case "PENDIENTE" -> destino.equals("COMPLETADO");
+            case "COMPLETADO" -> false;
+            default -> false;
+        };
     }
 }

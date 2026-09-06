@@ -7,6 +7,7 @@ import com.pretor_sport.app.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,9 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
     private final com.pretor_sport.app.mapper.UsuarioMapper usuarioMapper;
+
+    @Value("${pagination.max-page-size:100}")
+    private int maxPageSize;
 
     @GetMapping("/me")
     @PreAuthorize("hasAnyRole('CLIENTE', 'EMPLEADO', 'ADMIN')")
@@ -51,7 +55,7 @@ public class UsuarioController {
             @RequestParam(defaultValue = "true") Boolean activo,
             @RequestParam(defaultValue = "0") int pagina,
             @RequestParam(defaultValue = "20") int tamano) {
-        return ResponseEntity.ok(usuarioService.listarUsuarios(search, activo, PageRequest.of(pagina, tamano)));
+        return ResponseEntity.ok(usuarioService.listarUsuarios(search, activo, PageRequest.of(pagina, Math.min(tamano, maxPageSize))));
     }
 
     @GetMapping("/{id}")

@@ -11,6 +11,7 @@ import com.pretor_sport.app.repository.ProductoRepository;
 import com.pretor_sport.app.repository.ProveedorRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,12 @@ public class ProductoService {
     private final ProveedorRepository proveedorRepository;
     private final FileStorageService fileStorageService;
     private final com.pretor_sport.app.mapper.ProductoMapper productoMapper;
+
+    @Value("${pagination.max-page-size:100}")
+    private int maxPageSize;
+
+    @Value("${ecommerce.inventory.low-stock-threshold:5}")
+    private int lowStockThreshold;
 
     //LISTA TODOS LOS PRODUCTOS CON PAGINACION Y FILTROS
     @Transactional(readOnly = true)
@@ -55,7 +64,7 @@ public class ProductoService {
 
         Pageable pageable = PageRequest.of(
             filtros.getPagina(), 
-            filtros.getTamanoPagina(), 
+            Math.min(filtros.getTamanoPagina(), maxPageSize), 
             sort
         );
 
@@ -242,6 +251,23 @@ public class ProductoService {
 
         Page<Producto> productos = productoRepository.findByNombreContainingIgnoreCaseAndActivoTrue(termino, pageable);
         return productos.map(productoMapper::toResponseDTO);
+    }
+
+    //ESTADISTICAS REALES DE PRODUCTOS
+    @Transactional(readOnly = true)
+    public Map<String, Object> obtenerEstadisticas() {
+        log.debug("Calculando estadísticas de productos");
+
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("totalProductos", productoRepository.count());
+        stats.put("productosActivos", productoRepository.countByActivoTrue());
+        stats.put("productosAgotados", productoRepository.countByActivoTrueAndStock(0));
+        stats.put("productosConStockBajo", productoRepository.contarConStockBajo(lowStockThreshold));
+        stats.put("categoriasConProductos", productoRepository.contarCategoriasConProductos());
+        stats.put("stockTotal", productoRepository.sumarStockTotal());
+        stats.put("valorInventario", productoRepository.sumarValorInventario());
+        stats.put("umbralStockBajo", lowStockThreshold);
+        return stats;
     }
 
     @Transactional
