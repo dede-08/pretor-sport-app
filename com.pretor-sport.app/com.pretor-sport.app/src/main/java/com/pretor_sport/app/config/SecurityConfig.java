@@ -1,10 +1,15 @@
 package com.pretor_sport.app.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pretor_sport.app.security.JwtAuthenticationFilter;
+import com.pretor_sport.app.security.RateLimitFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -21,15 +26,23 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
+    private final RateLimitFilter rateLimitFilter;
     private final UserDetailsService userDetailsService;
     private final CorsConfigurationSource corsConfigurationSource;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -78,6 +91,8 @@ public class SecurityConfig {
                 
                 .requestMatchers("/pagos/**").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
                 
+                .requestMatchers(HttpMethod.POST, "/ventas/checkout").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
+                .requestMatchers(HttpMethod.GET, "/ventas/historial").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
                 .requestMatchers("/ventas/**").hasAnyRole("EMPLEADO", "ADMIN")
                 
                 .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -95,22 +110,39 @@ public class SecurityConfig {
             
             .authenticationProvider(authenticationProvider())
             
+            .addFilterBefore(rateLimitFilter, JwtAuthenticationFilter.class)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             
             .exceptionHandling(exceptions -> exceptions
-                .authenticationEntryPoint((request, response, authException) -> {
-                    response.setStatus(401);
-                    response.setContentType("application/json");
-                    response.getWriter().write("{\"error\":\"No autorizado\",\"message\":\"" + authException.getMessage() + "\"}");
-                })
-                .accessDeniedHandler((request, response, accessDeniedException) -> {
-                    response.setStatus(403);
-                    response.setContentType("application/json");
-                    response.getWriter().write("{\"error\":\"Acceso denegado\",\"message\":\"No tienes permisos para acceder a este recurso\"}");
-                })
+                .authenticationEntryPoint((request, response, authException) ->
+                    writeError(response, HttpStatus.UNAUTHORIZED, "No autenticado",
+                        "Debes iniciar sesión para acceder a este recurso", request.getRequestURI()))
+                .accessDeniedHandler((request, response, accessDeniedException) ->
+                    writeError(response, HttpStatus.FORBIDDEN, "Acceso denegado",
+                        "No tienes permisos para acceder a este recurso", request.getRequestURI()))
             );
 
         return http.build();
+    }
+
+    private void writeError(HttpServletResponse response, HttpStatus status,
+                            String error, String message, String path) {
+        try {
+            response.setStatus(status.value());
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            Map<String, Object> body = new LinkedHashMap<>();
+            body.put("timestamp", LocalDateTime.now());
+            body.put("status", status.value());
+            body.put("error", error);
+            body.put("message", message);
+            body.put("path", path);
+
+            objectMapper.writeValue(response.getWriter(), body);
+        } catch (IOException e) {
+            log.error("No se pudo escribir la respuesta de error", e);
+        }
     }
 
 

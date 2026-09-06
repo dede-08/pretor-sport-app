@@ -3,6 +3,7 @@ package com.pretor_sport.app.service;
 import com.pretor_sport.app.dto.request.UsuarioRequestDTO;
 import com.pretor_sport.app.dto.request.LoginRequestDTO;
 import com.pretor_sport.app.dto.response.AuthResponseDTO;
+import com.pretor_sport.app.model.RefreshToken;
 import com.pretor_sport.app.model.Usuario;
 import com.pretor_sport.app.repository.UsuarioRepository;
 import com.pretor_sport.app.security.JwtUtil;
@@ -15,6 +16,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
     private final EmailService emailService;
+    private final RefreshTokenService refreshTokenService;
 
     @Value("${app.jwt.expiration:86400}")
     private Long jwtExpiration;
@@ -48,45 +51,41 @@ public class AuthService {
                     loginRequest.getPassword()
                 )
             );
-
-            Usuario usuario = usuarioRepository.findByEmailAndActivo(loginRequest.getEmail(), true)
-                .orElseThrow(() -> new BadCredentialsException("Usuario no encontrado o inactivo"));
-
-            if (!usuario.getEmailVerificado()) {
-                throw new DisabledException("Email no verificado. Por favor, verifica tu email antes de continuar.");
-            }
-
-            usuarioRepository.updateUltimoAcceso(usuario.getEmail(), LocalDateTime.now());
-
-            UserDetails userDetails = userDetailsService.loadUserByUsername(usuario.getEmail());
-            String accessToken = jwtUtil.generateToken(userDetails, usuario.getId(), usuario.getRol().name());
-            String refreshToken = jwtUtil.generateRefreshToken(userDetails, usuario.getId(), usuario.getRol().name());
-
-            log.info("Usuario autenticado exitosamente: {} con rol: {}", usuario.getEmail(), usuario.getRol());
-
-            return AuthResponseDTO.of(
-                accessToken,
-                refreshToken,
-                jwtExpiration,
-                usuario.getId(),
-                usuario.getNombre(),
-                usuario.getApellidos(),
-                usuario.getEmail(),
-                usuario.getRol().name(),
-                usuario.getEmailVerificado(),
-                LocalDateTime.now()
-            );
-
         } catch (BadCredentialsException e) {
             log.warn("Intento de login fallido para email: {}", loginRequest.getEmail());
             throw new BadCredentialsException("Credenciales inválidas");
         } catch (DisabledException e) {
             log.warn("Intento de login con cuenta deshabilitada: {}", loginRequest.getEmail());
             throw e;
-        } catch (Exception e) {
-            log.error("Error durante la autenticación para email: {}", loginRequest.getEmail(), e);
-            throw new RuntimeException("Error interno durante la autenticación");
         }
+
+        Usuario usuario = usuarioRepository.findByEmailAndActivo(loginRequest.getEmail(), true)
+            .orElseThrow(() -> new BadCredentialsException("Usuario no encontrado o inactivo"));
+
+        if (!usuario.getEmailVerificado()) {
+            throw new DisabledException("Email no verificado. Por favor, verifica tu email antes de continuar.");
+        }
+
+        usuarioRepository.updateUltimoAcceso(usuario.getEmail(), LocalDateTime.now());
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(usuario.getEmail());
+        String accessToken = jwtUtil.generateToken(userDetails, usuario.getId(), usuario.getRol().name());
+        String refreshToken = refreshTokenService.createRefreshToken(usuario);
+
+        log.info("Usuario autenticado exitosamente: {} con rol: {}", usuario.getEmail(), usuario.getRol());
+
+        return AuthResponseDTO.of(
+            accessToken,
+            refreshToken,
+            jwtExpiration,
+            usuario.getId(),
+            usuario.getNombre(),
+            usuario.getApellidos(),
+            usuario.getEmail(),
+            usuario.getRol().name(),
+            usuario.getEmailVerificado(),
+            LocalDateTime.now()
+        );
     }
 
     @Transactional
@@ -121,42 +120,48 @@ public class AuthService {
         );
     }
 
+    @Transactional
     public AuthResponseDTO refreshToken(String refreshToken) {
-        try {
-            if (!jwtUtil.isRefreshToken(refreshToken) || !jwtUtil.validateTokenStructure(refreshToken)) {
-                throw new IllegalArgumentException("Refresh token inválido");
-            }
+        RefreshToken stored = refreshTokenService.findActiveByToken(refreshToken)
+            .orElseThrow(() -> new BadCredentialsException("Sesión expirada o inválida. Inicia sesión de nuevo."));
 
-            String username = jwtUtil.extractUsername(refreshToken);
-
-            Usuario usuario = usuarioRepository.findByEmailAndActivo(username, true)
-                .orElseThrow(() -> new BadCredentialsException("Usuario no encontrado o inactivo"));
-
-            if (!usuario.getEmailVerificado()) {
-                throw new DisabledException("Cuenta no verificada. Verifica tu email para renovar sesión.");
-            }
-
-            String newAccessToken = jwtUtil.refreshAccessToken(refreshToken);
-
-            log.debug("Token renovado para usuario: {}", username);
-
-            return AuthResponseDTO.of(
-                newAccessToken,
-                refreshToken,
-                jwtExpiration,
-                usuario.getId(),
-                usuario.getNombre(),
-                usuario.getApellidos(),
-                usuario.getEmail(),
-                usuario.getRol().name(),
-                usuario.getEmailVerificado(),
-                usuario.getUltimoAcceso()
-            );
-
-        } catch (Exception e) {
-            log.error("Error al renovar token: {}", e.getMessage());
-            throw new IllegalArgumentException("Error al renovar token: " + e.getMessage());
+        if (stored.getExpiresAt().isBefore(LocalDateTime.now())) {
+            refreshTokenService.revokeIfActive(stored.getId());
+            throw new BadCredentialsException("Sesión expirada. Inicia sesión de nuevo.");
         }
+
+        Usuario usuario = stored.getUsuario();
+        if (!usuario.getActivo()) {
+            refreshTokenService.revokeIfActive(stored.getId());
+            throw new BadCredentialsException("Cuenta deshabilitada. Inicia sesión de nuevo.");
+        }
+        if (!usuario.getEmailVerificado()) {
+            refreshTokenService.revokeIfActive(stored.getId());
+            throw new BadCredentialsException("Cuenta no verificada. Verifica tu email para renovar sesión.");
+        }
+
+        if (!refreshTokenService.revokeIfActive(stored.getId())) {
+            throw new BadCredentialsException("Reutilización del token de refresh detectada. Inicia sesión de nuevo.");
+        }
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(usuario.getEmail());
+        String newAccessToken = jwtUtil.generateToken(userDetails, usuario.getId(), usuario.getRol().name());
+        String newRefreshToken = refreshTokenService.createRefreshToken(usuario);
+
+        log.debug("Token renovado (con rotación) para usuario: {}", usuario.getEmail());
+
+        return AuthResponseDTO.of(
+            newAccessToken,
+            newRefreshToken,
+            jwtExpiration,
+            usuario.getId(),
+            usuario.getNombre(),
+            usuario.getApellidos(),
+            usuario.getEmail(),
+            usuario.getRol().name(),
+            usuario.getEmailVerificado(),
+            usuario.getUltimoAcceso()
+        );
     }
 
     @Transactional
@@ -172,7 +177,7 @@ public class AuthService {
 
     public Usuario getCurrentUser(String email) {
         return usuarioRepository.findByEmailAndActivo(email, true)
-            .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+            .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado o inactivo"));
     }
 
     @Transactional
@@ -196,17 +201,16 @@ public class AuthService {
         }
 
         String verificationUrl = frontendUrl + "/verify-email?token=" + newToken;
-        log.info("Nuevo enlace de verificación generado para {}: {}", email, verificationUrl);
+        log.info("Nuevo enlace de verificación generado para {}", email);
 
         return verificationUrl;
     }
 
-    public void logout(String accessToken) {
-        try {
-            String username = jwtUtil.extractUsername(accessToken);
-            log.info("Usuario desconectado: {}", username);
-        } catch (Exception e) {
-            log.warn("Error al procesar logout: {}", e.getMessage());
-        }
+    @Transactional
+    public void logout(String email) {
+        usuarioRepository.findByEmailAndActivo(email, true).ifPresent(usuario -> {
+            int revocados = refreshTokenService.revokeAllForUser(usuario.getId());
+            log.info("Usuario desconectado: {} (refresh tokens revocados: {})", email, revocados);
+        });
     }
 }

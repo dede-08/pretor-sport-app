@@ -76,6 +76,10 @@ app:
     secret: ${JWT_SECRET:pretorSportSecretKeyForJWTTokenGenerationThatShouldBeLongEnoughForHS512Algorithm}
     expiration: ${JWT_EXPIRATION:86400} # 24 horas en segundos
     refresh-expiration: ${JWT_REFRESH_EXPIRATION:604800} # 7 días en segundos
+  security:
+    rate-limit:
+      max-attempts: ${RATE_LIMIT_MAX_ATTEMPTS:5}
+      window-seconds: ${RATE_LIMIT_WINDOW_SECONDS:60}
   ecommerce:
     currency: MXN
     tax-rate: 0.16

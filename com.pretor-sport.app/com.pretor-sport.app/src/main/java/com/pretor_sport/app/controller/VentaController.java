@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -24,12 +25,24 @@ public class VentaController {
     private final VentaService ventaService;
     private final AuthService authService;
 
+    @PostMapping("/checkout")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<VentaResponseDTO> procesarCheckout(
+            @Valid @RequestBody CheckoutRequestDTO request,
+            Authentication authentication) {
+        Usuario usuario = authService.getCurrentUser(authentication.getName());
+        VentaResponseDTO venta = ventaService.procesarCheckout(usuario, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(venta);
+    }
+
     @PostMapping("/checkout/{pedidoId}")
     @PreAuthorize("isAuthenticated()")
     public ResponseEntity<VentaResponseDTO> procesarVenta(
             @PathVariable Long pedidoId,
-            @RequestParam String metodoPago) {
-        return ResponseEntity.ok(ventaService.procesarVenta(pedidoId, metodoPago));
+            @RequestParam String metodoPago,
+            Authentication authentication) {
+        Usuario usuario = authService.getCurrentUser(authentication.getName());
+        return ResponseEntity.ok(ventaService.procesarVenta(usuario, pedidoId, metodoPago));
     }
 
     @GetMapping("/historial")

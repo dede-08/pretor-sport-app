@@ -3,7 +3,6 @@ package com.pretor_sport.app.controller;
 import com.pretor_sport.app.dto.request.UsuarioRequestDTO;
 import com.pretor_sport.app.dto.request.LoginRequestDTO;
 import com.pretor_sport.app.dto.request.RefreshTokenRequestDTO;
-import com.pretor_sport.app.dto.response.AuthResponseDTO;
 import com.pretor_sport.app.model.Usuario;
 import com.pretor_sport.app.security.JwtUtil;
 import com.pretor_sport.app.service.AuthService;
@@ -15,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -32,143 +30,78 @@ public class AuthController {
     //iniciar sesion
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequest) {
-        try {
-            AuthResponseDTO authResponse = authService.login(loginRequest);
-            return ResponseEntity.ok(authResponse);
-        } catch (Exception e) {
-            log.error("Error en login: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "Error de autenticación", "message", e.getMessage()));
-        }
+        return ResponseEntity.ok(authService.login(loginRequest));
     }
 
     //registrar nuevo usuario
     @PostMapping("/register")
     public ResponseEntity<?> register(@Valid @RequestBody UsuarioRequestDTO registroRequest) {
-        try {
-            AuthResponseDTO authResponse = authService.register(registroRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body(authResponse);
-        } catch (IllegalArgumentException e) {
-            log.warn("Error en registro: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(Map.of("error", "Error de registro", "message", e.getMessage()));
-        } catch (Exception e) {
-            log.error("Error inesperado en registro: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Error interno", "message", "Error inesperado durante el registro"));
-        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.register(registroRequest));
     }
 
-    //renovar access token
+    //renovar access token (con rotación del refresh token)
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@Valid @RequestBody RefreshTokenRequestDTO refreshRequest) {
-        try {
-            AuthResponseDTO authResponse = authService.refreshToken(refreshRequest.getRefreshToken());
-            return ResponseEntity.ok(authResponse);
-        } catch (IllegalArgumentException e) {
-            log.warn("Error al renovar token: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "Token inválido", "message", e.getMessage()));
-        } catch (Exception e) {
-            log.error("Error inesperado al renovar token: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Error interno", "message", "Error al renovar token"));
-        }
+        return ResponseEntity.ok(authService.refreshToken(refreshRequest.getRefreshToken()));
     }
 
     //logout
     @PostMapping("/logout")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        try {
-            String authHeader = request.getHeader("Authorization");
-            String token = jwtUtil.extractTokenFromHeader(authHeader);
-            
-            if (token != null) {
-                authService.logout(token);
-            }
-            
-            return ResponseEntity.ok(Map.of("message", "Sesión cerrada exitosamente"));
-        } catch (Exception e) {
-            log.error("Error en logout: {}", e.getMessage());
-            return ResponseEntity.ok(Map.of("message", "Sesión cerrada"));
-        }
+    public ResponseEntity<?> logout(Authentication authentication) {
+        authService.logout(authentication.getName());
+        return ResponseEntity.ok(Map.of("message", "Sesión cerrada exitosamente"));
     }
 
     //endpoint para verificar el email
     @GetMapping("/verify-email")
     public ResponseEntity<?> verifyEmail(@RequestParam("token") String token) {
-        try {
-            boolean verified = authService.verificarEmail(token);
-            if (verified) {
-                return ResponseEntity.ok(Map.of("message", "Email verificado exitosamente"));
-            } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Map.of("error", "Token inválido", "message", "El token de verificación es inválido o ha expirado"));
-            }
-        } catch (Exception e) {
-            log.error("Error en verificación de email: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Error interno", "message", "Error al verificar email"));
+        boolean verified = authService.verificarEmail(token);
+        if (verified) {
+            return ResponseEntity.ok(Map.of("message", "Email verificado exitosamente"));
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            .body(Map.of("error", "Token inválido", "message", "El token de verificación es inválido o ha expirado"));
     }
 
     @PostMapping("/resend-verification")
     public ResponseEntity<?> resendVerification(@RequestBody Map<String, String> payload) {
-        try {
-            String email = payload.get("email");
-            if (email == null || email.isBlank()) {
-                return ResponseEntity.badRequest()
-                    .body(Map.of("error", "Datos inválidos", "message", "El email es obligatorio"));
-            }
-
-            String verificationUrl = authService.resendVerificationEmail(email.trim());
-            return ResponseEntity.ok(Map.of(
-                "message", "Se generó un nuevo enlace de verificación",
-                "verificationUrl", verificationUrl
-            ));
-        } catch (IllegalArgumentException e) {
+        String email = payload.get("email");
+        if (email == null || email.isBlank()) {
             return ResponseEntity.badRequest()
-                .body(Map.of("error", "No se pudo reenviar verificación", "message", e.getMessage()));
-        } catch (Exception e) {
-            log.error("Error al reenviar verificación: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Error interno", "message", "Error al reenviar verificación"));
+                .body(Map.of("error", "Datos inválidos", "message", "El email es obligatorio"));
         }
+
+        String verificationUrl = authService.resendVerificationEmail(email.trim());
+        return ResponseEntity.ok(Map.of(
+            "message", "Se generó un nuevo enlace de verificación",
+            "verificationUrl", verificationUrl
+        ));
     }
 
     //endpoint para obtener info del usuario actual
     @GetMapping("/me")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<?> getCurrentUser() {
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String email = authentication.getName();
-            
-            Usuario usuario = authService.getCurrentUser(email);
-            
-            //crear respuesta sin información sensible
-            Map<String, Object> userInfo = new java.util.HashMap<>();
-            userInfo.put("id", usuario.getId());
-            userInfo.put("nombre", usuario.getNombre());
-            userInfo.put("apellidos", usuario.getApellidos());
-            userInfo.put("email", usuario.getEmail());
-            userInfo.put("direccion", usuario.getDireccion() != null ? usuario.getDireccion() : "");
-            userInfo.put("telefono", usuario.getTelefono() != null ? usuario.getTelefono() : "");
-            userInfo.put("rol", usuario.getRol().name());
-            userInfo.put("nombreCompleto", usuario.getNombreCompleto());
-            userInfo.put("iniciales", usuario.getIniciales());
-            userInfo.put("emailVerificado", usuario.getEmailVerificado());
-            userInfo.put("activo", usuario.getActivo());
-            userInfo.put("fechaRegistro", usuario.getFechaRegistro());
-            userInfo.put("ultimoAcceso", usuario.getUltimoAcceso());
-            
-            return ResponseEntity.ok(userInfo);
-        } catch (Exception e) {
-            log.error("Error al obtener información del usuario: {}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("error", "Error interno", "message", "Error al obtener información del usuario"));
-        }
+    public ResponseEntity<?> getCurrentUser(Authentication authentication) {
+        Usuario usuario = authService.getCurrentUser(authentication.getName());
+
+        //crear respuesta sin información sensible
+        Map<String, Object> userInfo = new java.util.HashMap<>();
+        userInfo.put("id", usuario.getId());
+        userInfo.put("nombre", usuario.getNombre());
+        userInfo.put("apellidos", usuario.getApellidos());
+        userInfo.put("email", usuario.getEmail());
+        userInfo.put("direccion", usuario.getDireccion() != null ? usuario.getDireccion() : "");
+        userInfo.put("telefono", usuario.getTelefono() != null ? usuario.getTelefono() : "");
+        userInfo.put("rol", usuario.getRol().name());
+        userInfo.put("nombreCompleto", usuario.getNombreCompleto());
+        userInfo.put("iniciales", usuario.getIniciales());
+        userInfo.put("emailVerificado", usuario.getEmailVerificado());
+        userInfo.put("activo", usuario.getActivo());
+        userInfo.put("fechaRegistro", usuario.getFechaRegistro());
+        userInfo.put("ultimoAcceso", usuario.getUltimoAcceso());
+
+        return ResponseEntity.ok(userInfo);
     }
 
     //endpoint para validar token

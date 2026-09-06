@@ -36,9 +36,6 @@ public class JwtUtil {
     @Value("${app.jwt.expiration:86400}") // 24 horas por defecto
     private Long jwtExpiration;
 
-    @Value("${app.jwt.refresh-expiration:604800}") // 7 días por defecto
-    private Long refreshExpiration;
-
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
@@ -49,14 +46,6 @@ public class JwtUtil {
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
-    }
-
-    public String extractRole(String token) {
-        return extractClaim(token, claims -> claims.get("rol", String.class));
-    }
-
-    public Long extractUserId(String token) {
-        return extractClaim(token, claims -> claims.get("userId", Long.class));
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -87,14 +76,6 @@ public class JwtUtil {
         claims.put("rol", rol);
         claims.put("type", "ACCESS");
         return createToken(claims, userDetails.getUsername(), jwtExpiration);
-    }
-
-    public String generateRefreshToken(UserDetails userDetails, Long userId, String rol) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId);
-        claims.put("rol", rol);
-        claims.put("type", "REFRESH");
-        return createToken(claims, userDetails.getUsername(), refreshExpiration);
     }
 
     private String createToken(Map<String, Object> claims, String subject, Long expiration) {
@@ -141,23 +122,6 @@ public class JwtUtil {
             log.error("Token JWT malformado o expirado: {}", e.getMessage());
             return false;
         }
-    }
-
-    public String refreshAccessToken(String refreshToken) {
-        if (!isRefreshToken(refreshToken) || !validateTokenStructure(refreshToken)) {
-            throw new IllegalArgumentException("Token de refresh inválido");
-        }
-
-        String username = extractUsername(refreshToken);
-        Long userId = extractUserId(refreshToken);
-        String rol = extractRole(refreshToken);
-
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", userId);
-        claims.put("rol", rol);
-        claims.put("type", "ACCESS");
-
-        return createToken(claims, username, jwtExpiration);
     }
 
     //metodo para extraer el token del header Authorization
