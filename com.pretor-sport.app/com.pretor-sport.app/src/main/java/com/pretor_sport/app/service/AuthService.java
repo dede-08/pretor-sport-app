@@ -42,6 +42,9 @@ public class AuthService {
     @Value("${app.frontend.url:http://localhost:4200}")
     private String frontendUrl;
 
+    @Value("${app.frontend.expose-verification-url:false}")
+    private boolean exposeVerificationUrl;
+
     @Transactional
     public AuthResponseDTO login(LoginRequestDTO loginRequest) {
         try {
@@ -201,9 +204,12 @@ public class AuthService {
         }
 
         String verificationUrl = frontendUrl + "/verify-email?token=" + newToken;
-        log.info("Nuevo enlace de verificación generado para {}", email);
-
-        return verificationUrl;
+        if (exposeVerificationUrl) {
+            log.info("Nuevo enlace de verificación generado para {}", email);
+            return verificationUrl;
+        }
+        log.info("Nuevo enlace de verificación generado para {} (enviado sólo por correo)", email);
+        return null;
     }
 
     @Transactional

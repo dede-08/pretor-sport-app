@@ -73,10 +73,12 @@ public class AuthController {
         }
 
         String verificationUrl = authService.resendVerificationEmail(email.trim());
-        return ResponseEntity.ok(Map.of(
-            "message", "Se generó un nuevo enlace de verificación",
-            "verificationUrl", verificationUrl
-        ));
+        Map<String, Object> response = new java.util.HashMap<>();
+        response.put("message", "Se generó un nuevo enlace de verificación");
+        if (verificationUrl != null) {
+            response.put("verificationUrl", verificationUrl);
+        }
+        return ResponseEntity.ok(response);
     }
 
     //endpoint para obtener info del usuario actual

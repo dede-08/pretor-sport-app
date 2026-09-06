@@ -64,14 +64,15 @@ spring:
 
   security:
     user:
-      name: ${SPRING_SECURITY_USER_NAME:admin}
-      password: ${SPRING_SECURITY_USER_PASSWORD:admin123}
+      name: ${SPRING_SECURITY_USER_NAME}
+      password: ${SPRING_SECURITY_USER_PASSWORD}
       roles: ADMIN
 
 #configuración específica de la aplicación
 app:
   frontend:
     url: ${FRONTEND_URL:http://localhost:4200}
+    expose-verification-url: ${EXPOSE_VERIFICATION_URL:false}
   jwt:
     secret: ${JWT_SECRET:pretorSportSecretKeyForJWTTokenGenerationThatShouldBeLongEnoughForHS512Algorithm}
     expiration: ${JWT_EXPIRATION:86400} # 24 horas en segundos

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,7 +31,9 @@ public class CategoriaService {
     @Cacheable(value = "categorias", key = "'all_active'")
     public List<CategoriaResponseDTO> listarCategoriasActivas() {
         log.debug("Listando todas las categorías activas");
-        return categoriaRepository.findByActivaTrue().stream()
+        List<Categoria> categorias = categoriaRepository.findByActivaTrue();
+        cargarConteos(categorias);
+        return categorias.stream()
                 .map(categoriaMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
@@ -39,6 +42,7 @@ public class CategoriaService {
     public Page<CategoriaResponseDTO> listarTodas(Pageable pageable) {
         log.debug("Listando todas las categorías");
         Page<Categoria> page = categoriaRepository.findAll(pageable);
+        cargarConteos(page.getContent());
         List<CategoriaResponseDTO> dtos = page.getContent().stream()
                 .map(categoriaMapper::toResponseDTO)
                 .collect(Collectors.toList());
@@ -50,7 +54,11 @@ public class CategoriaService {
     public CategoriaResponseDTO obtenerPorId(Long id) {
         log.debug("Obteniendo categoría con ID: {}", id);
         return categoriaRepository.findById(id)
-                .map(categoriaMapper::toResponseDTO)
+                .map(categoria -> {
+                    categoria.setProductosActivosConteo(
+                        categoriaRepository.contarProductosActivos(categoria.getId()));
+                    return categoriaMapper.toResponseDTO(categoria);
+                })
                 .orElseThrow(() -> new IllegalArgumentException("Categoría no encontrada con ID: " + id));
     }
 
@@ -90,5 +98,19 @@ public class CategoriaService {
         
         categoria.setActiva(false);
         categoriaRepository.save(categoria);
+    }
+
+    //precarga el conteo de productos disponibles de todas las categorías en una sola consulta
+    private void cargarConteos(List<Categoria> categorias) {
+        if (categorias.isEmpty()) {
+            return;
+        }
+        Map<Long, Long> conteos = categoriaRepository.contarProductosActivosPorCategoria()
+                .stream()
+                .collect(Collectors.toMap(
+                    fila -> (Long) fila[0],
+                    fila -> (Long) fila[1]
+                ));
+        categorias.forEach(c -> c.setProductosActivosConteo(conteos.getOrDefault(c.getId(), 0L)));
     }
 }

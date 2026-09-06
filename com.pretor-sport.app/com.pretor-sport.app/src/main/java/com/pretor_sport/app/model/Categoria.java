@@ -71,9 +71,16 @@ public class Categoria {
         TECNOLOGIA
     }
 
+    //conteo precalculado de productos disponibles para evitar N+1 en listados
+    @Transient
+    private Long productosActivosConteo;
+
     //metodo para contar productos activos
     @Transient
     public long getProductosActivosCount() {
+        if (productosActivosConteo != null) {
+            return productosActivosConteo;
+        }
         if (productos == null) return 0;
         return productos.stream()
                 .filter(p -> p.getActivo() && p.isDisponible())

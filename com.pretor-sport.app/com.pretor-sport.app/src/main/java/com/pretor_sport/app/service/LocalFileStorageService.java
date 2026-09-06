@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -24,15 +25,17 @@ public class LocalFileStorageService implements FileStorageService {
     @Value("${app.images.base-url}")
     private String baseUrl;
 
+    @Value("${app.images.max-size:5MB}")
+    private DataSize maxSize;
+
     @Override
     public String storeFile(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             throw new IllegalArgumentException("El archivo no puede estar vacío");
         }
 
-        long maxSize = 2 * 1024 * 1024; //2MB
-        if (file.getSize() > maxSize) {
-            throw new IllegalArgumentException("El archivo excede el tamaño máximo permitido (2MB)");
+        if (file.getSize() > maxSize.toBytes()) {
+            throw new IllegalArgumentException("El archivo excede el tamaño máximo permitido (" + maxSize.toMegabytes() + "MB)");
         }
 
         String contentType = file.getContentType();
