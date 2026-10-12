@@ -123,17 +123,13 @@
                  <span class="text-muted">Subtotal</span>
                  <strong>${{ cartSummary().subtotal | number:'1.2-2' }}</strong>
                </li>
-               <li class="list-group-item d-flex justify-content-between bg-transparent border-0 px-0 pb-2 text-danger">
-                 <span>Descuento</span>
-                 <strong>-${{ cartSummary().descuento | number:'1.2-2' }}</strong>
-               </li>
                <li class="list-group-item d-flex justify-content-between bg-transparent border-0 px-0 pb-2">
                  <span class="text-muted">Envío</span>
                  <strong>${{ checkoutForm.get('metodoEnvio.costo')?.value | number:'1.2-2' }}</strong>
                </li>
                <li class="list-group-item d-flex justify-content-between border-top mt-2 px-0 pt-3 border-opacity-25">
                  <span class="fw-bold">Total a pagar</span>
-                 <strong class="fs-4 text-primary">${{ (cartSummary().subtotal - cartSummary().descuento + checkoutForm.get('metodoEnvio.costo')?.value) | number:'1.2-2' }}</strong>
+                 <strong class="fs-4 text-primary">${{ (cartSummary().subtotal + checkoutForm.get('metodoEnvio.costo')?.value) | number:'1.2-2' }}</strong>
                </li>
              </ul>
           </div>

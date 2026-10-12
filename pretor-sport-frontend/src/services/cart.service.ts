@@ -6,7 +6,6 @@ import {
   Cart,
   CartItem,
   CartSummary,
-  AddToCartRequest,
   UpdateCartItemRequest,
   CartCheckoutRequest
 } from '../models/cart.model';
@@ -28,7 +27,6 @@ export class CartService {
       return {
         totalItems: 0,
         subtotal: 0,
-        descuento: 0,
         envio: 0,
         total: 0
       };
@@ -37,7 +35,6 @@ export class CartService {
     return {
       totalItems: currentCart.items.reduce((total, item) => total + item.cantidad, 0),
       subtotal: currentCart.subtotal,
-      descuento: currentCart.descuento,
       envio: currentCart.envio,
       total: currentCart.total
     };
@@ -56,11 +53,6 @@ export class CartService {
     return of(this.getCartFromStorage() ?? this.createEmptyCart());
   }
 
-  //agregar producto al carrito
-  addToCart(request: AddToCartRequest): Observable<Cart> {
-    return throwError(() => ({ error: { message: 'El carrito en línea aún no está disponible' }, status: 501 }));
-  }
-
   //actualizar cantidad de un item
   updateCartItem(request: UpdateCartItemRequest): Observable<Cart> {
     this.updateCartItemLocal(request.itemId, request.cantidad);
@@ -77,16 +69,6 @@ export class CartService {
   clearCart(): Observable<void> {
     this.clearCartLocal();
     return of(undefined as void);
-  }
-
-  //aplicar cupon de descuento
-  applyCoupon(codigo: string): Observable<Cart> {
-    return throwError(() => ({ error: { message: 'Los cupones aún no están disponibles. Contacta a soporte.' }, status: 501 }));
-  }
-
-  //remover cupon de descuento
-  removeCoupon(): Observable<Cart> {
-    return throwError(() => ({ error: { message: 'Los cupones aún no están disponibles. Contacta a soporte.' }, status: 501 }));
   }
 
   //procesar checkout: construye la venta en el servidor con los items del carrito local
@@ -197,7 +179,6 @@ export class CartService {
     return {
       items: [],
       subtotal: 0,
-      descuento: 0,
       envio: 0,
       total: 0,
       fechaCreacion: new Date(),
@@ -230,7 +211,7 @@ export class CartService {
   private updateCartTotals(cart: Cart): void {
     cart.subtotal = cart.items.reduce((total, item) => total + item.precioTotal, 0);
     cart.envio = this.calculateShipping(cart.subtotal);
-    cart.total = cart.subtotal + cart.envio - cart.descuento;
+    cart.total = cart.subtotal + cart.envio;
     cart.fechaActualizacion = new Date();
   }
 

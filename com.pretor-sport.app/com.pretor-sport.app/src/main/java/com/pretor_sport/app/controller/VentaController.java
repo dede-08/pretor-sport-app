@@ -35,16 +35,6 @@ public class VentaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(venta);
     }
 
-    @PostMapping("/checkout/{pedidoId}")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<VentaResponseDTO> procesarVenta(
-            @PathVariable Long pedidoId,
-            @RequestParam String metodoPago,
-            Authentication authentication) {
-        Usuario usuario = authService.getCurrentUser(authentication.getName());
-        return ResponseEntity.ok(ventaService.procesarVenta(usuario, pedidoId, metodoPago));
-    }
-
     @GetMapping("/historial")
     @PreAuthorize("hasAnyRole('CLIENTE', 'EMPLEADO', 'ADMIN')")
     public ResponseEntity<Page<VentaResponseDTO>> obtenerHistorial(

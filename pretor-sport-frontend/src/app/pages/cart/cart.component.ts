@@ -1,6 +1,5 @@
 import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CartService } from '../../../services/cart.service';
@@ -10,7 +9,7 @@ import { CartItem } from '../../../models/cart.model';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule],
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
@@ -20,8 +19,6 @@ export class CartComponent implements OnInit {
 
   loading = false;
   error: string | null = null;
-  cuponCodigo = '';
-  aplicandoCupon = false;
 
   private destroyRef = inject(DestroyRef);
 
@@ -117,43 +114,6 @@ export class CartComponent implements OnInit {
           }
         });
     }
-  }
-
-  applyCoupon(): void {
-    if (!this.cuponCodigo.trim()) {
-      this.error = 'Por favor ingresa un código de cupón';
-      return;
-    }
-
-    this.aplicandoCupon = true;
-    this.error = null;
-
-    this.cartService.applyCoupon(this.cuponCodigo.trim())
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.cuponCodigo = '';
-          this.aplicandoCupon = false;
-        },
-        error: (error) => {
-          this.error = error.error?.message || 'Código de cupón inválido';
-          this.aplicandoCupon = false;
-        }
-      });
-  }
-
-  removeCoupon(): void {
-    this.cartService.removeCoupon()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => {
-          this.error = null;
-        },
-        error: (error) => {
-          this.error = 'Error al remover el cupón';
-          this.logger.error('Error removing coupon:', error);
-        }
-      });
   }
 
   proceedToCheckout(): void {

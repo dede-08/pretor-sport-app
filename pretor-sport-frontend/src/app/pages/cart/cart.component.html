@@ -155,50 +155,11 @@
           </h5>
         </div>
         <div class="card-body">
-          <!-- seccion de cupon -->
-          <div class="mb-4">
-            <label for="couponCode" class="form-label">Código de Cupón</label>
-            <div class="input-group">
-              <input 
-                type="text" 
-                class="form-control" 
-                id="couponCode"
-                [(ngModel)]="cuponCodigo"
-                placeholder="Ingresa tu código"
-                [disabled]="aplicandoCupon">
-              <button 
-                class="btn btn-outline-primary" 
-                type="button"
-                (click)="applyCoupon()"
-                [disabled]="!cuponCodigo.trim() || aplicandoCupon">
-                <span *ngIf="aplicandoCupon" class="spinner-border spinner-border-sm me-1"></span>
-                <i *ngIf="!aplicandoCupon" class="fas fa-tag me-1"></i>
-                Aplicar
-              </button>
-            </div>
-            <div *ngIf="cart()!.cuponDescuento" class="mt-2">
-              <span class="badge bg-success">
-                <i class="fas fa-check me-1"></i>
-                Cupón aplicado: {{ cart()!.cuponDescuento!.codigo }}
-              </span>
-              <button 
-                class="btn btn-sm btn-outline-danger ms-2"
-                (click)="removeCoupon()">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
-          </div>
-
           <!-- resumen de la orden -->
           <div class="order-summary">
             <div class="d-flex justify-content-between mb-2">
               <span>Subtotal:</span>
               <span>{{ formatPrice(cartSummary().subtotal) }}</span>
-            </div>
-            
-            <div *ngIf="cartSummary().descuento > 0" class="d-flex justify-content-between mb-2 text-success">
-              <span>Descuento:</span>
-              <span>-{{ formatPrice(cartSummary().descuento) }}</span>
             </div>
             
             <div class="d-flex justify-content-between mb-2">

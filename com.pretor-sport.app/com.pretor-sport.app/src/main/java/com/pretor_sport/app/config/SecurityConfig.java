@@ -98,9 +98,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/reportes/**").hasAnyRole("EMPLEADO", "ADMIN")
                 .requestMatchers("/estadisticas/**").hasAnyRole("EMPLEADO", "ADMIN")
-                
-                .requestMatchers("/carrito/**").hasAnyRole("CLIENTE", "EMPLEADO", "ADMIN")
-                
+
                 .anyRequest().authenticated()
             )
             

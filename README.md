@@ -112,7 +112,7 @@ FRONTEND_URL=http://localhost:4200
 ### Configuración Clave
 
 - **Backend**: `application.yml` + variables de entorno
-- **Frontend**: `src/environments/environment.ts` y `environment.prod.ts` para las URLs
+- **Frontend**: `config.service.ts` para URLs dinámicas (usa `environment.ts`/`environment.prod.ts`)
 - **Imágenes**: Se sirven en `/images` (directorio configurable en `app.images.upload-dir`)
 - **CORS**: Configurado para `http://localhost:4200`
 

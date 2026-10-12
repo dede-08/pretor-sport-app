@@ -29,7 +29,37 @@ public class Pedido {
     private LocalDateTime fechaCreacion;
 
     @Column(nullable = false, length = 20)
-    private String estado; //"CARRITO", "PENDIENTE", "COMPLETADO"
+    private String estado; //"PENDIENTE", "COMPLETADO"
+
+    @Column(name = "nombre_envio", length = 100)
+    private String nombreEnvio;
+
+    @Column(name = "apellidos_envio", length = 100)
+    private String apellidosEnvio;
+
+    @Column(name = "direccion_envio", length = 255)
+    private String direccionEnvio;
+
+    @Column(name = "ciudad_envio", length = 100)
+    private String ciudadEnvio;
+
+    @Column(name = "codigo_postal_envio", length = 10)
+    private String codigoPostalEnvio;
+
+    @Column(name = "telefono_envio", length = 20)
+    private String telefonoEnvio;
+
+    @Column(name = "email_envio", length = 100)
+    private String emailEnvio;
+
+    @Column(name = "metodo_envio", length = 20)
+    private String metodoEnvio;
+
+    @Column(name = "costo_envio", precision = 10, scale = 2)
+    private BigDecimal costoEnvio;
+
+    @Column(name = "notas", length = 500)
+    private String notas;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     @BatchSize(size = 25)

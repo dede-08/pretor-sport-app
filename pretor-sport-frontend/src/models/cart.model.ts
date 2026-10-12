@@ -26,34 +26,17 @@ export interface Cart {
   id?: string;
   items: CartItem[];
   subtotal: number;
-  descuento: number;
   envio: number;
   total: number;
   fechaCreacion: Date;
   fechaActualizacion: Date;
-  cuponDescuento?: {
-    codigo: string;
-    descuento: number;
-    tipo: 'PORCENTAJE' | 'MONTO_FIJO';
-  };
 }
 
 export interface CartSummary {
   totalItems: number;
   subtotal: number;
-  descuento: number;
   envio: number;
   total: number;
-}
-
-export interface AddToCartRequest {
-  productoId: number;
-  cantidad: number;
-  variantes?: {
-    talla?: string;
-    color?: string;
-    genero?: string;
-  };
 }
 
 export interface UpdateCartItemRequest {
@@ -79,6 +62,5 @@ export interface CartCheckoutRequest {
     tipo: 'ESTANDAR' | 'EXPRESS' | 'PREMIUM';
     costo: number;
   };
-  cuponDescuento?: string;
   notas?: string;
 }

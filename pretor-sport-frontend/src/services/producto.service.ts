@@ -65,7 +65,7 @@ export class ProductoService {
 
   //crear un nuevo producto
   crearProducto(producto: ProductoRequest): Observable<Producto> {
-    return this.http.post<Producto>(this.baseUrl, producto)
+    return this.http.post<Producto>(`${this.baseUrl}/add`, producto)
       .pipe(
         tap(() => {
           //recargar la lista de productos

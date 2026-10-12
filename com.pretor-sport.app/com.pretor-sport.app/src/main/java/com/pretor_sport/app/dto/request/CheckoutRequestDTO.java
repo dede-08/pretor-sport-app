@@ -30,9 +30,6 @@ public class CheckoutRequestDTO {
     @Valid
     private MetodoEnvioDatos metodoEnvio;
 
-    @Size(max = 50, message = "El código de cupón no puede exceder los 50 caracteres")
-    private String cuponDescuento;
-
     @Size(max = 500, message = "Las notas no pueden exceder los 500 caracteres")
     private String notas;
 

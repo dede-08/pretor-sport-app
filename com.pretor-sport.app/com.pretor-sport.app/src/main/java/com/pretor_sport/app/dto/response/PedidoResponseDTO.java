@@ -22,6 +22,17 @@ public class PedidoResponseDTO {
     private List<DetallePedidoResponseDTO> detalles;
     private BigDecimal total;
 
+    private String nombreEnvio;
+    private String apellidosEnvio;
+    private String direccionEnvio;
+    private String ciudadEnvio;
+    private String codigoPostalEnvio;
+    private String telefonoEnvio;
+    private String emailEnvio;
+    private String metodoEnvio;
+    private BigDecimal costoEnvio;
+    private String notas;
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
