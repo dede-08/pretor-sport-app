@@ -85,8 +85,8 @@ npm test
 # Crear base de datos PostgreSQL
 CREATE DATABASE pretor_sport_db;
 
-# El esquema se crea automáticamente con Hibernate DDL
-# Ver archivo: pretor_sport_db.sql para datos iniciales
+# El esquema lo gestiona Flyway (migraciones en src/main/resources/db/migration)
+# Hibernate está en modo validate (no crea ni modifica tablas)
 ```
 
 ## Configuración
@@ -112,8 +112,8 @@ FRONTEND_URL=http://localhost:4200
 ### Configuración Clave
 
 - **Backend**: `application.yml` + variables de entorno
-- **Frontend**: `config.service.ts` para URLs dinámicas
-- **Imágenes**: Sirve desde `/uploads/images/`
+- **Frontend**: `src/environments/environment.ts` y `environment.prod.ts` para las URLs
+- **Imágenes**: Se sirven en `/images` (directorio configurable en `app.images.upload-dir`)
 - **CORS**: Configurado para `http://localhost:4200`
 
 ## Seguridad
@@ -127,7 +127,7 @@ FRONTEND_URL=http://localhost:4200
 ### Roles de Usuario
 - `ROLE_ADMIN`: Acceso completo
 - `ROLE_EMPLEADO`: Gestión de productos y pedidos
-- `ROLE_CLIENTE': Compras y perfil
+- `ROLE_CLIENTE`: Compras y perfil
 
 ### CORS Configurado
 - Orígenes permitidos: Frontend URL

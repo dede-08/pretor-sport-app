@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { LoggerService } from '../services/logger.service';
 
@@ -47,70 +47,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
             }
           }
         }
-      })
-    );
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AdminGuard implements CanActivate {
-
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.isAuthenticated$.pipe(
-      map(isAuthenticated => {
-        if (!isAuthenticated) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-
-        if (!this.authService.isAdmin()) {
-          this.router.navigate(['/unauthorized']);
-          return false;
-        }
-
-        return true;
-      })
-    );
-  }
-}
-
-@Injectable({
-  providedIn: 'root'
-})
-export class EmpleadoGuard implements CanActivate {
-
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.isAuthenticated$.pipe(
-      map(isAuthenticated => {
-        if (!isAuthenticated) {
-          this.router.navigate(['/login']);
-          return false;
-        }
-
-        if (!this.authService.hasAnyRole(['ROLE_ADMIN', 'ROLE_EMPLEADO'])) {
-          this.router.navigate(['/unauthorized']);
-          return false;
-        }
-
-        return true;
       })
     );
   }

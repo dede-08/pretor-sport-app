@@ -11,6 +11,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { adminGuard } from '../guards/admin.guard';
+import { AuthGuard } from '../guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -51,6 +52,7 @@ export const routes: Routes = [
     {
         path : 'checkout',
         component : CheckoutComponent,
+        canActivate : [AuthGuard],
         pathMatch : 'full'
     },
     {

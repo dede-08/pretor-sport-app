@@ -23,10 +23,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     //obtiene productos por categoría y que esten activos
     List<Producto> findByCategoriaIdAndActivoTrue(Long categoriaId);
     
-    //obtiene productos destacados
-    @Query("SELECT p FROM Producto p WHERE p.activo = true ORDER BY p.fechaCreacion DESC")
-    List<Producto> findProductosDestacados(Pageable pageable);
-    
     //metodo personalizado para filtrar productos con multiples criterios
     @Query("SELECT p FROM Producto p WHERE " +
            "(:busqueda IS NULL OR p.nombre LIKE :busqueda OR p.descripcion LIKE :busqueda) AND " +
