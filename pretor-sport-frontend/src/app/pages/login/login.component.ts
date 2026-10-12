@@ -105,8 +105,9 @@ export class LoginComponent implements OnInit {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
       next: (response) => {
-        this.infoMessage = response.message || 'Se reenvió la verificación.';
         this.verificationUrl = response.verificationUrl || null;
+        this.infoMessage = response.message ||
+          (this.verificationUrl ? 'Enlace de verificación generado.' : 'Revisa tu correo para verificar tu cuenta.');
         this.isResendingVerification = false;
       },
       error: (error) => {

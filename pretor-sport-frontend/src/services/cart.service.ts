@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import {
   Cart,
@@ -18,7 +18,6 @@ import { environment } from '../environments/environment';
   providedIn: 'root'
 })
 export class CartService {
-  private readonly API_URL = `${environment.apiUrl}/cart`;
   private readonly CART_STORAGE_KEY = 'pretor_sport_cart';
 
   public cart = signal<Cart | null>(this.getCartFromStorage());
@@ -54,91 +53,52 @@ export class CartService {
 
   //obtener el carrito actual
   getCart(): Observable<Cart> {
-    return this.http.get<Cart>(this.API_URL)
-      .pipe(
-        tap(cart => {
-          this.saveCartToStorage(cart);
-          this.cart.set(cart);
-        }),
-        catchError(err => this.handleError(err))
-      );
+    return of(this.getCartFromStorage() ?? this.createEmptyCart());
   }
 
   //agregar producto al carrito
   addToCart(request: AddToCartRequest): Observable<Cart> {
-    return this.http.post<Cart>(`${this.API_URL}/add`, request)
-      .pipe(
-        tap(cart => {
-          this.saveCartToStorage(cart);
-          this.cart.set(cart);
-        }),
-        catchError(err => this.handleError(err))
-      );
+    return throwError(() => ({ error: { message: 'El carrito en línea aún no está disponible' }, status: 501 }));
   }
 
   //actualizar cantidad de un item
   updateCartItem(request: UpdateCartItemRequest): Observable<Cart> {
-    return this.http.put<Cart>(`${this.API_URL}/update`, request)
-      .pipe(
-        tap(cart => {
-          this.saveCartToStorage(cart);
-          this.cart.set(cart);
-        }),
-        catchError(err => this.handleError(err))
-      );
+    this.updateCartItemLocal(request.itemId, request.cantidad);
+    return of(this.cart() ?? this.createEmptyCart());
   }
 
   //eliminar item del carrito
   removeFromCart(itemId: string): Observable<Cart> {
-    return this.http.delete<Cart>(`${this.API_URL}/remove/${itemId}`)
-      .pipe(
-        tap(cart => {
-          this.saveCartToStorage(cart);
-          this.cart.set(cart);
-        }),
-        catchError(err => this.handleError(err))
-      );
+    this.removeFromCartLocal(itemId);
+    return of(this.cart() ?? this.createEmptyCart());
   }
 
   //limpiar carrito
   clearCart(): Observable<void> {
-    return this.http.delete<void>(this.API_URL)
-      .pipe(
-        tap(() => {
-          this.clearLocalCart();
-          this.cart.set(null);
-        }),
-        catchError(err => this.handleError(err))
-      );
+    this.clearCartLocal();
+    return of(undefined as void);
   }
 
   //aplicar cupon de descuento
   applyCoupon(codigo: string): Observable<Cart> {
-    return this.http.post<Cart>(`${this.API_URL}/coupon`, { codigo })
-      .pipe(
-        tap(cart => {
-          this.saveCartToStorage(cart);
-          this.cart.set(cart);
-        }),
-        catchError(err => this.handleError(err))
-      );
+    return throwError(() => ({ error: { message: 'Los cupones aún no están disponibles. Contacta a soporte.' }, status: 501 }));
   }
 
   //remover cupon de descuento
   removeCoupon(): Observable<Cart> {
-    return this.http.delete<Cart>(`${this.API_URL}/coupon`)
-      .pipe(
-        tap(cart => {
-          this.saveCartToStorage(cart);
-          this.cart.set(cart);
-        }),
-        catchError(err => this.handleError(err))
-      );
+    return throwError(() => ({ error: { message: 'Los cupones aún no están disponibles. Contacta a soporte.' }, status: 501 }));
   }
 
-  //procesar checkout
+  //procesar checkout: construye la venta en el servidor con los items del carrito local
   checkout(request: CartCheckoutRequest): Observable<any> {
-    return this.http.post(`${this.API_URL}/checkout`, request)
+    const items = (this.cart()?.items ?? []).map(item => ({
+      productoId: item.producto.id!,
+      cantidad: item.cantidad,
+      tallaSeleccionada: item.variantes?.talla ?? null,
+      colorSeleccionado: item.variantes?.color ?? null
+    }));
+
+    return this.http.post(`${environment.apiUrl}/ventas/checkout`, { ...request, items })
       .pipe(
         tap(() => {
           this.clearLocalCart();

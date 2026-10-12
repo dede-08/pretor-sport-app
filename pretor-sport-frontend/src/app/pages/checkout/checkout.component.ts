@@ -21,6 +21,7 @@ export class CheckoutComponent {
 
   checkoutForm: FormGroup;
   isProcessing = false;
+  errorMessage = '';
   cartSummary = this.cartService.cartSummary;
 
   constructor() {
@@ -54,8 +55,10 @@ export class CheckoutComponent {
   }
 
   onSubmit() {
+    this.errorMessage = '';
     if (this.checkoutForm.invalid) {
       this.checkoutForm.markAllAsTouched();
+      this.errorMessage = 'Por favor completa los datos requeridos';
       return;
     }
 
@@ -78,6 +81,7 @@ export class CheckoutComponent {
       },
       error: (err) => {
         this.isProcessing = false;
+        this.errorMessage = err.error?.message || 'Error al procesar la compra. Inténtalo de nuevo.';
       }
     });
   }
