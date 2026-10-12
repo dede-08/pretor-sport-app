@@ -100,7 +100,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request){
-        String path = request.getServletPath();
+        String path = request.getRequestURI().substring(request.getContextPath().length());
         
         //lista de endpoints que no necesitan autenticación
         return path.startsWith("/auth/register") ||

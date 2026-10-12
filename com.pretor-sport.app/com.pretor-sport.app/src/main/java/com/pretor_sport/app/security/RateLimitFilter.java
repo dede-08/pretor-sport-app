@@ -45,7 +45,7 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getServletPath();
+        String path = request.getRequestURI().substring(request.getContextPath().length());
         return PROTECTED_PATHS.stream().noneMatch(path::startsWith);
     }
 
@@ -84,9 +84,6 @@ public class RateLimitFilter extends OncePerRequestFilter {
         synchronized (deque) {
             while (!deque.isEmpty() && deque.peekFirst() < cutoff) {
                 deque.pollFirst();
-            }
-            if (deque.isEmpty()) {
-                attempts.remove(key, deque);
             }
             if (deque.size() >= maxAttempts) {
                 return false;

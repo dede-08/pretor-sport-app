@@ -99,7 +99,7 @@ CREATE TABLE pedidos (
 );
 
 CREATE TABLE detalles_pedido (
-    id              bigint        NOT NULL,
+    id              bigserial     NOT NULL,
     pedido_id       bigint        NOT NULL,
     producto_id     bigint        NOT NULL,
     cantidad        integer       NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE detalles_pedido (
 );
 
 CREATE TABLE pagos (
-    id             bigint         NOT NULL,
+    id             bigserial      NOT NULL,
     monto          numeric(10, 2) NOT NULL,
     fecha_pago     timestamp(6)   NOT NULL,
     metodo_pago    varchar(50)    NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE pagos (
 );
 
 CREATE TABLE ventas (
-    id          bigint         NOT NULL,
+    id          bigserial        NOT NULL,
     pedido_id   bigint         NOT NULL,
     pago_id     bigint,
     fecha_venta timestamp(6)   NOT NULL,
