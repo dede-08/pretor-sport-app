@@ -113,8 +113,8 @@ FRONTEND_URL=http://localhost:4200
 
 - **Backend**: `application.yml` + variables de entorno
 - **Frontend**: `config.service.ts` para URLs dinámicas (usa `environment.ts`/`environment.prod.ts`)
-- **Imágenes**: Se sirven en `/images` (directorio configurable en `app.images.upload-dir`)
-- **CORS**: Configurado para `http://localhost:4200`
+- **Imágenes**: Se sirven en `/api/images` (context-path `/api`; directorio configurable con `APP_IMAGES_UPLOAD_DIR`)
+- **CORS**: Origen configurable con `FRONTEND_URL`
 
 ## Seguridad
 
@@ -144,7 +144,7 @@ FRONTEND_URL=http://localhost:4200
 
 ### Productos
 - `GET /productos` - Listar productos (público)
-- `POST /productos` - Crear producto (requiere rol EMPLEADO/ADMIN)
+- `POST /productos/add` - Crear producto (requiere rol EMPLEADO/ADMIN)
 - `GET /productos/{id}` - Detalle producto
 - `PUT /productos/{id}` - Actualizar producto
 - `DELETE /productos/{id}` - Eliminar producto
@@ -154,7 +154,7 @@ FRONTEND_URL=http://localhost:4200
 - `POST /categorias` - Crear categoría (requiere rol EMPLEADO/ADMIN)
 
 ### Imágenes
-- `GET /images/{filename}` - Servir imágenes estáticas
+- `GET /api/images/{filename}` - Servir imágenes estáticas
 - Upload: `POST /productos/{id}/image` - Subir imagen de producto
 
 ## Tests
@@ -188,24 +188,64 @@ npm test
 
 ## Despliegue
 
-### Variables de Entorno Producción
+El despliegue se hace con Docker Compose: un contenedor PostgreSQL, el backend (JAR en JRE Alpine)
+y el frontend (SPA Angular servida por nginx, que además hace de proxy de `/api` y `/api/images`
+hacia el backend).
+
+### 1. Configurar variables de entorno
+
 ```bash
-export DATABASE_URL=jdbc://postgresql://db-host:5432/pretor_sport_prod
-export DATABASE_USERNAME=pretor_user
-export DATABASE_PASSWORD=secure_password
-export JWT_SECRET=production_jwt_secret_very_long_and_secure
-export SERVER_PORT=8080
-export FRONTEND_URL=https://tu-dominio.com
+cp .env.production.example .env
+# Editar .env con los valores reales (BD, JWT_SECRET, correo, FRONTEND_URL, admin, etc.)
 ```
 
-### Docker
-```bash
-# Construir backend
-./mvnw.cmd clean package -DskipTests
+Notas:
+- `JWT_SECRET` es obligatorio y debe ser largo/aleatorio (p. ej. `openssl rand -base64 64`).
+- `EXPOSE_VERIFICATION_URL` debe quedar en `false` en producción.
+- `SPRINGDOC_ENABLED=false` desactiva Swagger en producción.
+- `APP_IMAGES_BASE_URL` es la URL pública con la que se guardan/leen las imágenes (p. ej. `https://tu-dominio.com/api/images`).
+- `ADMIN_EMAIL`/`ADMIN_PASSWORD` crean un administrador inicial la primera vez (si `ADMIN_EMAIL` está vacío, no se crea nada).
 
-# Construir frontend
-cd ../pretor-sport-frontend
-npm run build
+### 2. Levantar el stack
+
+```bash
+docker compose up --build -d
+
+# Ver estado y logs
+docker compose ps
+docker compose logs -f backend
+```
+
+La aplicación queda disponible en el puerto definido por `HTTP_PORT` (por defecto el 80).
+El backend **no** publica su puerto: solo se accede a través del proxy de nginx.
+
+### 3. Actualizar una nueva versión
+
+```bash
+git pull
+docker compose up --build -d
+```
+
+### Persistencia
+- `db_data`: datos de PostgreSQL.
+- `uploads`: imágenes subidas (`/app/uploads` dentro del backend).
+
+### Endpoints de monitoreo
+- `GET /api/auth/health`
+- `GET /api/actuator/health` (health/liveness/readiness)
+
+### Sin Docker (alternativa)
+
+```bash
+# Backend
+cd com.pretor-sport.app/com.pretor-sport.app
+./mvnw.cmd clean package -DskipTests
+java -jar target/com.pretor-sport.app-0.0.1-SNAPSHOT.jar
+
+# Frontend
+cd pretor-sport-frontend
+npm run build -- --configuration production
+# Servir dist/pretor-sport-frontend/browser con un servidor web que haga fallback a index.html
 ```
 
 ## Soporte

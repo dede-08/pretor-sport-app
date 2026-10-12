@@ -1,0 +1,67 @@
+name: pretor-sport
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME:-pretor_sport_db}
+      POSTGRES_USER: ${DATABASE_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?define DATABASE_PASSWORD en .env}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./com.pretor-sport.app/com.pretor-sport.app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: "8080"
+      DATABASE_URL: jdbc:postgresql://db:5432/${DATABASE_NAME:-pretor_sport_db}
+      DATABASE_USERNAME: ${DATABASE_USERNAME:-postgres}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?define DATABASE_PASSWORD en .env}
+      JWT_SECRET: ${JWT_SECRET:?define JWT_SECRET en .env}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-86400}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:-604800}
+      FRONTEND_URL: ${FRONTEND_URL:?define FRONTEND_URL en .env}
+      EXPOSE_VERIFICATION_URL: ${EXPOSE_VERIFICATION_URL:-false}
+      SPRING_MAIL_HOST: ${SPRING_MAIL_HOST:-smtp.gmail.com}
+      SPRING_MAIL_PORT: ${SPRING_MAIL_PORT:-587}
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME:?define SPRING_MAIL_USERNAME en .env}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD:?define SPRING_MAIL_PASSWORD en .env}
+      RATE_LIMIT_MAX_ATTEMPTS: ${RATE_LIMIT_MAX_ATTEMPTS:-5}
+      RATE_LIMIT_WINDOW_SECONDS: ${RATE_LIMIT_WINDOW_SECONDS:-60}
+      APP_IMAGES_UPLOAD_DIR: /app/uploads
+      APP_IMAGES_BASE_URL: ${APP_IMAGES_BASE_URL:?define APP_IMAGES_BASE_URL en .env}
+      SPRINGDOC_API_DOCS_ENABLED: ${SPRINGDOC_ENABLED:-false}
+      SPRINGDOC_SWAGGER_UI_ENABLED: ${SPRINGDOC_ENABLED:-false}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+      ADMIN_NOMBRE: ${ADMIN_NOMBRE:-Administrador}
+      ADMIN_APELLIDOS: ${ADMIN_APELLIDOS:-PretorSport}
+      TZ: ${TZ:-America/Mexico_City}
+    volumes:
+      - uploads:/app/uploads
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./pretor-sport-frontend
+    depends_on:
+      - backend
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    restart: unless-stopped
+
+volumes:
+  db_data:
+  uploads:

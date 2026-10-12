@@ -1,3 +1,12 @@
 # Logs de runtime (backend)
 **/logs/
 *.log
+
+# Variables de entorno locales / de despliegue
+.env
+.env.*
+!.env.production.example
+
+# Overrides locales de docker compose
+docker-compose.override.yml
+
