@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { LoggerService } from '../services/logger.service';
 
@@ -32,21 +32,22 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   private checkAuth(route: ActivatedRouteSnapshot, url: string): Observable<boolean> {
     return this.authService.isAuthenticated$.pipe(
-      tap(isAuthenticated => {
+      map(isAuthenticated => {
         if (!isAuthenticated) {
           this.logger.warn('Usuario no autenticado, redirigiendo a login');
           this.router.navigate(['/login'], { queryParams: { returnUrl: url } });
-        } else {
-          //verificar roles si estan especificados en la ruta
-          const requiredRoles = route.data?.['roles'] as string[];
-          if (requiredRoles && requiredRoles.length > 0) {
-            const hasRequiredRole = this.authService.hasAnyRole(requiredRoles);
-            if (!hasRequiredRole) {
-              this.logger.warn('Usuario sin permisos suficientes');
-              this.router.navigate(['/unauthorized']);
-            }
-          }
+          return false;
         }
+
+        //verificar roles si estan especificados en la ruta
+        const requiredRoles = route.data?.['roles'] as string[];
+        if (requiredRoles && requiredRoles.length > 0 && !this.authService.hasAnyRole(requiredRoles)) {
+          this.logger.warn('Usuario sin permisos suficientes');
+          this.router.navigate(['/unauthorized']);
+          return false;
+        }
+
+        return true;
       })
     );
   }
